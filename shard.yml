@@ -1,0 +1,9 @@
+name: crybase
+version: 0.0.1
+
+authors:
+  - Anar K. Jafarov <anar.k.jafarov@gmail.com>
+
+crystal: '>= 1.20.1'
+
+license: MIT

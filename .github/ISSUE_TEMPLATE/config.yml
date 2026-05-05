@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Question or discussion
+    url: https://github.com/num8er/crybase/discussions
+    about: For questions, ideas, or anything that isn't a bug or a concrete feature request.
+  - name: Couchbase Server documentation
+    url: https://docs.couchbase.com/home/server.html
+    about: Looking for how Couchbase Server itself behaves? Start here.
