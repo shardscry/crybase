@@ -35,4 +35,37 @@ describe "Couchbase KV integration" do
     kv.try &.delete(key.not_nil!) rescue nil if INTEGRATION
     kv.try &.close rescue nil
   end
+
+  it "reuses pooled connections for KV operations" do
+    key = "crybase:pool:#{Time.utc.to_unix_ms}"
+    pool = nil
+    pending! "set COUCHBASE_INTEGRATION=1 to run real Couchbase integration specs" unless INTEGRATION
+
+    host = ENV["COUCHBASE_HOST"]? || "127.0.0.1"
+    user = ENV["COUCHBASE_USER"]? || "Administrator"
+    pass = ENV["COUCHBASE_PASS"]? || "password"
+    bucket = ENV["COUCHBASE_BUCKET"]? || "default"
+    endpoint = CB::Endpoint.new(host, 11210, CB::Service::KV, false)
+
+    pool = KV::Pool.new(endpoint, user, pass, bucket, size: 2)
+    pool.set(key, "pooled")
+    String.new(pool.get(key)).should eq("pooled")
+
+    pool.checkout do |client|
+      client.set("#{key}:checkout", "borrowed")
+      String.new(client.get("#{key}:checkout")).should eq("borrowed")
+      client.delete("#{key}:checkout")
+    end
+
+    pool.delete(key)
+    pool.close
+    pool.closed?.should be_true
+
+    expect_raises(IO::Error, /KV pool is closed/) do
+      pool.get(key)
+    end
+  ensure
+    pool.try &.delete(key.not_nil!) rescue nil if INTEGRATION
+    pool.try &.close rescue nil
+  end
 end

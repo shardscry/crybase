@@ -20,9 +20,8 @@ module CryBase::CouchBase::Services::KV
   # ```
   #
   # Out of scope (deliberate, can be layered on top later):
-  # * vbucket-aware routing — assumes the caller already picked the right node
   # * CAS, flags, durability, observe, and other op modifiers
-  # * connection pooling / reconnect / retry
+  # * reconnect / retry
   class Client
     include RequestWriter
     include ResponseReader

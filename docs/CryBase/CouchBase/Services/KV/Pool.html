@@ -14,7 +14,7 @@
 <script type="text/javascript" src="../../../../js/doc.js"></script>
 
   <meta name="repository-name" content="crybase">
-  <title>CryBase::CouchBase::Services::KV::Error - crybase main-dev</title>
+  <title>CryBase::CouchBase::Services::KV::Pool - crybase main-dev</title>
   <script type="text/javascript">
     CrystalDocs.base_path = "../../../../";
   </script>
@@ -112,7 +112,7 @@
       
     </li>
   
-  <li class=" current" data-id="crybase/CryBase/CouchBase/Services/KV/Error" data-name="crybase::couchbase::services::kv::error">
+  <li class=" " data-id="crybase/CryBase/CouchBase/Services/KV/Error" data-name="crybase::couchbase::services::kv::error">
       <a href="../../../../CryBase/CouchBase/Services/KV/Error.html">Error</a>
       
     </li>
@@ -127,7 +127,7 @@
       
     </li>
   
-  <li class=" " data-id="crybase/CryBase/CouchBase/Services/KV/Pool" data-name="crybase::couchbase::services::kv::pool">
+  <li class=" current" data-id="crybase/CryBase/CouchBase/Services/KV/Pool" data-name="crybase::couchbase::services::kv::pool">
       <a href="../../../../CryBase/CouchBase/Services/KV/Pool.html">Pool</a>
       
     </li>
@@ -213,12 +213,12 @@
 
   <span class="kind">
     class
-  </span> CryBase::<wbr>CouchBase::<wbr>Services::<wbr>KV::<wbr>Error
+  </span> CryBase::<wbr>CouchBase::<wbr>Services::<wbr>KV::<wbr>Pool
 
 </h1>
 
 
-  <ul class="superclass-hierarchy"><li class="superclass"><a href="../../../../CryBase/CouchBase/Services/KV/Error.html">CryBase::CouchBase::Services::KV::Error</a></li><li class="superclass">Exception</li><li class="superclass">Reference</li><li class="superclass">Object</li></ul>
+  <ul class="superclass-hierarchy"><li class="superclass"><a href="../../../../CryBase/CouchBase/Services/KV/Pool.html">CryBase::CouchBase::Services::KV::Pool</a></li><li class="superclass">Reference</li><li class="superclass">Object</li></ul>
 
 
 
@@ -232,14 +232,7 @@
     Overview
   </h2>
 
-  <p>Base exception for any non-<code>Success</code> status returned by the KV
-service. Subclasses (<code><a href="../../../../CryBase/CouchBase/Services/KV/NotFound.html">NotFound</a></code>, <code><a href="../../../../CryBase/CouchBase/Services/KV/AuthFailed.html">AuthFailed</a></code>) cover well-known
-cases; everything else surfaces as a plain <code><a href="../../../../CryBase/CouchBase/Services/KV/Error.html">Error</a></code>.</p>
-<pre><code class="language-crystal"><span class="k">begin</span>
-  kv.get(<span class="s">&quot;missing&quot;</span>)
-<span class="k">rescue</span> ex : <span class="t">KV</span><span class="t">::</span><span class="t">Error</span>
-  ex.status <span class="c"># =&gt; KV::Status::KeyNotFound</span>
-<span class="k">end</span></code></pre>
+  <p>Fixed-size pool of authenticated KV clients for concurrent fibers.</p>
 
 
 
@@ -250,22 +243,6 @@ cases; everything else surfaces as a plain <code><a href="../../../../CryBase/Co
 
 
 
-
-  <h2>
-    <a id="direct-known-subclasses" class="anchor" href="#direct-known-subclasses">
-  <svg class="octicon-link" aria-hidden="true">
-    <use href="#octicon-link"/>
-  </svg>
-</a>
-    Direct Known Subclasses
-  </h2>
-  <ul class="other-types-list">
-    
-      <li class="other-type"><a href="../../../../CryBase/CouchBase/Services/KV/AuthFailed.html">CryBase::CouchBase::Services::KV::AuthFailed</a></li>
-    
-      <li class="other-type"><a href="../../../../CryBase/CouchBase/Services/KV/NotFound.html">CryBase::CouchBase::Services::KV::NotFound</a></li>
-    
-  </ul>
 
 
 
@@ -282,12 +259,31 @@ cases; everything else surfaces as a plain <code><a href="../../../../CryBase/Co
   </h2>
   
     
-      crybase/couchbase/services/kv/error.cr
+      crybase/couchbase/services/kv/pool.cr
     
     <br/>
   
 
 
+
+  
+    <h2>
+      <a id="constant-summary" class="anchor" href="#constant-summary">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+      Constant Summary
+    </h2>
+  
+  <dl>
+    
+      <dt class="entry-const" id="DEFAULT_SIZE">
+        <strong>DEFAULT_SIZE</strong> = <code><span class="n">10</span></code>
+      </dt>
+      
+    
+  </dl>
 
 
 
@@ -303,7 +299,7 @@ cases; everything else surfaces as a plain <code><a href="../../../../CryBase/Co
   <ul class="list-summary">
     
       <li class="entry-summary">
-        <a href="#new%28status%3AStatus%2Cop%3AString%29-class-method" class="signature"><strong>.new</strong>(status : Status, op : String)</a>
+        <a href="#new%28endpoint%3AEndpoint%2Cusername%3AString%2Cpassword%3AString%2Cbucket%3AString%2Csize%3AInt32%3DDEFAULT_SIZE%2Cconnect_timeout%3ATime%3A%3ASpan%3D5.seconds%29-class-method" class="signature"><strong>.new</strong>(endpoint : Endpoint, username : String, password : String, bucket : String, size : Int32 = <span class="t">DEFAULT_SIZE</span>, connect_timeout : Time::Span = <span class="n">5</span>.seconds)</a>
         
       </li>
     
@@ -326,9 +322,47 @@ cases; everything else surfaces as a plain <code><a href="../../../../CryBase/Co
   <ul class="list-summary">
     
       <li class="entry-summary">
-        <a href="#status%3AStatus-instance-method" class="signature"><strong>#status</strong> : Status</a>
+        <a href="#bucket%3AString-instance-method" class="signature"><strong>#bucket</strong> : String</a>
         
-          <div class="summary"><p>The protocol status that triggered the exception.</p></div>
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#checkout%28%26%3AClient-%3ET%29%3ATforallT-instance-method" class="signature"><strong>#checkout</strong>(& : Client -> T) : T forall T</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#close%3ANil-instance-method" class="signature"><strong>#close</strong> : Nil</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#closed%3F%3ABool-instance-method" class="signature"><strong>#closed?</strong> : Bool</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#delete%28key%3AString%29%3ANil-instance-method" class="signature"><strong>#delete</strong>(key : String) : Nil</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#endpoint%3AEndpoint-instance-method" class="signature"><strong>#endpoint</strong> : Endpoint</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#get%28key%3AString%29%3ABytes-instance-method" class="signature"><strong>#get</strong>(key : String) : Bytes</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#set%28key%3AString%2Cvalue%3AString%7CBytes%2Cexpiry%3AUInt32%3D0_u32%29%3AUInt64-instance-method" class="signature"><strong>#set</strong>(key : String, value : String | Bytes, expiry : UInt32 = <span class="n">0_u32</span>) : UInt64</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#size%3AInt32-instance-method" class="signature"><strong>#size</strong> : Int32</a>
         
       </li>
     
@@ -337,19 +371,6 @@ cases; everything else surfaces as a plain <code><a href="../../../../CryBase/Co
 
 
   <div class="methods-inherited">
-    
-      
-
-
-      
-
-
-      
-
-
-      
-
-
     
       
 
@@ -389,12 +410,12 @@ cases; everything else surfaces as a plain <code><a href="../../../../CryBase/Co
     Constructor Detail
   </h2>
   
-    <div class="entry-detail" id="new(status:Status,op:String)-class-method">
+    <div class="entry-detail" id="new(endpoint:Endpoint,username:String,password:String,bucket:String,size:Int32=DEFAULT_SIZE,connect_timeout:Time::Span=5.seconds)-class-method">
       <div class="signature">
         
-        def self.<strong>new</strong>(status : <a href="../../../../CryBase/CouchBase/Services/KV/Status.html">Status</a>, op : String)
+        def self.<strong>new</strong>(endpoint : <a href="../../../../CryBase/CouchBase/Endpoint.html">Endpoint</a>, username : String, password : String, bucket : String, size : Int32 = <span class="t">DEFAULT_SIZE</span>, connect_timeout : Time::Span = <span class="n">5</span>.seconds)
 
-        <a class="method-permalink" href="#new%28status%3AStatus%2Cop%3AString%29-class-method">#</a>
+        <a class="method-permalink" href="#new%28endpoint%3AEndpoint%2Cusername%3AString%2Cpassword%3AString%2Cbucket%3AString%2Csize%3AInt32%3DDEFAULT_SIZE%2Cconnect_timeout%3ATime%3A%3ASpan%3D5.seconds%29-class-method">#</a>
       </div>
       
       <br/>
@@ -419,18 +440,125 @@ cases; everything else surfaces as a plain <code><a href="../../../../CryBase/Co
     Instance Method Detail
   </h2>
   
-    <div class="entry-detail" id="status:Status-instance-method">
+    <div class="entry-detail" id="bucket:String-instance-method">
       <div class="signature">
         
-        def <strong>status</strong> : <a href="../../../../CryBase/CouchBase/Services/KV/Status.html">Status</a>
+        def <strong>bucket</strong> : String
 
-        <a class="method-permalink" href="#status%3AStatus-instance-method">#</a>
+        <a class="method-permalink" href="#bucket%3AString-instance-method">#</a>
       </div>
       
-        <div class="doc">
-          
-          <p>The protocol status that triggered the exception.</p>
-        </div>
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="checkout(&amp;:Client-&gt;T):TforallT-instance-method">
+      <div class="signature">
+        
+        def <strong>checkout</strong>(& : <a href="../../../../CryBase/CouchBase/Services/KV/Client.html">Client</a> -> T) : T forall T
+
+        <a class="method-permalink" href="#checkout%28%26%3AClient-%3ET%29%3ATforallT-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="close:Nil-instance-method">
+      <div class="signature">
+        
+        def <strong>close</strong> : Nil
+
+        <a class="method-permalink" href="#close%3ANil-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="closed?:Bool-instance-method">
+      <div class="signature">
+        
+        def <strong>closed?</strong> : Bool
+
+        <a class="method-permalink" href="#closed%3F%3ABool-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="delete(key:String):Nil-instance-method">
+      <div class="signature">
+        
+        def <strong>delete</strong>(key : String) : Nil
+
+        <a class="method-permalink" href="#delete%28key%3AString%29%3ANil-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="endpoint:Endpoint-instance-method">
+      <div class="signature">
+        
+        def <strong>endpoint</strong> : <a href="../../../../CryBase/CouchBase/Endpoint.html">Endpoint</a>
+
+        <a class="method-permalink" href="#endpoint%3AEndpoint-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="get(key:String):Bytes-instance-method">
+      <div class="signature">
+        
+        def <strong>get</strong>(key : String) : Bytes
+
+        <a class="method-permalink" href="#get%28key%3AString%29%3ABytes-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="set(key:String,value:String|Bytes,expiry:UInt32=0_u32):UInt64-instance-method">
+      <div class="signature">
+        
+        def <strong>set</strong>(key : String, value : String | Bytes, expiry : UInt32 = <span class="n">0_u32</span>) : UInt64
+
+        <a class="method-permalink" href="#set%28key%3AString%2Cvalue%3AString%7CBytes%2Cexpiry%3AUInt32%3D0_u32%29%3AUInt64-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="size:Int32-instance-method">
+      <div class="signature">
+        
+        def <strong>size</strong> : Int32
+
+        <a class="method-permalink" href="#size%3AInt32-instance-method">#</a>
+      </div>
       
       <br/>
       <div>

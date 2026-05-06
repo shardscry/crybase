@@ -9,6 +9,7 @@
 # * `KV::Response`       — value type describing one inbound packet
 # * `KV::ResponseReader` — mixin: `read` decodes one packet from a socket
 # * `KV::Bucket`         — mixin: SELECT_BUCKET handshake
+# * `KV::Pool`           — fixed-size pool of authenticated clients
 #
 # These mixins are composed into `KV::Client`, which also handles
 # `HELLO`, `SASL_AUTH(PLAIN)` and offers `get`/`set`/`delete`.
@@ -58,3 +59,4 @@ require "./kv/request_writer"
 require "./kv/response_reader"
 require "./kv/bucket"
 require "./kv/client"
+require "./kv/pool"

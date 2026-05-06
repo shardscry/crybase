@@ -127,6 +127,11 @@
       
     </li>
   
+  <li class=" " data-id="crybase/CryBase/CouchBase/Services/KV/Pool" data-name="crybase::couchbase::services::kv::pool">
+      <a href="../../../CryBase/CouchBase/Services/KV/Pool.html">Pool</a>
+      
+    </li>
+  
   <li class=" " data-id="crybase/CryBase/CouchBase/Services/KV/Request" data-name="crybase::couchbase::services::kv::request">
       <a href="../../../CryBase/CouchBase/Services/KV/Request.html">Request</a>
       
@@ -235,6 +240,7 @@ as small composable pieces:</p>
 <li><code><a href="../../../CryBase/CouchBase/Services/KV/Response.html">KV::Response</a></code>       — value type describing one inbound packet</li>
 <li><code><a href="../../../CryBase/CouchBase/Services/KV/ResponseReader.html">KV::ResponseReader</a></code> — mixin: <code>read</code> decodes one packet from a socket</li>
 <li><code><a href="../../../CryBase/CouchBase/Services/KV/Bucket.html">KV::Bucket</a></code>         — mixin: SELECT_BUCKET handshake</li>
+<li><code><a href="../../../CryBase/CouchBase/Services/KV/Pool.html">KV::Pool</a></code>           — fixed-size pool of authenticated clients</li>
 </ul>
 <p>These mixins are composed into <code><a href="../../../CryBase/CouchBase/Services/KV/Client.html">KV::Client</a></code>, which also handles
 <code>HELLO</code>, <code>SASL_AUTH(PLAIN)</code> and offers <code>get</code>/<code>set</code>/<code>delete</code>.</p>
@@ -307,6 +313,11 @@ kv.close</code></pre>
     <br/>
   
     
+      crybase/couchbase/services/kv/pool.cr
+    
+    <br/>
+  
+    
       crybase/couchbase/services/kv/request.cr
     
     <br/>
@@ -328,6 +339,11 @@ kv.close</code></pre>
   
     
       crybase/couchbase/services/kv/status.cr
+    
+    <br/>
+  
+    
+      crybase/couchbase/services/kv/vbucket.cr
     
     <br/>
   
@@ -392,6 +408,15 @@ Sent during the handshake so the server accepts SELECT_BUCKET.</p>
       </dd>
       
     
+      <dt class="entry-const" id="VBUCKET_COUNT">
+        <strong>VBUCKET_COUNT</strong> = <code><span class="n">1024_u16</span></code>
+      </dt>
+      
+      <dd class="entry-const-doc">
+        <p>Number of vbuckets in Couchbase buckets.</p>
+      </dd>
+      
+    
   </dl>
 
 
@@ -399,6 +424,23 @@ Sent during the handshake so the server accepts SELECT_BUCKET.</p>
   
 
   
+  <h2>
+    <a id="class-method-summary" class="anchor" href="#class-method-summary">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Class Method Summary
+  </h2>
+  <ul class="list-summary">
+    
+      <li class="entry-summary">
+        <a href="#vbucket_id%28key%3AString%2Ccount%3AUInt16%3DVBUCKET_COUNT%29%3AUInt16-class-method" class="signature"><strong>.vbucket_id</strong>(key : String, count : UInt16 = <span class="t">VBUCKET_COUNT</span>) : UInt16</a>
+        
+      </li>
+    
+  </ul>
+
 
   
 
@@ -412,6 +454,30 @@ Sent during the handshake so the server accepts SELECT_BUCKET.</p>
   
 
   
+  <h2>
+    <a id="class-method-detail" class="anchor" href="#class-method-detail">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Class Method Detail
+  </h2>
+  
+    <div class="entry-detail" id="vbucket_id(key:String,count:UInt16=VBUCKET_COUNT):UInt16-class-method">
+      <div class="signature">
+        
+        def self.<strong>vbucket_id</strong>(key : String, count : UInt16 = <span class="t">VBUCKET_COUNT</span>) : UInt16
+
+        <a class="method-permalink" href="#vbucket_id%28key%3AString%2Ccount%3AUInt16%3DVBUCKET_COUNT%29%3AUInt16-class-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+
 
   
 

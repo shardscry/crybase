@@ -127,6 +127,11 @@
       
     </li>
   
+  <li class=" " data-id="crybase/CryBase/CouchBase/Services/KV/Pool" data-name="crybase::couchbase::services::kv::pool">
+      <a href="CryBase/CouchBase/Services/KV/Pool.html">Pool</a>
+      
+    </li>
+  
   <li class=" " data-id="crybase/CryBase/CouchBase/Services/KV/Request" data-name="crybase::couchbase::services::kv::request">
       <a href="CryBase/CouchBase/Services/KV/Request.html">Request</a>
       
@@ -210,10 +215,10 @@
 </a>CryBase</h1>
 <p>A Crystal client library for Couchbase.</p>
 <blockquote>
-<p><strong>Status:</strong> early scaffold. The current <code><a href="CryBase/CouchBase/Client.html">CryBase::CouchBase::Client</a></code> is a
-<em>dummy</em> that enumerates and TCP-probes every Couchbase service interface
-(KV, Query, Search, Analytics, Index, Eventing, Views, Management) over both
-plaintext and TLS ports. No protocol handshake is implemented yet.</p>
+<p><strong>Status:</strong> early scaffold. Cluster-level service discovery still TCP-probes
+Couchbase service interfaces, while the KV service now includes a small
+binary-protocol client for authenticated <code>get</code> / <code>set</code> / <code>delete</code> operations
+and a fixed-size connection pool.</p>
 </blockquote>
 <h2><a id="installation" class="anchor" href="#installation">
   <svg class="octicon-link" aria-hidden="true">
@@ -249,6 +254,55 @@ client.endpoints_for(<span class="t">CryBase</span><span class="t">::</span><spa
 <span class="k">end</span>
 
 client.close</code></pre>
+<h3><a id="kv-client-and-pool" class="anchor" href="#kv-client-and-pool">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>KV client and pool</h3>
+<pre><code class="language-crystal"><span class="k">require</span> <span class="s">&quot;crybase&quot;</span>
+
+endpoint <span class="o">=</span> <span class="t">CryBase</span><span class="t">::</span><span class="t">CouchBase</span><span class="t">::</span><span class="t">Endpoint</span>.new(
+  <span class="s">&quot;127.0.0.1&quot;</span>,
+  <span class="n">11210</span>,
+  <span class="t">CryBase</span><span class="t">::</span><span class="t">CouchBase</span><span class="t">::</span><span class="t">Service</span><span class="t">::</span><span class="t">KV</span>,
+  <span class="n">false</span>,
+)
+
+pool <span class="o">=</span> <span class="t">CryBase</span><span class="t">::</span><span class="t">CouchBase</span><span class="t">::</span><span class="t">Services</span><span class="t">::</span><span class="t">KV</span><span class="t">::</span><span class="t">Pool</span>.new(
+  endpoint,
+  <span class="s">&quot;Administrator&quot;</span>,
+  <span class="s">&quot;password&quot;</span>,
+  <span class="s">&quot;default&quot;</span>,
+)
+
+pool.set(<span class="s">&quot;hello&quot;</span>, <span class="s">%({&quot;world&quot;:true})</span>)
+puts <span class="t">String</span>.new(pool.get(<span class="s">&quot;hello&quot;</span>))
+pool.delete(<span class="s">&quot;hello&quot;</span>)
+pool.close</code></pre>
+<p><code>KV::Pool</code> opens <code>10</code> authenticated KV connections by default. Pass <code>size:</code> to
+override it. <code>KV::Client</code> provides the same basic <code>get</code>, <code>set</code>, <code>delete</code>, and
+<code>close</code> operations for a single connection.</p>
+<h3><a id="public-modules" class="anchor" href="#public-modules">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>Public modules</h3>
+<p>| Module / Type | Purpose |
+| ------------- | ------- |
+| <code><a href="CryBase.html">CryBase</a></code> | Top-level namespace and shard entry point. |
+| <code><a href="CryBase/CouchBase.html">CryBase::CouchBase</a></code> | Couchbase-specific namespace. |
+| <code><a href="CryBase/CouchBase/ConnectionString.html">CryBase::CouchBase::ConnectionString</a></code> | Parses <code>couchbase://</code>, <code>couchbases://</code>, and <code>http(s)://</code> connection strings. |
+| <code><a href="CryBase/CouchBase/Endpoint.html">CryBase::CouchBase::Endpoint</a></code> | Value type for one service endpoint. |
+| <code><a href="CryBase/CouchBase/Service.html">CryBase::CouchBase::Service</a></code> | Service enum with plaintext and TLS default ports. |
+| <code><a href="CryBase/CouchBase/Client.html">CryBase::CouchBase::Client</a></code> | Cluster-level endpoint enumerator and TCP probe client. |
+| <code><a href="CryBase/CouchBase/Services.html">CryBase::CouchBase::Services</a></code> | Namespace for protocol-specific service clients. |
+| <code><a href="CryBase/CouchBase/Services/KV.html">CryBase::CouchBase::Services::KV</a></code> | Binary-protocol KV namespace. |
+| <code><a href="CryBase/CouchBase/Services/KV/Client.html">CryBase::CouchBase::Services::KV::Client</a></code> | Single authenticated KV connection with <code>get</code>, <code>set</code>, <code>delete</code>. |
+| <code><a href="CryBase/CouchBase/Services/KV/Pool.html">CryBase::CouchBase::Services::KV::Pool</a></code> | Fixed-size pool of authenticated KV clients. |
+| <code><a href="CryBase/Interfaces.html">CryBase::Interfaces</a></code> | Abstract interface aliases for connection strings, endpoints, and clients. |</p>
+<p>Generated API documentation is committed under <a href="docs/index.html"><code>docs/</code></a>. To
+refresh it manually:</p>
+<pre><code class="language-sh">crystal docs -o docs</code></pre>
 <h3><a id="connection-strings" class="anchor" href="#connection-strings">
   <svg class="octicon-link" aria-hidden="true">
     <use href="#octicon-link"/>
@@ -283,7 +337,12 @@ Management endpoint only — every other service uses its standard port.</p>
   </svg>
 </a>Development</h2>
 <pre><code class="language-sh">crystal spec          # run the test suite
-crystal tool format   # format sources</code></pre>
+crystal tool format   # format sources
+crystal docs -o docs  # generate API docs</code></pre>
+<p>Enable the project hooks once per clone:</p>
+<pre><code class="language-sh">git config core.hooksPath .githooks</code></pre>
+<p>The pre-commit hook checks formatting, verifies the library builds, regenerates
+<code>docs/</code>, and runs the spec suite.</p>
 <h2><a id="contributing" class="anchor" href="#contributing">
   <svg class="octicon-link" aria-hidden="true">
     <use href="#octicon-link"/>
