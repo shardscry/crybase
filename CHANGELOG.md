@@ -22,7 +22,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   `couchbase:community-7.6.0`, initializes a bucket, and verifies KV behavior
   against a live server.
 - Generated API documentation under `docs/`, plus a pre-commit hook step that
-  refreshes it with `crystal docs -o docs`.
+  refreshes it with deterministic project metadata.
 
 ### Changed
 - `KV::Request` and `KV::Response` are now Crystal `record` value types.

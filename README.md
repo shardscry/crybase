@@ -235,7 +235,7 @@ crystal spec --error-trace
 Generate API docs:
 
 ```sh
-crystal docs -o docs
+crystal docs -o docs --project-version=main-dev --source-refname=main
 ```
 
 Run real Couchbase integration specs:
@@ -254,7 +254,7 @@ The pre-commit hook:
 
 - Checks Crystal formatting.
 - Verifies the library builds.
-- Regenerates `docs/`.
+- Regenerates `docs/` with deterministic project metadata.
 - Fails if regenerated docs are not staged.
 - Runs the spec suite.
 

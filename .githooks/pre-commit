@@ -15,11 +15,11 @@ crystal tool format --check
 echo "[pre-commit] crystal build --no-codegen src/crybase.cr"
 crystal build --no-codegen src/crybase.cr
 
-echo "[pre-commit] crystal docs -o docs"
-crystal docs -o docs
+echo "[pre-commit] crystal docs -o docs --project-version=main-dev --source-refname=main"
+crystal docs -o docs --project-version=main-dev --source-refname=main
 
 if ! git diff --quiet -- docs; then
-  echo "[pre-commit] docs/ changed after crystal docs -o docs"
+  echo "[pre-commit] docs/ changed after deterministic docs generation"
   echo "[pre-commit] review and stage generated docs before committing"
   exit 1
 fi

@@ -436,7 +436,7 @@ export COUCHBASE_BUCKET=default</code></pre>
 crystal build --no-codegen src/crybase.cr
 crystal spec --error-trace</code></pre>
 <p>Generate API docs:</p>
-<pre><code class="language-sh">crystal docs -o docs</code></pre>
+<pre><code class="language-sh">crystal docs -o docs --project-version=main-dev --source-refname=main</code></pre>
 <p>Run real Couchbase integration specs:</p>
 <pre><code class="language-sh">COUCHBASE_INTEGRATION=1 crystal spec spec/integration --error-trace</code></pre>
 <p>Enable local hooks once per clone:</p>
@@ -445,7 +445,7 @@ crystal spec --error-trace</code></pre>
 <ul>
 <li>Checks Crystal formatting.</li>
 <li>Verifies the library builds.</li>
-<li>Regenerates <code>docs/</code>.</li>
+<li>Regenerates <code>docs/</code> with deterministic project metadata.</li>
 <li>Fails if regenerated docs are not staged.</li>
 <li>Runs the spec suite.</li>
 </ul>
