@@ -1,43 +1,106 @@
+```text
+  ______           ____                 
+ / ____/______  __/ __ )____ _________ 
+/ /   / ___/ / / / __  / __ `/ ___/ _ \
+/ /___/ /  / /_/ / /_/ / /_/ (__  )  __/
+\____/_/   \__, /_____/\__,_/____/\___/ 
+          /____/                         
+```
+
 # CryBase
 
-A Crystal client library for Couchbase.
+[![Crystal](https://img.shields.io/badge/Crystal-1.20%2B-000000?logo=crystal&logoColor=white)](https://crystal-lang.org/)
+[![Couchbase](https://img.shields.io/badge/Couchbase-KV%20Client-EA2328?logo=couchbase&logoColor=white)](https://www.couchbase.com/)
 
-> **Status:** early scaffold. Cluster-level service discovery still TCP-probes
-> Couchbase service interfaces, while the KV service now includes a small
-> binary-protocol client for authenticated `get` / `set` / `delete` operations
-> and a fixed-size connection pool.
+Crystal client primitives for Couchbase.
+
+CryBase is still early, but it now has two useful layers:
+
+- A cluster-level client that expands Couchbase connection strings into service
+  endpoints and TCP-probes them.
+- A KV client that speaks the Couchbase binary protocol for authenticated
+  `get`, `set`, and `delete` operations, plus a fixed-size connection pool.
+
+## Status
+
+Implemented:
+
+- Connection string parsing for `couchbase://`, `couchbases://`, and
+  `http(s)://`.
+- Service and endpoint modeling for KV, Query, Search, Analytics, Index,
+  Eventing, Views, and Management.
+- Plain TCP reachability probing for cluster service endpoints.
+- KV binary protocol handshake: `HELLO`, SASL PLAIN auth, and `SELECT_BUCKET`.
+- KV document operations: `get`, `set`, `delete`.
+- Couchbase vbucket hashing for KV document routing.
+- `KV::Pool` with 10 authenticated connections by default.
+- Real Couchbase integration specs in GitHub Actions.
+
+Not implemented yet:
+
+- TLS socket handshake for KV operations.
+- Cluster config loading and node/vbucket map routing.
+- Retry, reconnect, durability, observe, CAS helpers, scopes, or collections.
+- Query, Search, Analytics, Index, Eventing, Views, and Management protocols.
 
 ## Installation
 
-1. Add the dependency to your `shard.yml`:
+Add CryBase to `shard.yml`:
 
-   ```yaml
-   dependencies:
-     crybase:
-       github: num8er/crybase
-   ```
+```yaml
+dependencies:
+  crybase:
+    github: num8er/crybase
+```
 
-2. Run `shards install`.
+Then install dependencies:
 
-## Usage
+```sh
+shards install
+```
+
+## Quick Start
+
+### Probe Cluster Endpoints
 
 ```crystal
 require "crybase"
 
-client = CryBase::CouchBase::Client.connect(
-  "couchbases://node1.example.com,node2.example.com",
-  username: "Administrator",
-  password: "password",
-)
+client = CryBase::CouchBase::Client.connect("couchbase://127.0.0.1")
 
-client.endpoints_for(CryBase::CouchBase::Service::KV).each do |ep|
-  puts ep # e.g. "Data (KV) couchbases://node1.example.com:11207"
+client.connect.each do |endpoint|
+  puts endpoint
 end
 
 client.close
 ```
 
-### KV client and pool
+### Use One KV Connection
+
+```crystal
+require "crybase"
+
+endpoint = CryBase::CouchBase::Endpoint.new(
+  "127.0.0.1",
+  11210,
+  CryBase::CouchBase::Service::KV,
+  false,
+)
+
+kv = CryBase::CouchBase::Services::KV::Client.new(
+  endpoint,
+  "Administrator",
+  "password",
+  "default",
+)
+
+kv.set("crybase:hello", %({"hello":"world"}))
+puts String.new(kv.get("crybase:hello"))
+kv.delete("crybase:hello")
+kv.close
+```
+
+### Use The KV Pool
 
 ```crystal
 require "crybase"
@@ -56,88 +119,158 @@ pool = CryBase::CouchBase::Services::KV::Pool.new(
   "default",
 )
 
-pool.set("hello", %({"world":true}))
-puts String.new(pool.get("hello"))
-pool.delete("hello")
+pool.set("crybase:pooled", "value")
+puts String.new(pool.get("crybase:pooled"))
+
+pool.checkout do |client|
+  client.set("crybase:borrowed", "value")
+end
+
 pool.close
 ```
 
-`KV::Pool` opens `10` authenticated KV connections by default. Pass `size:` to
-override it. `KV::Client` provides the same basic `get`, `set`, `delete`, and
-`close` operations for a single connection.
+`KV::Pool` opens 10 connections by default. Override it with `size:`:
 
-### Public modules
+```crystal
+pool = CryBase::CouchBase::Services::KV::Pool.new(
+  endpoint,
+  "Administrator",
+  "password",
+  "default",
+  size: 20,
+)
+```
+
+`KV::Client` and `KV::Pool` both expose `get`, `set`, `delete`, and `close`.
+`KV::Pool` also exposes `checkout`, `closed?`, `size`, `endpoint`, and `bucket`.
+
+## Public API Map
 
 | Module / Type | Purpose |
 | ------------- | ------- |
 | `CryBase` | Top-level namespace and shard entry point. |
 | `CryBase::CouchBase` | Couchbase-specific namespace. |
-| `CryBase::CouchBase::ConnectionString` | Parses `couchbase://`, `couchbases://`, and `http(s)://` connection strings. |
-| `CryBase::CouchBase::Endpoint` | Value type for one service endpoint. |
+| `CryBase::CouchBase::ConnectionString` | Parses supported connection string schemes and seed hosts. |
+| `CryBase::CouchBase::Endpoint` | Value type for one Couchbase service endpoint. |
 | `CryBase::CouchBase::Service` | Service enum with plaintext and TLS default ports. |
-| `CryBase::CouchBase::Client` | Cluster-level endpoint enumerator and TCP probe client. |
-| `CryBase::CouchBase::Services` | Namespace for protocol-specific service clients. |
-| `CryBase::CouchBase::Services::KV` | Binary-protocol KV namespace. |
-| `CryBase::CouchBase::Services::KV::Client` | Single authenticated KV connection with `get`, `set`, `delete`. |
+| `CryBase::CouchBase::Client` | Cluster endpoint enumerator and TCP probe client. |
+| `CryBase::CouchBase::Services` | Namespace for service-specific protocol clients. |
+| `CryBase::CouchBase::Services::KV` | Couchbase binary KV protocol namespace. |
+| `CryBase::CouchBase::Services::KV::Client` | Single authenticated KV connection. |
 | `CryBase::CouchBase::Services::KV::Pool` | Fixed-size pool of authenticated KV clients. |
 | `CryBase::Interfaces` | Abstract interface aliases for connection strings, endpoints, and clients. |
 
-Generated API documentation is committed under [`docs/`](docs/index.html). To
-refresh it manually:
+Generated API docs are committed in [`docs/`](docs/index.html).
+
+## Connection Strings
+
+| Scheme | TLS | Notes |
+| ------ | --- | ----- |
+| `couchbase://` | no | Plaintext service ports. Used by default if the scheme is omitted. |
+| `couchbases://` | yes | TLS service ports. |
+| `http://` | no | Treated as a Management URL. |
+| `https://` | yes | Treated as a Management URL. |
+
+Multiple seed nodes are comma-separated:
+
+```text
+couchbase://node1,node2,node3
+```
+
+An explicit `:port` is currently forwarded to the Management endpoint only.
+Other services use their standard Couchbase ports.
+
+## Service Ports
+
+| Service | Plaintext | TLS |
+| ------- | --------- | --- |
+| Data (KV) | 11210 | 11207 |
+| Query (N1QL) | 8093 | 18093 |
+| Search (FTS) | 8094 | 18094 |
+| Analytics | 8095 | 18095 |
+| Index | 9102 | 19102 |
+| Eventing | 8096 | 18096 |
+| Views | 8092 | 18092 |
+| Management | 8091 | 18091 |
+
+## Examples
+
+The `examples/` directory contains:
+
+- `cluster_probe.cr` - probe reachable service endpoints.
+- `kv_basics.cr` - run a basic KV set/get flow against one endpoint.
+- `kv_endpoint_from_cluster.cr` - probe the cluster, pick a KV endpoint, and
+  run a KV operation.
+- `docker-compose.yml` - local Couchbase Community setup for development.
+
+The examples read Couchbase settings from environment variables:
+
+```sh
+export COUCHBASE_HOST=127.0.0.1
+export COUCHBASE_USER=Administrator
+export COUCHBASE_PASS=password
+export COUCHBASE_BUCKET=default
+```
+
+## Development
+
+Run checks:
+
+```sh
+crystal tool format --check
+crystal build --no-codegen src/crybase.cr
+crystal spec --error-trace
+```
+
+Generate API docs:
 
 ```sh
 crystal docs -o docs
 ```
 
-### Connection strings
-
-| Scheme         | TLS | Notes                                  |
-| -------------- | --- | -------------------------------------- |
-| `couchbase://` | no  | Plaintext (default if scheme omitted). |
-| `couchbases://`| yes | TLS on every service port.             |
-| `http(s)://`   | yes/no | Treated as a Management URL.        |
-
-Multiple seed nodes are comma-separated:
-`couchbase://node1,node2,node3`. An explicit `:port` is forwarded to the
-Management endpoint only — every other service uses its standard port.
-
-### Service ports probed
-
-| Service         | Plaintext | TLS    |
-| --------------- | --------- | ------ |
-| Data (KV)       | 11210     | 11207  |
-| Query (N1QL)    | 8093      | 18093  |
-| Search (FTS)    | 8094      | 18094  |
-| Analytics       | 8095      | 18095  |
-| Index           | 9102      | 19102  |
-| Eventing        | 8096      | 18096  |
-| Views           | 8092      | 18092  |
-| Management      | 8091      | 18091  |
-
-## Development
+Run real Couchbase integration specs:
 
 ```sh
-crystal spec          # run the test suite
-crystal tool format   # format sources
-crystal docs -o docs  # generate API docs
+COUCHBASE_INTEGRATION=1 crystal spec spec/integration --error-trace
 ```
 
-Enable the project hooks once per clone:
+Enable local hooks once per clone:
 
 ```sh
 git config core.hooksPath .githooks
 ```
 
-The pre-commit hook checks formatting, verifies the library builds, regenerates
-`docs/`, and runs the spec suite.
+The pre-commit hook:
+
+- Checks Crystal formatting.
+- Verifies the library builds.
+- Regenerates `docs/`.
+- Fails if regenerated docs are not staged.
+- Runs the spec suite.
+
+## GitHub Actions
+
+CI runs:
+
+- Unit specs.
+- Formatting.
+- Real Couchbase integration specs against `couchbase:community-7.6.0`.
+
+## Project Conventions
+
+- One flat module per file, for example `module CryBase::CouchBase`.
+- Folder paths mirror namespaces.
+- Every `class`, `struct`, and `record` has its own file.
+- Prefer small value types and explicit protocol framing.
+- Keep comments focused on non-obvious behavior.
 
 ## Contributing
 
-1. Fork it (<https://github.com/num8er/crybase/fork>)
-2. Create your feature branch (`git checkout -b my-new-feature`)
-3. Commit your changes (`git commit -am 'Add some feature'`)
-4. Push to the branch (`git push origin my-new-feature`)
-5. Create a new Pull Request
+1. Fork the repository.
+2. Create a feature branch.
+3. Run format, build, specs, and docs generation.
+4. Commit using Conventional Commits.
+5. Open a pull request.
 
 ## Contributors
 

@@ -209,56 +209,112 @@
 
 
 <div class="main-content">
-<h1><a id="cry-base" class="anchor" href="#cry-base">  <svg class="octicon-link" aria-hidden="true">
+<pre><code class="language-text">  ______           ____                 
+ / ____/______  __/ __ )____ _________ 
+/ /   / ___/ / / / __  / __ `/ ___/ _ \
+/ /___/ /  / /_/ / /_/ / /_/ (__  )  __/
+\____/_/   \__, /_____/\__,_/____/\___/ 
+          /____/                         </code></pre>
+<h1><a id="cry-base" class="anchor" href="#cry-base">
+  <svg class="octicon-link" aria-hidden="true">
     <use href="#octicon-link"/>
   </svg>
 </a>CryBase</h1>
-<p>A Crystal client library for Couchbase.</p>
-<blockquote>
-<p><strong>Status:</strong> early scaffold. Cluster-level service discovery still TCP-probes
-Couchbase service interfaces, while the KV service now includes a small
-binary-protocol client for authenticated <code>get</code> / <code>set</code> / <code>delete</code> operations
-and a fixed-size connection pool.</p>
-</blockquote>
+<p><a href="https://crystal-lang.org/"><img src="https://img.shields.io/badge/Crystal-1.20+-000000?logo=crystal&amp;logoColor=white" alt="Crystal" /></a>
+<a href="https://www.couchbase.com/"><img src="https://img.shields.io/badge/Couchbase-KV%20Client-EA2328?logo=couchbase&amp;logoColor=white" alt="Couchbase" /></a></p>
+<p>Crystal client primitives for Couchbase.</p>
+<p>CryBase is still early, but it now has two useful layers:</p>
+<ul>
+<li>A cluster-level client that expands Couchbase connection strings into service
+endpoints and TCP-probes them.</li>
+<li>A KV client that speaks the Couchbase binary protocol for authenticated
+<code>get</code>, <code>set</code>, and <code>delete</code> operations, plus a fixed-size connection pool.</li>
+</ul>
+<h2><a id="status" class="anchor" href="#status">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>Status</h2>
+<p>Implemented:</p>
+<ul>
+<li>Connection string parsing for <code>couchbase://</code>, <code>couchbases://</code>, and
+<code>http(s)://</code>.</li>
+<li>Service and endpoint modeling for KV, Query, Search, Analytics, Index,
+Eventing, Views, and Management.</li>
+<li>Plain TCP reachability probing for cluster service endpoints.</li>
+<li>KV binary protocol handshake: <code>HELLO</code>, SASL PLAIN auth, and <code>SELECT_BUCKET</code>.</li>
+<li>KV document operations: <code>get</code>, <code>set</code>, <code>delete</code>.</li>
+<li>Couchbase vbucket hashing for KV document routing.</li>
+<li><code>KV::Pool</code> with 10 authenticated connections by default.</li>
+<li>Real Couchbase integration specs in GitHub Actions.</li>
+</ul>
+<p>Not implemented yet:</p>
+<ul>
+<li>TLS socket handshake for KV operations.</li>
+<li>Cluster config loading and node/vbucket map routing.</li>
+<li>Retry, reconnect, durability, observe, CAS helpers, scopes, or collections.</li>
+<li>Query, Search, Analytics, Index, Eventing, Views, and Management protocols.</li>
+</ul>
 <h2><a id="installation" class="anchor" href="#installation">
   <svg class="octicon-link" aria-hidden="true">
     <use href="#octicon-link"/>
   </svg>
 </a>Installation</h2>
-<ol>
-<li>
-<p>Add the dependency to your <code>shard.yml</code>:</p>
+<p>Add CryBase to <code>shard.yml</code>:</p>
 <pre><code class="language-yaml">dependencies:
   crybase:
     github: num8er/crybase</code></pre>
-</li>
-<li>
-<p>Run <code>shards install</code>.</p>
-</li>
-</ol>
-<h2><a id="usage" class="anchor" href="#usage">
+<p>Then install dependencies:</p>
+<pre><code class="language-sh">shards install</code></pre>
+<h2><a id="quick-start" class="anchor" href="#quick-start">
   <svg class="octicon-link" aria-hidden="true">
     <use href="#octicon-link"/>
   </svg>
-</a>Usage</h2>
+</a>Quick Start</h2>
+<h3><a id="probe-cluster-endpoints" class="anchor" href="#probe-cluster-endpoints">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>Probe Cluster Endpoints</h3>
 <pre><code class="language-crystal"><span class="k">require</span> <span class="s">&quot;crybase&quot;</span>
 
-client <span class="o">=</span> <span class="t">CryBase</span><span class="t">::</span><span class="t">CouchBase</span><span class="t">::</span><span class="t">Client</span>.connect(
-  <span class="s">&quot;couchbases://node1.example.com,node2.example.com&quot;</span>,
-  username: <span class="s">&quot;Administrator&quot;</span>,
-  password: <span class="s">&quot;password&quot;</span>,
-)
+client <span class="o">=</span> <span class="t">CryBase</span><span class="t">::</span><span class="t">CouchBase</span><span class="t">::</span><span class="t">Client</span>.connect(<span class="s">&quot;couchbase://127.0.0.1&quot;</span>)
 
-client.endpoints_for(<span class="t">CryBase</span><span class="t">::</span><span class="t">CouchBase</span><span class="t">::</span><span class="t">Service</span><span class="t">::</span><span class="t">KV</span>).each <span class="k">do</span> <span class="o">|</span>ep<span class="o">|</span>
-  puts ep <span class="c"># e.g. &quot;Data (KV) couchbases://node1.example.com:11207&quot;</span>
+client.connect.each <span class="k">do</span> <span class="o">|</span>endpoint<span class="o">|</span>
+  puts endpoint
 <span class="k">end</span>
 
 client.close</code></pre>
-<h3><a id="kv-client-and-pool" class="anchor" href="#kv-client-and-pool">
+<h3><a id="use-one-kv-connection" class="anchor" href="#use-one-kv-connection">
   <svg class="octicon-link" aria-hidden="true">
     <use href="#octicon-link"/>
   </svg>
-</a>KV client and pool</h3>
+</a>Use One KV Connection</h3>
+<pre><code class="language-crystal"><span class="k">require</span> <span class="s">&quot;crybase&quot;</span>
+
+endpoint <span class="o">=</span> <span class="t">CryBase</span><span class="t">::</span><span class="t">CouchBase</span><span class="t">::</span><span class="t">Endpoint</span>.new(
+  <span class="s">&quot;127.0.0.1&quot;</span>,
+  <span class="n">11210</span>,
+  <span class="t">CryBase</span><span class="t">::</span><span class="t">CouchBase</span><span class="t">::</span><span class="t">Service</span><span class="t">::</span><span class="t">KV</span>,
+  <span class="n">false</span>,
+)
+
+kv <span class="o">=</span> <span class="t">CryBase</span><span class="t">::</span><span class="t">CouchBase</span><span class="t">::</span><span class="t">Services</span><span class="t">::</span><span class="t">KV</span><span class="t">::</span><span class="t">Client</span>.new(
+  endpoint,
+  <span class="s">&quot;Administrator&quot;</span>,
+  <span class="s">&quot;password&quot;</span>,
+  <span class="s">&quot;default&quot;</span>,
+)
+
+kv.set(<span class="s">&quot;crybase:hello&quot;</span>, <span class="s">%({&quot;hello&quot;:&quot;world&quot;})</span>)
+puts <span class="t">String</span>.new(kv.get(<span class="s">&quot;crybase:hello&quot;</span>))
+kv.delete(<span class="s">&quot;crybase:hello&quot;</span>)
+kv.close</code></pre>
+<h3><a id="use-the-kv-pool" class="anchor" href="#use-the-kv-pool">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>Use The KV Pool</h3>
 <pre><code class="language-crystal"><span class="k">require</span> <span class="s">&quot;crybase&quot;</span>
 
 endpoint <span class="o">=</span> <span class="t">CryBase</span><span class="t">::</span><span class="t">CouchBase</span><span class="t">::</span><span class="t">Endpoint</span>.new(
@@ -275,85 +331,148 @@ pool <span class="o">=</span> <span class="t">CryBase</span><span class="t">::</
   <span class="s">&quot;default&quot;</span>,
 )
 
-pool.set(<span class="s">&quot;hello&quot;</span>, <span class="s">%({&quot;world&quot;:true})</span>)
-puts <span class="t">String</span>.new(pool.get(<span class="s">&quot;hello&quot;</span>))
-pool.delete(<span class="s">&quot;hello&quot;</span>)
+pool.set(<span class="s">&quot;crybase:pooled&quot;</span>, <span class="s">&quot;value&quot;</span>)
+puts <span class="t">String</span>.new(pool.get(<span class="s">&quot;crybase:pooled&quot;</span>))
+
+pool.checkout <span class="k">do</span> <span class="o">|</span>client<span class="o">|</span>
+  client.set(<span class="s">&quot;crybase:borrowed&quot;</span>, <span class="s">&quot;value&quot;</span>)
+<span class="k">end</span>
+
 pool.close</code></pre>
-<p><code>KV::Pool</code> opens <code>10</code> authenticated KV connections by default. Pass <code>size:</code> to
-override it. <code>KV::Client</code> provides the same basic <code>get</code>, <code>set</code>, <code>delete</code>, and
-<code>close</code> operations for a single connection.</p>
-<h3><a id="public-modules" class="anchor" href="#public-modules">
+<p><code>KV::Pool</code> opens 10 connections by default. Override it with <code>size:</code>:</p>
+<pre><code class="language-crystal">pool <span class="o">=</span> <span class="t">CryBase</span><span class="t">::</span><span class="t">CouchBase</span><span class="t">::</span><span class="t">Services</span><span class="t">::</span><span class="t">KV</span><span class="t">::</span><span class="t">Pool</span>.new(
+  endpoint,
+  <span class="s">&quot;Administrator&quot;</span>,
+  <span class="s">&quot;password&quot;</span>,
+  <span class="s">&quot;default&quot;</span>,
+  size: <span class="n">20</span>,
+)</code></pre>
+<p><code>KV::Client</code> and <code>KV::Pool</code> both expose <code>get</code>, <code>set</code>, <code>delete</code>, and <code>close</code>.
+<code>KV::Pool</code> also exposes <code>checkout</code>, <code>closed?</code>, <code>size</code>, <code>endpoint</code>, and <code>bucket</code>.</p>
+<h2><a id="public-api-map" class="anchor" href="#public-api-map">
   <svg class="octicon-link" aria-hidden="true">
     <use href="#octicon-link"/>
   </svg>
-</a>Public modules</h3>
+</a>Public API Map</h2>
 <p>| Module / Type | Purpose |
 | ------------- | ------- |
 | <code><a href="CryBase.html">CryBase</a></code> | Top-level namespace and shard entry point. |
 | <code><a href="CryBase/CouchBase.html">CryBase::CouchBase</a></code> | Couchbase-specific namespace. |
-| <code><a href="CryBase/CouchBase/ConnectionString.html">CryBase::CouchBase::ConnectionString</a></code> | Parses <code>couchbase://</code>, <code>couchbases://</code>, and <code>http(s)://</code> connection strings. |
-| <code><a href="CryBase/CouchBase/Endpoint.html">CryBase::CouchBase::Endpoint</a></code> | Value type for one service endpoint. |
+| <code><a href="CryBase/CouchBase/ConnectionString.html">CryBase::CouchBase::ConnectionString</a></code> | Parses supported connection string schemes and seed hosts. |
+| <code><a href="CryBase/CouchBase/Endpoint.html">CryBase::CouchBase::Endpoint</a></code> | Value type for one Couchbase service endpoint. |
 | <code><a href="CryBase/CouchBase/Service.html">CryBase::CouchBase::Service</a></code> | Service enum with plaintext and TLS default ports. |
-| <code><a href="CryBase/CouchBase/Client.html">CryBase::CouchBase::Client</a></code> | Cluster-level endpoint enumerator and TCP probe client. |
-| <code><a href="CryBase/CouchBase/Services.html">CryBase::CouchBase::Services</a></code> | Namespace for protocol-specific service clients. |
-| <code><a href="CryBase/CouchBase/Services/KV.html">CryBase::CouchBase::Services::KV</a></code> | Binary-protocol KV namespace. |
-| <code><a href="CryBase/CouchBase/Services/KV/Client.html">CryBase::CouchBase::Services::KV::Client</a></code> | Single authenticated KV connection with <code>get</code>, <code>set</code>, <code>delete</code>. |
+| <code><a href="CryBase/CouchBase/Client.html">CryBase::CouchBase::Client</a></code> | Cluster endpoint enumerator and TCP probe client. |
+| <code><a href="CryBase/CouchBase/Services.html">CryBase::CouchBase::Services</a></code> | Namespace for service-specific protocol clients. |
+| <code><a href="CryBase/CouchBase/Services/KV.html">CryBase::CouchBase::Services::KV</a></code> | Couchbase binary KV protocol namespace. |
+| <code><a href="CryBase/CouchBase/Services/KV/Client.html">CryBase::CouchBase::Services::KV::Client</a></code> | Single authenticated KV connection. |
 | <code><a href="CryBase/CouchBase/Services/KV/Pool.html">CryBase::CouchBase::Services::KV::Pool</a></code> | Fixed-size pool of authenticated KV clients. |
 | <code><a href="CryBase/Interfaces.html">CryBase::Interfaces</a></code> | Abstract interface aliases for connection strings, endpoints, and clients. |</p>
-<p>Generated API documentation is committed under <a href="docs/index.html"><code>docs/</code></a>. To
-refresh it manually:</p>
-<pre><code class="language-sh">crystal docs -o docs</code></pre>
-<h3><a id="connection-strings" class="anchor" href="#connection-strings">
+<p>Generated API docs are committed in <a href="docs/index.html"><code>docs/</code></a>.</p>
+<h2><a id="connection-strings" class="anchor" href="#connection-strings">
   <svg class="octicon-link" aria-hidden="true">
     <use href="#octicon-link"/>
   </svg>
-</a>Connection strings</h3>
-<p>| Scheme         | TLS | Notes                                  |
-| -------------- | --- | -------------------------------------- |
-| <code>couchbase://</code> | no  | Plaintext (default if scheme omitted). |
-| <code>couchbases://</code>| yes | TLS on every service port.             |
-| <code>http(s)://</code>   | yes/no | Treated as a Management URL.        |</p>
-<p>Multiple seed nodes are comma-separated:
-<code>couchbase://node1,node2,node3</code>. An explicit <code>:port</code> is forwarded to the
-Management endpoint only — every other service uses its standard port.</p>
-<h3><a id="service-ports-probed" class="anchor" href="#service-ports-probed">
+</a>Connection Strings</h2>
+<p>| Scheme | TLS | Notes |
+| ------ | --- | ----- |
+| <code>couchbase://</code> | no | Plaintext service ports. Used by default if the scheme is omitted. |
+| <code>couchbases://</code> | yes | TLS service ports. |
+| <code>http://</code> | no | Treated as a Management URL. |
+| <code>https://</code> | yes | Treated as a Management URL. |</p>
+<p>Multiple seed nodes are comma-separated:</p>
+<pre><code class="language-text">couchbase://node1,node2,node3</code></pre>
+<p>An explicit <code>:port</code> is currently forwarded to the Management endpoint only.
+Other services use their standard Couchbase ports.</p>
+<h2><a id="service-ports" class="anchor" href="#service-ports">
   <svg class="octicon-link" aria-hidden="true">
     <use href="#octicon-link"/>
   </svg>
-</a>Service ports probed</h3>
-<p>| Service         | Plaintext | TLS    |
-| --------------- | --------- | ------ |
-| Data (KV)       | 11210     | 11207  |
-| Query (N1QL)    | 8093      | 18093  |
-| Search (FTS)    | 8094      | 18094  |
-| Analytics       | 8095      | 18095  |
-| Index           | 9102      | 19102  |
-| Eventing        | 8096      | 18096  |
-| Views           | 8092      | 18092  |
-| Management      | 8091      | 18091  |</p>
+</a>Service Ports</h2>
+<p>| Service | Plaintext | TLS |
+| ------- | --------- | --- |
+| Data (KV) | 11210 | 11207 |
+| Query (N1QL) | 8093 | 18093 |
+| Search (FTS) | 8094 | 18094 |
+| Analytics | 8095 | 18095 |
+| Index | 9102 | 19102 |
+| Eventing | 8096 | 18096 |
+| Views | 8092 | 18092 |
+| Management | 8091 | 18091 |</p>
+<h2><a id="examples" class="anchor" href="#examples">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>Examples</h2>
+<p>The <code>examples/</code> directory contains:</p>
+<ul>
+<li><code>cluster_probe.cr</code> - probe reachable service endpoints.</li>
+<li><code>kv_basics.cr</code> - run a basic KV set/get flow against one endpoint.</li>
+<li><code>kv_endpoint_from_cluster.cr</code> - probe the cluster, pick a KV endpoint, and
+run a KV operation.</li>
+<li><code>docker-compose.yml</code> - local Couchbase Community setup for development.</li>
+</ul>
+<p>The examples read Couchbase settings from environment variables:</p>
+<pre><code class="language-sh">export COUCHBASE_HOST=127.0.0.1
+export COUCHBASE_USER=Administrator
+export COUCHBASE_PASS=password
+export COUCHBASE_BUCKET=default</code></pre>
 <h2><a id="development" class="anchor" href="#development">
   <svg class="octicon-link" aria-hidden="true">
     <use href="#octicon-link"/>
   </svg>
 </a>Development</h2>
-<pre><code class="language-sh">crystal spec          # run the test suite
-crystal tool format   # format sources
-crystal docs -o docs  # generate API docs</code></pre>
-<p>Enable the project hooks once per clone:</p>
+<p>Run checks:</p>
+<pre><code class="language-sh">crystal tool format --check
+crystal build --no-codegen src/crybase.cr
+crystal spec --error-trace</code></pre>
+<p>Generate API docs:</p>
+<pre><code class="language-sh">crystal docs -o docs</code></pre>
+<p>Run real Couchbase integration specs:</p>
+<pre><code class="language-sh">COUCHBASE_INTEGRATION=1 crystal spec spec/integration --error-trace</code></pre>
+<p>Enable local hooks once per clone:</p>
 <pre><code class="language-sh">git config core.hooksPath .githooks</code></pre>
-<p>The pre-commit hook checks formatting, verifies the library builds, regenerates
-<code>docs/</code>, and runs the spec suite.</p>
+<p>The pre-commit hook:</p>
+<ul>
+<li>Checks Crystal formatting.</li>
+<li>Verifies the library builds.</li>
+<li>Regenerates <code>docs/</code>.</li>
+<li>Fails if regenerated docs are not staged.</li>
+<li>Runs the spec suite.</li>
+</ul>
+<h2><a id="git-hub-actions" class="anchor" href="#git-hub-actions">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>GitHub Actions</h2>
+<p>CI runs:</p>
+<ul>
+<li>Unit specs.</li>
+<li>Formatting.</li>
+<li>Real Couchbase integration specs against <code>couchbase:community-7.6.0</code>.</li>
+</ul>
+<h2><a id="project-conventions" class="anchor" href="#project-conventions">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>Project Conventions</h2>
+<ul>
+<li>One flat module per file, for example <code>module <a href="CryBase/CouchBase.html">CryBase::CouchBase</a></code>.</li>
+<li>Folder paths mirror namespaces.</li>
+<li>Every <code>class</code>, <code>struct</code>, and <code>record</code> has its own file.</li>
+<li>Prefer small value types and explicit protocol framing.</li>
+<li>Keep comments focused on non-obvious behavior.</li>
+</ul>
 <h2><a id="contributing" class="anchor" href="#contributing">
   <svg class="octicon-link" aria-hidden="true">
     <use href="#octicon-link"/>
   </svg>
 </a>Contributing</h2>
 <ol>
-<li>Fork it (<a href="https://github.com/num8er/crybase/fork">https://github.com/num8er/crybase/fork</a>)</li>
-<li>Create your feature branch (<code>git checkout -b my-new-feature</code>)</li>
-<li>Commit your changes (<code>git commit -am 'Add some feature'</code>)</li>
-<li>Push to the branch (<code>git push origin my-new-feature</code>)</li>
-<li>Create a new Pull Request</li>
+<li>Fork the repository.</li>
+<li>Create a feature branch.</li>
+<li>Run format, build, specs, and docs generation.</li>
+<li>Commit using Conventional Commits.</li>
+<li>Open a pull request.</li>
 </ol>
 <h2><a id="contributors" class="anchor" href="#contributors">
   <svg class="octicon-link" aria-hidden="true">
