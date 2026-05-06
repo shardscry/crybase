@@ -11,7 +11,7 @@ jobs:
     name: spec
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - name: Install Crystal
         uses: crystal-lang/install-crystal@v1
@@ -34,7 +34,7 @@ jobs:
       COUCHBASE_PASS: password
       COUCHBASE_BUCKET: default
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - name: Install Crystal
         uses: crystal-lang/install-crystal@v1
@@ -115,7 +115,7 @@ jobs:
     name: format
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - name: Install Crystal
         uses: crystal-lang/install-crystal@v1
