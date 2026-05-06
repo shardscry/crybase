@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Crystal Docs 1.18.2">
+<meta name="crystal_docs.project_version" content="main-dev">
+<meta name="crystal_docs.project_name" content="crybase">
+
+
+
+<link href="../../css/style.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="../../js/doc.js"></script>
+
+  <meta name="repository-name" content="crybase">
+  <title>CryBase::CouchBase::ConnectionString - crybase main-dev</title>
+  <script type="text/javascript">
+    CrystalDocs.base_path = "../../";
+  </script>
+</head>
+<body>
+
+<svg class="hidden">
+  <symbol id="octicon-link" viewBox="0 0 16 16">
+    <path fill="currentColor" fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path>
+  </symbol>
+</svg>
+<input type="checkbox" id="sidebar-btn">
+<label for="sidebar-btn" id="sidebar-btn-label">
+  <svg class="open" xmlns="http://www.w3.org/2000/svg" height="2em" width="2em" viewBox="0 0 512 512"><title>Open Sidebar</title><path fill="currentColor" d="M80 96v64h352V96H80zm0 112v64h352v-64H80zm0 112v64h352v-64H80z"></path></svg>
+  <svg class="close" xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" viewBox="0 0 512 512"><title>Close Sidebar</title><path fill="currentColor" d="m118.6 73.4-45.2 45.2L210.7 256 73.4 393.4l45.2 45.2L256 301.3l137.4 137.3 45.2-45.2L301.3 256l137.3-137.4-45.2-45.2L256 210.7Z"></path></svg>
+</label>
+<div class="sidebar">
+  <div class="sidebar-header">
+    <div class="search-box">
+      <input type="search" class="search-input" placeholder="Search..." spellcheck="false" aria-label="Search">
+    </div>
+
+    <div class="project-summary">
+      <h1 class="project-name">
+        <a href="../../index.html">
+          crybase
+        </a>
+      </h1>
+
+      <span class="project-version">
+        main-dev
+      </span>
+    </div>
+  </div>
+
+  <div class="search-results hidden">
+    <ul class="search-list"></ul>
+  </div>
+
+  <div class="types-list">
+    <ul>
+  
+  <li class="parent open current" data-id="crybase/CryBase" data-name="crybase">
+      <a href="../../CryBase.html">CryBase</a>
+      
+        <ul>
+  
+  <li class="parent open current" data-id="crybase/CryBase/CouchBase" data-name="crybase::couchbase">
+      <a href="../../CryBase/CouchBase.html">CouchBase</a>
+      
+        <ul>
+  
+  <li class=" " data-id="crybase/CryBase/CouchBase/Client" data-name="crybase::couchbase::client">
+      <a href="../../CryBase/CouchBase/Client.html">Client</a>
+      
+    </li>
+  
+  <li class=" current" data-id="crybase/CryBase/CouchBase/ConnectionString" data-name="crybase::couchbase::connectionstring">
+      <a href="../../CryBase/CouchBase/ConnectionString.html">ConnectionString</a>
+      
+    </li>
+  
+  <li class=" " data-id="crybase/CryBase/CouchBase/Endpoint" data-name="crybase::couchbase::endpoint">
+      <a href="../../CryBase/CouchBase/Endpoint.html">Endpoint</a>
+      
+    </li>
+  
+  <li class=" " data-id="crybase/CryBase/CouchBase/Service" data-name="crybase::couchbase::service">
+      <a href="../../CryBase/CouchBase/Service.html">Service</a>
+      
+    </li>
+  
+  <li class="parent " data-id="crybase/CryBase/CouchBase/Services" data-name="crybase::couchbase::services">
+      <a href="../../CryBase/CouchBase/Services.html">Services</a>
+      
+        <ul>
+  
+  <li class="parent " data-id="crybase/CryBase/CouchBase/Services/KV" data-name="crybase::couchbase::services::kv">
+      <a href="../../CryBase/CouchBase/Services/KV.html">KV</a>
+      
+        <ul>
+  
+  <li class=" " data-id="crybase/CryBase/CouchBase/Services/KV/AuthFailed" data-name="crybase::couchbase::services::kv::authfailed">
+      <a href="../../CryBase/CouchBase/Services/KV/AuthFailed.html">AuthFailed</a>
+      
+    </li>
+  
+  <li class=" " data-id="crybase/CryBase/CouchBase/Services/KV/Bucket" data-name="crybase::couchbase::services::kv::bucket">
+      <a href="../../CryBase/CouchBase/Services/KV/Bucket.html">Bucket</a>
+      
+    </li>
+  
+  <li class=" " data-id="crybase/CryBase/CouchBase/Services/KV/Client" data-name="crybase::couchbase::services::kv::client">
+      <a href="../../CryBase/CouchBase/Services/KV/Client.html">Client</a>
+      
+    </li>
+  
+  <li class=" " data-id="crybase/CryBase/CouchBase/Services/KV/Error" data-name="crybase::couchbase::services::kv::error">
+      <a href="../../CryBase/CouchBase/Services/KV/Error.html">Error</a>
+      
+    </li>
+  
+  <li class=" " data-id="crybase/CryBase/CouchBase/Services/KV/NotFound" data-name="crybase::couchbase::services::kv::notfound">
+      <a href="../../CryBase/CouchBase/Services/KV/NotFound.html">NotFound</a>
+      
+    </li>
+  
+  <li class=" " data-id="crybase/CryBase/CouchBase/Services/KV/Opcode" data-name="crybase::couchbase::services::kv::opcode">
+      <a href="../../CryBase/CouchBase/Services/KV/Opcode.html">Opcode</a>
+      
+    </li>
+  
+  <li class=" " data-id="crybase/CryBase/CouchBase/Services/KV/Request" data-name="crybase::couchbase::services::kv::request">
+      <a href="../../CryBase/CouchBase/Services/KV/Request.html">Request</a>
+      
+    </li>
+  
+  <li class=" " data-id="crybase/CryBase/CouchBase/Services/KV/RequestWriter" data-name="crybase::couchbase::services::kv::requestwriter">
+      <a href="../../CryBase/CouchBase/Services/KV/RequestWriter.html">RequestWriter</a>
+      
+    </li>
+  
+  <li class=" " data-id="crybase/CryBase/CouchBase/Services/KV/Response" data-name="crybase::couchbase::services::kv::response">
+      <a href="../../CryBase/CouchBase/Services/KV/Response.html">Response</a>
+      
+    </li>
+  
+  <li class=" " data-id="crybase/CryBase/CouchBase/Services/KV/ResponseReader" data-name="crybase::couchbase::services::kv::responsereader">
+      <a href="../../CryBase/CouchBase/Services/KV/ResponseReader.html">ResponseReader</a>
+      
+    </li>
+  
+  <li class=" " data-id="crybase/CryBase/CouchBase/Services/KV/Status" data-name="crybase::couchbase::services::kv::status">
+      <a href="../../CryBase/CouchBase/Services/KV/Status.html">Status</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class="parent " data-id="crybase/CryBase/Interfaces" data-name="crybase::interfaces">
+      <a href="../../CryBase/Interfaces.html">Interfaces</a>
+      
+        <ul>
+  
+  <li class=" " data-id="crybase/CryBase/Interfaces/Client" data-name="crybase::interfaces::client">
+      <a href="../../CryBase/Interfaces/Client.html">Client</a>
+      
+    </li>
+  
+  <li class=" " data-id="crybase/CryBase/Interfaces/ConnectionString" data-name="crybase::interfaces::connectionstring">
+      <a href="../../CryBase/Interfaces/ConnectionString.html">ConnectionString</a>
+      
+    </li>
+  
+  <li class=" " data-id="crybase/CryBase/Interfaces/Endpoint" data-name="crybase::interfaces::endpoint">
+      <a href="../../CryBase/Interfaces/Endpoint.html">Endpoint</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+</ul>
+
+  </div>
+</div>
+
+
+<div class="main-content">
+<h1 class="type-name">
+
+  <span class="kind">
+    struct
+  </span> CryBase::<wbr>CouchBase::<wbr>ConnectionString
+
+</h1>
+
+
+  <ul class="superclass-hierarchy"><li class="superclass"><a href="../../CryBase/CouchBase/ConnectionString.html">CryBase::CouchBase::ConnectionString</a></li><li class="superclass"><a href="../../CryBase/Interfaces/ConnectionString.html">CryBase::Interfaces::ConnectionString</a></li><li class="superclass">Struct</li><li class="superclass">Value</li><li class="superclass">Object</li></ul>
+
+
+
+
+  <h2>
+    <a id="overview" class="anchor" href="#overview">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Overview
+  </h2>
+
+  <p>Parses a Couchbase connection string of the form:</p>
+<ul>
+<li><code>couchbase://host[,host2][:port]</code>     — plaintext</li>
+<li><code>couchbases://host[,host2][:port]</code>    — TLS</li>
+<li><code>http(s)://host[:port]</code>               — treated as the Management URL</li>
+</ul>
+<pre><code class="language-crystal">cs <span class="o">=</span> <span class="t">CryBase</span><span class="t">::</span><span class="t">CouchBase</span><span class="t">::</span><span class="t">ConnectionString</span>.parse(<span class="s">&quot;couchbases://n1,n2:18091&quot;</span>)
+cs.hosts         <span class="c"># =&gt; [&quot;n1&quot;, &quot;n2&quot;]</span>
+cs.tls           <span class="c"># =&gt; true</span>
+cs.explicit_port <span class="c"># =&gt; 18091</span></code></pre>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <h2>
+    <a id="defined-in" class="anchor" href="#defined-in">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Defined in:
+  </h2>
+  
+    
+      crybase/couchbase/connection_string.cr
+    
+    <br/>
+  
+
+
+
+
+
+  
+  <h2>
+    <a id="constructors" class="anchor" href="#constructors">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Constructors
+  </h2>
+  <ul class="list-summary">
+    
+      <li class="entry-summary">
+        <a href="#new%28hosts%3AArray%28String%29%2Ctls%3ABool%2Cexplicit_port%3AInt32%7CNil%3Dnil%29-class-method" class="signature"><strong>.new</strong>(hosts : Array(String), tls : Bool, explicit_port : Int32 | Nil = <span class="n">nil</span>)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#parse%28input%3AString%29%3AConnectionString-class-method" class="signature"><strong>.parse</strong>(input : String) : ConnectionString</a>
+        
+          <div class="summary"><p>Parses <em>input</em> into a <code><a href="../../CryBase/CouchBase/ConnectionString.html">ConnectionString</a></code>.</p></div>
+        
+      </li>
+    
+  </ul>
+
+
+  
+
+  
+
+  
+  <h2>
+    <a id="instance-method-summary" class="anchor" href="#instance-method-summary">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Instance Method Summary
+  </h2>
+  <ul class="list-summary">
+    
+      <li class="entry-summary">
+        <a href="#explicit_port%3AInt32%7CNil-instance-method" class="signature"><strong>#explicit_port</strong> : Int32 | Nil</a>
+        
+          <div class="summary"><p>Port explicitly given in the URI, or <code>nil</code> when none was supplied.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#hosts%3AArray%28String%29-instance-method" class="signature"><strong>#hosts</strong> : Array(String)</a>
+        
+          <div class="summary"><p>The cluster nodes parsed from the connection string.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#tls%3ABool-instance-method" class="signature"><strong>#tls</strong> : Bool</a>
+        
+          <div class="summary"><p>Whether the connection should be made over TLS.</p></div>
+        
+      </li>
+    
+  </ul>
+
+
+
+  <div class="methods-inherited">
+    
+      
+
+  <h3>Instance methods inherited from struct <code><a href="../../CryBase/Interfaces/ConnectionString.html">CryBase::Interfaces::ConnectionString</a></code></h3>
+  
+  
+    <a href="../../CryBase/Interfaces/ConnectionString.html#hosts%3AArray%28String%29-instance-method" class="tooltip">
+      <span>hosts : Array(String)</span>
+    hosts</a>, 
+    
+  
+    <a href="../../CryBase/Interfaces/ConnectionString.html#initialize-instance-method" class="tooltip">
+      <span>initialize</span>
+    initialize</a>, 
+    
+  
+    <a href="../../CryBase/Interfaces/ConnectionString.html#tls%3ABool-instance-method" class="tooltip">
+      <span>tls : Bool</span>
+    tls</a>
+    
+  
+
+
+      
+
+  <h3>Constructor methods inherited from struct <code><a href="../../CryBase/Interfaces/ConnectionString.html">CryBase::Interfaces::ConnectionString</a></code></h3>
+  
+  
+    <a href="../../CryBase/Interfaces/ConnectionString.html#new-class-method" class="tooltip">
+      <span>new</span>
+    new</a>
+    
+  
+
+
+      
+
+
+      
+
+
+    
+      
+
+
+      
+
+
+      
+
+
+      
+
+
+    
+      
+
+
+      
+
+
+      
+
+
+      
+
+
+    
+      
+
+
+      
+
+
+      
+
+
+      
+
+
+    
+  </div>
+
+  
+  <h2>
+    <a id="constructor-detail" class="anchor" href="#constructor-detail">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Constructor Detail
+  </h2>
+  
+    <div class="entry-detail" id="new(hosts:Array(String),tls:Bool,explicit_port:Int32|Nil=nil)-class-method">
+      <div class="signature">
+        
+        def self.<strong>new</strong>(hosts : Array(String), tls : Bool, explicit_port : Int32 | Nil = <span class="n">nil</span>)
+
+        <a class="method-permalink" href="#new%28hosts%3AArray%28String%29%2Ctls%3ABool%2Cexplicit_port%3AInt32%7CNil%3Dnil%29-class-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="parse(input:String):ConnectionString-class-method">
+      <div class="signature">
+        
+        def self.<strong>parse</strong>(input : String) : <a href="../../CryBase/CouchBase/ConnectionString.html">ConnectionString</a>
+
+        <a class="method-permalink" href="#parse%28input%3AString%29%3AConnectionString-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Parses <em>input</em> into a <code><a href="../../CryBase/CouchBase/ConnectionString.html">ConnectionString</a></code>.</p>
+<p>Raises <code>ArgumentError</code> if the string is empty or has no host
+component.</p>
+<pre><code class="language-crystal"><span class="t">ConnectionString</span>.parse(<span class="s">&quot;localhost&quot;</span>)          <span class="c"># plaintext, no port</span>
+<span class="t">ConnectionString</span>.parse(<span class="s">&quot;couchbases://h1,h2&quot;</span>) <span class="c"># TLS, two hosts</span></code></pre>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+
+
+  
+
+  
+
+  
+  <h2>
+    <a id="instance-method-detail" class="anchor" href="#instance-method-detail">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Instance Method Detail
+  </h2>
+  
+    <div class="entry-detail" id="explicit_port:Int32|Nil-instance-method">
+      <div class="signature">
+        
+        def <strong>explicit_port</strong> : Int32 | Nil
+
+        <a class="method-permalink" href="#explicit_port%3AInt32%7CNil-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Port explicitly given in the URI, or <code>nil</code> when none was supplied.
+Used to override the <code>Management</code> service's default port; other
+services always use their <code><a href="../../CryBase/CouchBase/Service.html#default_port%28tls%3ABool%29%3AInt32-instance-method">Service#default_port</a></code>.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="hosts:Array(String)-instance-method">
+      <div class="signature">
+        
+        def <strong>hosts</strong> : Array(String)
+
+        <a class="method-permalink" href="#hosts%3AArray%28String%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+            <div class="doc-inherited">
+              Description copied from struct <a href="../../CryBase/Interfaces/ConnectionString.html">CryBase::Interfaces::ConnectionString</a>
+            </div>
+          
+          <p>The cluster nodes parsed from the connection string.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="tls:Bool-instance-method">
+      <div class="signature">
+        
+        def <strong>tls</strong> : Bool
+
+        <a class="method-permalink" href="#tls%3ABool-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+            <div class="doc-inherited">
+              Description copied from struct <a href="../../CryBase/Interfaces/ConnectionString.html">CryBase::Interfaces::ConnectionString</a>
+            </div>
+          
+          <p>Whether the connection should be made over TLS.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+
+
+
+</div>
+
+</body>
+</html>

@@ -1,11 +1,20 @@
 module CryBase::CouchBase
-  # Dummy client that enumerates and probes every Couchbase service interface
-  # (KV, Query, Search, Analytics, Index, Eventing, Views, Management) for the
-  # configured hosts, over either plaintext or TLS ports.
+  # Cluster-level client that enumerates and probes every Couchbase
+  # service interface (KV, Query, Search, Analytics, Index, Eventing,
+  # Views, Management) for the configured hosts, over either plaintext
+  # or TLS ports.
   #
-  # No protocol handshake is performed yet — this stage only validates TCP
-  # reachability so callers can confirm the cluster's network surface.
-  class Client
+  # No protocol handshake is performed at this layer — `connect` only
+  # validates TCP reachability so callers can confirm the cluster's
+  # network surface before driving a service-specific protocol (for
+  # example `CryBase::CouchBase::Services::KV::Client`).
+  #
+  # ```
+  # client = CryBase::CouchBase::Client.connect("couchbase://node1,node2")
+  # kv_eps = client.endpoints_for(CryBase::CouchBase::Service::KV)
+  # client.close
+  # ```
+  class Client < CryBase::Interfaces::Client
     getter connection_string : ConnectionString
     getter username : String?
     getter password : String?
@@ -13,6 +22,16 @@ module CryBase::CouchBase
     getter endpoints : Array(Endpoint)
     getter? connected : Bool = false
 
+    # Builds the client and immediately calls `connect`. Equivalent to
+    # `new(...).tap(&.connect)`.
+    #
+    # ```
+    # client = CryBase::CouchBase::Client.connect(
+    #   "couchbases://node1,node2",
+    #   username: "Administrator",
+    #   password: "s3cret",
+    # )
+    # ```
     def self.connect(
       uri : String,
       username : String? = nil,
@@ -24,6 +43,8 @@ module CryBase::CouchBase
       client
     end
 
+    # Parses *uri* and pre-computes the full `endpoints` matrix
+    # (one per host × service). No network activity yet.
     def initialize(
       uri : String,
       @username : String? = nil,
@@ -34,6 +55,13 @@ module CryBase::CouchBase
       @endpoints = build_endpoints(@connection_string)
     end
 
+    # Probes every endpoint over TCP and returns the reachable subset.
+    # Marks the client as `connected?` if at least one endpoint
+    # responded; otherwise raises `IO::Error`.
+    #
+    # ```
+    # reachable = client.connect # => [Endpoint, Endpoint, ...]
+    # ```
     def connect : Array(Endpoint)
       reachable = [] of Endpoint
       @endpoints.each do |ep|
@@ -51,10 +79,18 @@ module CryBase::CouchBase
       reachable
     end
 
+    # Marks the client as no longer `connected?`. This layer holds no
+    # persistent sockets, so this is purely a state flip.
     def close : Nil
       @connected = false
     end
 
+    # Returns every `Endpoint` for the given *service*, in host order.
+    #
+    # ```
+    # client.endpoints_for(CryBase::CouchBase::Service::KV).map(&.host)
+    # # => ["node1", "node2"]
+    # ```
     def endpoints_for(service : Service) : Array(Endpoint)
       @endpoints.select { |e| e.service == service }
     end
@@ -62,7 +98,7 @@ module CryBase::CouchBase
     private def build_endpoints(cs : ConnectionString) : Array(Endpoint)
       list = [] of Endpoint
       cs.hosts.each do |host|
-        Service.all_services.each do |service|
+        Services.list.each do |service|
           port = cs.explicit_port && service.management? ? cs.explicit_port.not_nil! : service.default_port(cs.tls)
           list << Endpoint.new(host, port, service, cs.tls)
         end

@@ -1,6 +1,3 @@
-/docs/
-/lib/
-/bin/
 /.shards/
 *.dwarf
 /.claude
@@ -8,3 +5,8 @@
 # Libraries don't need dependency lock
 # Dependencies will be locked in applications that use them
 /shard.lock
+
+.DS_Store
+.env*
+.envrc
+AGENTS.md

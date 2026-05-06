@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Crystal Docs 1.18.2">
+<meta name="crystal_docs.project_version" content="main-dev">
+<meta name="crystal_docs.project_name" content="crybase">
+
+
+
+<link href="../../../../css/style.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="../../../../js/doc.js"></script>
+
+  <meta name="repository-name" content="crybase">
+  <title>CryBase::CouchBase::Services::KV::Client - crybase main-dev</title>
+  <script type="text/javascript">
+    CrystalDocs.base_path = "../../../../";
+  </script>
+</head>
+<body>
+
+<svg class="hidden">
+  <symbol id="octicon-link" viewBox="0 0 16 16">
+    <path fill="currentColor" fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path>
+  </symbol>
+</svg>
+<input type="checkbox" id="sidebar-btn">
+<label for="sidebar-btn" id="sidebar-btn-label">
+  <svg class="open" xmlns="http://www.w3.org/2000/svg" height="2em" width="2em" viewBox="0 0 512 512"><title>Open Sidebar</title><path fill="currentColor" d="M80 96v64h352V96H80zm0 112v64h352v-64H80zm0 112v64h352v-64H80z"></path></svg>
+  <svg class="close" xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" viewBox="0 0 512 512"><title>Close Sidebar</title><path fill="currentColor" d="m118.6 73.4-45.2 45.2L210.7 256 73.4 393.4l45.2 45.2L256 301.3l137.4 137.3 45.2-45.2L301.3 256l137.3-137.4-45.2-45.2L256 210.7Z"></path></svg>
+</label>
+<div class="sidebar">
+  <div class="sidebar-header">
+    <div class="search-box">
+      <input type="search" class="search-input" placeholder="Search..." spellcheck="false" aria-label="Search">
+    </div>
+
+    <div class="project-summary">
+      <h1 class="project-name">
+        <a href="../../../../index.html">
+          crybase
+        </a>
+      </h1>
+
+      <span class="project-version">
+        main-dev
+      </span>
+    </div>
+  </div>
+
+  <div class="search-results hidden">
+    <ul class="search-list"></ul>
+  </div>
+
+  <div class="types-list">
+    <ul>
+  
+  <li class="parent open current" data-id="crybase/CryBase" data-name="crybase">
+      <a href="../../../../CryBase.html">CryBase</a>
+      
+        <ul>
+  
+  <li class="parent open current" data-id="crybase/CryBase/CouchBase" data-name="crybase::couchbase">
+      <a href="../../../../CryBase/CouchBase.html">CouchBase</a>
+      
+        <ul>
+  
+  <li class=" " data-id="crybase/CryBase/CouchBase/Client" data-name="crybase::couchbase::client">
+      <a href="../../../../CryBase/CouchBase/Client.html">Client</a>
+      
+    </li>
+  
+  <li class=" " data-id="crybase/CryBase/CouchBase/ConnectionString" data-name="crybase::couchbase::connectionstring">
+      <a href="../../../../CryBase/CouchBase/ConnectionString.html">ConnectionString</a>
+      
+    </li>
+  
+  <li class=" " data-id="crybase/CryBase/CouchBase/Endpoint" data-name="crybase::couchbase::endpoint">
+      <a href="../../../../CryBase/CouchBase/Endpoint.html">Endpoint</a>
+      
+    </li>
+  
+  <li class=" " data-id="crybase/CryBase/CouchBase/Service" data-name="crybase::couchbase::service">
+      <a href="../../../../CryBase/CouchBase/Service.html">Service</a>
+      
+    </li>
+  
+  <li class="parent open current" data-id="crybase/CryBase/CouchBase/Services" data-name="crybase::couchbase::services">
+      <a href="../../../../CryBase/CouchBase/Services.html">Services</a>
+      
+        <ul>
+  
+  <li class="parent open current" data-id="crybase/CryBase/CouchBase/Services/KV" data-name="crybase::couchbase::services::kv">
+      <a href="../../../../CryBase/CouchBase/Services/KV.html">KV</a>
+      
+        <ul>
+  
+  <li class=" " data-id="crybase/CryBase/CouchBase/Services/KV/AuthFailed" data-name="crybase::couchbase::services::kv::authfailed">
+      <a href="../../../../CryBase/CouchBase/Services/KV/AuthFailed.html">AuthFailed</a>
+      
+    </li>
+  
+  <li class=" " data-id="crybase/CryBase/CouchBase/Services/KV/Bucket" data-name="crybase::couchbase::services::kv::bucket">
+      <a href="../../../../CryBase/CouchBase/Services/KV/Bucket.html">Bucket</a>
+      
+    </li>
+  
+  <li class=" current" data-id="crybase/CryBase/CouchBase/Services/KV/Client" data-name="crybase::couchbase::services::kv::client">
+      <a href="../../../../CryBase/CouchBase/Services/KV/Client.html">Client</a>
+      
+    </li>
+  
+  <li class=" " data-id="crybase/CryBase/CouchBase/Services/KV/Error" data-name="crybase::couchbase::services::kv::error">
+      <a href="../../../../CryBase/CouchBase/Services/KV/Error.html">Error</a>
+      
+    </li>
+  
+  <li class=" " data-id="crybase/CryBase/CouchBase/Services/KV/NotFound" data-name="crybase::couchbase::services::kv::notfound">
+      <a href="../../../../CryBase/CouchBase/Services/KV/NotFound.html">NotFound</a>
+      
+    </li>
+  
+  <li class=" " data-id="crybase/CryBase/CouchBase/Services/KV/Opcode" data-name="crybase::couchbase::services::kv::opcode">
+      <a href="../../../../CryBase/CouchBase/Services/KV/Opcode.html">Opcode</a>
+      
+    </li>
+  
+  <li class=" " data-id="crybase/CryBase/CouchBase/Services/KV/Request" data-name="crybase::couchbase::services::kv::request">
+      <a href="../../../../CryBase/CouchBase/Services/KV/Request.html">Request</a>
+      
+    </li>
+  
+  <li class=" " data-id="crybase/CryBase/CouchBase/Services/KV/RequestWriter" data-name="crybase::couchbase::services::kv::requestwriter">
+      <a href="../../../../CryBase/CouchBase/Services/KV/RequestWriter.html">RequestWriter</a>
+      
+    </li>
+  
+  <li class=" " data-id="crybase/CryBase/CouchBase/Services/KV/Response" data-name="crybase::couchbase::services::kv::response">
+      <a href="../../../../CryBase/CouchBase/Services/KV/Response.html">Response</a>
+      
+    </li>
+  
+  <li class=" " data-id="crybase/CryBase/CouchBase/Services/KV/ResponseReader" data-name="crybase::couchbase::services::kv::responsereader">
+      <a href="../../../../CryBase/CouchBase/Services/KV/ResponseReader.html">ResponseReader</a>
+      
+    </li>
+  
+  <li class=" " data-id="crybase/CryBase/CouchBase/Services/KV/Status" data-name="crybase::couchbase::services::kv::status">
+      <a href="../../../../CryBase/CouchBase/Services/KV/Status.html">Status</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class="parent " data-id="crybase/CryBase/Interfaces" data-name="crybase::interfaces">
+      <a href="../../../../CryBase/Interfaces.html">Interfaces</a>
+      
+        <ul>
+  
+  <li class=" " data-id="crybase/CryBase/Interfaces/Client" data-name="crybase::interfaces::client">
+      <a href="../../../../CryBase/Interfaces/Client.html">Client</a>
+      
+    </li>
+  
+  <li class=" " data-id="crybase/CryBase/Interfaces/ConnectionString" data-name="crybase::interfaces::connectionstring">
+      <a href="../../../../CryBase/Interfaces/ConnectionString.html">ConnectionString</a>
+      
+    </li>
+  
+  <li class=" " data-id="crybase/CryBase/Interfaces/Endpoint" data-name="crybase::interfaces::endpoint">
+      <a href="../../../../CryBase/Interfaces/Endpoint.html">Endpoint</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+</ul>
+
+  </div>
+</div>
+
+
+<div class="main-content">
+<h1 class="type-name">
+
+  <span class="kind">
+    class
+  </span> CryBase::<wbr>CouchBase::<wbr>Services::<wbr>KV::<wbr>Client
+
+</h1>
+
+
+  <ul class="superclass-hierarchy"><li class="superclass"><a href="../../../../CryBase/CouchBase/Services/KV/Client.html">CryBase::CouchBase::Services::KV::Client</a></li><li class="superclass">Reference</li><li class="superclass">Object</li></ul>
+
+
+
+
+  <h2>
+    <a id="overview" class="anchor" href="#overview">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Overview
+  </h2>
+
+  <p>Talks the Couchbase memcached binary protocol against a single KV
+node. Composed from <code><a href="../../../../CryBase/CouchBase/Services/KV/RequestWriter.html">RequestWriter</a></code>, <code><a href="../../../../CryBase/CouchBase/Services/KV/ResponseReader.html">ResponseReader</a></code>, and <code><a href="../../../../CryBase/CouchBase/Services/KV/Bucket.html">Bucket</a></code>
+mixins.</p>
+<p>On construct: TCP-connects to <em>endpoint</em>, sends <code>HELLO</code> (advertising
+<code><a href="../../../../CryBase/CouchBase/Services/KV.html#FEATURE_SELECT_BUCKET">FEATURE_SELECT_BUCKET</a></code>), <code>SASL_AUTH</code> (PLAIN), and <code>SELECT_BUCKET</code> for
+<em>bucket</em>. Then exposes plain <code><a href="../../../../CryBase/CouchBase/Services/KV/Client.html#get%28key%3AString%29%3ABytes-instance-method">#get</a></code> / <code><a href="../../../../CryBase/CouchBase/Services/KV/Client.html#set%28key%3AString%2Cvalue%3AString%7CBytes%2Cexpiry%3AUInt32%3D0_u32%29%3AUInt64-instance-method">#set</a></code> / <code><a href="../../../../CryBase/CouchBase/Services/KV/Client.html#delete%28key%3AString%29%3ANil-instance-method">#delete</a></code> against that
+bucket.</p>
+<pre><code class="language-crystal">endpoint <span class="o">=</span> <span class="t">CryBase</span><span class="t">::</span><span class="t">CouchBase</span><span class="t">::</span><span class="t">Endpoint</span>.new(
+  <span class="s">&quot;node1&quot;</span>, <span class="n">11210</span>, <span class="t">CryBase</span><span class="t">::</span><span class="t">CouchBase</span><span class="t">::</span><span class="t">Service</span><span class="t">::</span><span class="t">KV</span>, <span class="n">false</span>
+)
+kv <span class="o">=</span> <span class="t">KV</span><span class="t">::</span><span class="t">Client</span>.new(endpoint, <span class="s">&quot;user&quot;</span>, <span class="s">&quot;pass&quot;</span>, <span class="s">&quot;default&quot;</span>)
+kv.set(<span class="s">&quot;hello&quot;</span>, <span class="s">&quot;world&quot;</span>)
+kv.get(<span class="s">&quot;hello&quot;</span>) <span class="c"># =&gt; &quot;world&quot;.to_slice</span>
+kv.delete(<span class="s">&quot;hello&quot;</span>)
+kv.close</code></pre>
+<p>Out of scope (deliberate, can be layered on top later):</p>
+<ul>
+<li>vbucket-aware routing — assumes the caller already picked the right node</li>
+<li>CAS, flags, durability, observe, and other op modifiers</li>
+<li>connection pooling / reconnect / retry</li>
+</ul>
+
+
+
+
+
+
+
+  <h2>
+    <a id="included-modules" class="anchor" href="#included-modules">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Included Modules
+  </h2>
+  <ul class="other-types-list">
+    
+      <li class="other-type"><a href="../../../../CryBase/CouchBase/Services/KV/Bucket.html">CryBase::CouchBase::Services::KV::Bucket</a></li>
+    
+      <li class="other-type"><a href="../../../../CryBase/CouchBase/Services/KV/RequestWriter.html">CryBase::CouchBase::Services::KV::RequestWriter</a></li>
+    
+      <li class="other-type"><a href="../../../../CryBase/CouchBase/Services/KV/ResponseReader.html">CryBase::CouchBase::Services::KV::ResponseReader</a></li>
+    
+  </ul>
+
+
+
+
+
+
+
+
+
+
+  <h2>
+    <a id="defined-in" class="anchor" href="#defined-in">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Defined in:
+  </h2>
+  
+    
+      crybase/couchbase/services/kv/client.cr
+    
+    <br/>
+  
+
+
+
+
+
+  
+  <h2>
+    <a id="constructors" class="anchor" href="#constructors">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Constructors
+  </h2>
+  <ul class="list-summary">
+    
+      <li class="entry-summary">
+        <a href="#new%28endpoint%3AEndpoint%2Cusername%3AString%2Cpassword%3AString%2Cbucket%3AString%2Cconnect_timeout%3ATime%3A%3ASpan%3D5.seconds%29-class-method" class="signature"><strong>.new</strong>(endpoint : Endpoint, username : String, password : String, bucket : String, connect_timeout : Time::Span = <span class="n">5</span>.seconds)</a>
+        
+          <div class="summary"><p>Connects, performs HELLO + SASL PLAIN + SELECT_BUCKET, and leaves the client ready for <code><a href="../../../../CryBase/CouchBase/Services/KV/Client.html#get%28key%3AString%29%3ABytes-instance-method">#get</a></code>/<code><a href="../../../../CryBase/CouchBase/Services/KV/Client.html#set%28key%3AString%2Cvalue%3AString%7CBytes%2Cexpiry%3AUInt32%3D0_u32%29%3AUInt64-instance-method">#set</a></code>/<code><a href="../../../../CryBase/CouchBase/Services/KV/Client.html#delete%28key%3AString%29%3ANil-instance-method">#delete</a></code>.</p></div>
+        
+      </li>
+    
+  </ul>
+
+
+  
+
+  
+
+  
+  <h2>
+    <a id="instance-method-summary" class="anchor" href="#instance-method-summary">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Instance Method Summary
+  </h2>
+  <ul class="list-summary">
+    
+      <li class="entry-summary">
+        <a href="#bucket%3AString-instance-method" class="signature"><strong>#bucket</strong> : String</a>
+        
+          <div class="summary"><p>The bucket selected during the construction handshake.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#close%3ANil-instance-method" class="signature"><strong>#close</strong> : Nil</a>
+        
+          <div class="summary"><p>Closes the underlying TCP socket.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#delete%28key%3AString%29%3ANil-instance-method" class="signature"><strong>#delete</strong>(key : String) : Nil</a>
+        
+          <div class="summary"><p>Deletes the document at <em>key</em>.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#endpoint%3AEndpoint-instance-method" class="signature"><strong>#endpoint</strong> : Endpoint</a>
+        
+          <div class="summary"><p>The <code><a href="../../../../CryBase/CouchBase/Endpoint.html">Endpoint</a></code> this client is connected to.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#get%28key%3AString%29%3ABytes-instance-method" class="signature"><strong>#get</strong>(key : String) : Bytes</a>
+        
+          <div class="summary"><p>Fetches the document at <em>key</em>.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#set%28key%3AString%2Cvalue%3AString%7CBytes%2Cexpiry%3AUInt32%3D0_u32%29%3AUInt64-instance-method" class="signature"><strong>#set</strong>(key : String, value : String | Bytes, expiry : UInt32 = <span class="n">0_u32</span>) : UInt64</a>
+        
+          <div class="summary"><p>Stores <em>value</em> at <em>key</em> with optional <em>expiry</em> (seconds, or unix timestamp if greater than 30 days).</p></div>
+        
+      </li>
+    
+  </ul>
+
+
+
+  <div class="methods-inherited">
+    
+      
+
+
+      
+
+
+      
+
+
+      
+
+
+    
+      
+
+
+      
+
+
+      
+
+
+      
+
+
+    
+      
+
+
+      
+
+
+      
+
+
+      
+
+
+    
+      
+
+
+      
+
+
+      
+
+
+      
+
+
+    
+      
+
+
+      
+
+
+      
+
+
+      
+
+
+    
+  </div>
+
+  
+  <h2>
+    <a id="constructor-detail" class="anchor" href="#constructor-detail">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Constructor Detail
+  </h2>
+  
+    <div class="entry-detail" id="new(endpoint:Endpoint,username:String,password:String,bucket:String,connect_timeout:Time::Span=5.seconds)-class-method">
+      <div class="signature">
+        
+        def self.<strong>new</strong>(endpoint : <a href="../../../../CryBase/CouchBase/Endpoint.html">Endpoint</a>, username : String, password : String, bucket : String, connect_timeout : Time::Span = <span class="n">5</span>.seconds)
+
+        <a class="method-permalink" href="#new%28endpoint%3AEndpoint%2Cusername%3AString%2Cpassword%3AString%2Cbucket%3AString%2Cconnect_timeout%3ATime%3A%3ASpan%3D5.seconds%29-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Connects, performs HELLO + SASL PLAIN + SELECT_BUCKET, and leaves
+the client ready for <code><a href="../../../../CryBase/CouchBase/Services/KV/Client.html#get%28key%3AString%29%3ABytes-instance-method">#get</a></code>/<code><a href="../../../../CryBase/CouchBase/Services/KV/Client.html#set%28key%3AString%2Cvalue%3AString%7CBytes%2Cexpiry%3AUInt32%3D0_u32%29%3AUInt64-instance-method">#set</a></code>/<code><a href="../../../../CryBase/CouchBase/Services/KV/Client.html#delete%28key%3AString%29%3ANil-instance-method">#delete</a></code>.</p>
+<p>Raises:</p>
+<ul>
+<li><code>IO::Error</code> / <code>Socket::Error</code> — TCP connect failed</li>
+<li><code><a href="../../../../CryBase/CouchBase/Services/KV/AuthFailed.html">KV::AuthFailed</a></code> — SASL auth or bucket selection denied</li>
+<li><code><a href="../../../../CryBase/CouchBase/Services/KV/Error.html">KV::Error</a></code> — server returned any other non-success status</li>
+</ul>
+<p>The socket is closed and the exception re-raised if any handshake
+step fails.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+
+
+  
+
+  
+
+  
+  <h2>
+    <a id="instance-method-detail" class="anchor" href="#instance-method-detail">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Instance Method Detail
+  </h2>
+  
+    <div class="entry-detail" id="bucket:String-instance-method">
+      <div class="signature">
+        
+        def <strong>bucket</strong> : String
+
+        <a class="method-permalink" href="#bucket%3AString-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>The bucket selected during the construction handshake.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="close:Nil-instance-method">
+      <div class="signature">
+        
+        def <strong>close</strong> : Nil
+
+        <a class="method-permalink" href="#close%3ANil-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Closes the underlying TCP socket. Idempotent — safe to call when
+already closed.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="delete(key:String):Nil-instance-method">
+      <div class="signature">
+        
+        def <strong>delete</strong>(key : String) : Nil
+
+        <a class="method-permalink" href="#delete%28key%3AString%29%3ANil-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Deletes the document at <em>key</em>. Raises <code><a href="../../../../CryBase/CouchBase/Services/KV/NotFound.html">NotFound</a></code> if absent.</p>
+<pre><code class="language-crystal">kv.delete(<span class="s">&quot;hello&quot;</span>)</code></pre>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="endpoint:Endpoint-instance-method">
+      <div class="signature">
+        
+        def <strong>endpoint</strong> : <a href="../../../../CryBase/CouchBase/Endpoint.html">Endpoint</a>
+
+        <a class="method-permalink" href="#endpoint%3AEndpoint-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>The <code><a href="../../../../CryBase/CouchBase/Endpoint.html">Endpoint</a></code> this client is connected to.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="get(key:String):Bytes-instance-method">
+      <div class="signature">
+        
+        def <strong>get</strong>(key : String) : Bytes
+
+        <a class="method-permalink" href="#get%28key%3AString%29%3ABytes-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Fetches the document at <em>key</em>. Raises <code><a href="../../../../CryBase/CouchBase/Services/KV/NotFound.html">NotFound</a></code> if absent.</p>
+<pre><code class="language-crystal">bytes <span class="o">=</span> kv.get(<span class="s">&quot;user:42&quot;</span>)
+<span class="t">JSON</span>.parse(<span class="t">String</span>.new(bytes))</code></pre>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="set(key:String,value:String|Bytes,expiry:UInt32=0_u32):UInt64-instance-method">
+      <div class="signature">
+        
+        def <strong>set</strong>(key : String, value : String | Bytes, expiry : UInt32 = <span class="n">0_u32</span>) : UInt64
+
+        <a class="method-permalink" href="#set%28key%3AString%2Cvalue%3AString%7CBytes%2Cexpiry%3AUInt32%3D0_u32%29%3AUInt64-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Stores <em>value</em> at <em>key</em> with optional <em>expiry</em> (seconds, or unix
+timestamp if greater than 30 days). Returns the new CAS token.</p>
+<pre><code class="language-crystal">cas <span class="o">=</span> kv.set(<span class="s">&quot;hello&quot;</span>, <span class="s">&quot;world&quot;</span>)
+cas <span class="o">=</span> kv.set(<span class="s">&quot;hello&quot;</span>, <span class="s">&quot;world&quot;</span>.to_slice, expiry: <span class="n">60_u32</span>)</code></pre>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+
+
+
+</div>
+
+</body>
+</html>

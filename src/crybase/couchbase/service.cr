@@ -1,4 +1,13 @@
 module CryBase::CouchBase
+  # Catalog of services a Couchbase node can expose. Couchbase's
+  # multi-dimensional scaling lets each node enable any subset of these,
+  # and each service runs on its own well-known port.
+  #
+  # ```
+  # CryBase::CouchBase::Service::KV.default_port(false) # => 11210
+  # CryBase::CouchBase::Service::KV.default_port(true)  # => 11207
+  # CryBase::CouchBase::Service::Query.display_name     # => "Query (N1QL)"
+  # ```
   enum Service
     KV
     Query
@@ -9,6 +18,13 @@ module CryBase::CouchBase
     Views
     Management
 
+    # Returns the well-known port this service listens on for the given
+    # transport — `tls=true` for the TLS variant, `tls=false` for plaintext.
+    #
+    # ```
+    # Service::Management.default_port(false) # => 8091
+    # Service::Management.default_port(true)  # => 18091
+    # ```
     def default_port(tls : Bool) : Int32
       case self
       in KV         then tls ? 11207 : 11210
@@ -22,6 +38,13 @@ module CryBase::CouchBase
       end
     end
 
+    # Human-readable name as it appears in Couchbase's own UI/docs
+    # (e.g. `"Data (KV)"`, `"Query (N1QL)"`).
+    #
+    # ```
+    # Service::KV.display_name    # => "Data (KV)"
+    # Service::Search.display_name # => "Search (FTS)"
+    # ```
     def display_name : String
       case self
       in KV         then "Data (KV)"
@@ -33,10 +56,6 @@ module CryBase::CouchBase
       in Views      then "Views"
       in Management then "Management"
       end
-    end
-
-    def self.all_services : Array(Service)
-      [KV, Query, Search, Analytics, Index, Eventing, Views, Management]
     end
   end
 end

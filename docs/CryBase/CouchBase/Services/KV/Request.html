@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Crystal Docs 1.18.2">
+<meta name="crystal_docs.project_version" content="main-dev">
+<meta name="crystal_docs.project_name" content="crybase">
+
+
+
+<link href="../../../../css/style.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="../../../../js/doc.js"></script>
+
+  <meta name="repository-name" content="crybase">
+  <title>CryBase::CouchBase::Services::KV::Request - crybase main-dev</title>
+  <script type="text/javascript">
+    CrystalDocs.base_path = "../../../../";
+  </script>
+</head>
+<body>
+
+<svg class="hidden">
+  <symbol id="octicon-link" viewBox="0 0 16 16">
+    <path fill="currentColor" fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path>
+  </symbol>
+</svg>
+<input type="checkbox" id="sidebar-btn">
+<label for="sidebar-btn" id="sidebar-btn-label">
+  <svg class="open" xmlns="http://www.w3.org/2000/svg" height="2em" width="2em" viewBox="0 0 512 512"><title>Open Sidebar</title><path fill="currentColor" d="M80 96v64h352V96H80zm0 112v64h352v-64H80zm0 112v64h352v-64H80z"></path></svg>
+  <svg class="close" xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" viewBox="0 0 512 512"><title>Close Sidebar</title><path fill="currentColor" d="m118.6 73.4-45.2 45.2L210.7 256 73.4 393.4l45.2 45.2L256 301.3l137.4 137.3 45.2-45.2L301.3 256l137.3-137.4-45.2-45.2L256 210.7Z"></path></svg>
+</label>
+<div class="sidebar">
+  <div class="sidebar-header">
+    <div class="search-box">
+      <input type="search" class="search-input" placeholder="Search..." spellcheck="false" aria-label="Search">
+    </div>
+
+    <div class="project-summary">
+      <h1 class="project-name">
+        <a href="../../../../index.html">
+          crybase
+        </a>
+      </h1>
+
+      <span class="project-version">
+        main-dev
+      </span>
+    </div>
+  </div>
+
+  <div class="search-results hidden">
+    <ul class="search-list"></ul>
+  </div>
+
+  <div class="types-list">
+    <ul>
+  
+  <li class="parent open current" data-id="crybase/CryBase" data-name="crybase">
+      <a href="../../../../CryBase.html">CryBase</a>
+      
+        <ul>
+  
+  <li class="parent open current" data-id="crybase/CryBase/CouchBase" data-name="crybase::couchbase">
+      <a href="../../../../CryBase/CouchBase.html">CouchBase</a>
+      
+        <ul>
+  
+  <li class=" " data-id="crybase/CryBase/CouchBase/Client" data-name="crybase::couchbase::client">
+      <a href="../../../../CryBase/CouchBase/Client.html">Client</a>
+      
+    </li>
+  
+  <li class=" " data-id="crybase/CryBase/CouchBase/ConnectionString" data-name="crybase::couchbase::connectionstring">
+      <a href="../../../../CryBase/CouchBase/ConnectionString.html">ConnectionString</a>
+      
+    </li>
+  
+  <li class=" " data-id="crybase/CryBase/CouchBase/Endpoint" data-name="crybase::couchbase::endpoint">
+      <a href="../../../../CryBase/CouchBase/Endpoint.html">Endpoint</a>
+      
+    </li>
+  
+  <li class=" " data-id="crybase/CryBase/CouchBase/Service" data-name="crybase::couchbase::service">
+      <a href="../../../../CryBase/CouchBase/Service.html">Service</a>
+      
+    </li>
+  
+  <li class="parent open current" data-id="crybase/CryBase/CouchBase/Services" data-name="crybase::couchbase::services">
+      <a href="../../../../CryBase/CouchBase/Services.html">Services</a>
+      
+        <ul>
+  
+  <li class="parent open current" data-id="crybase/CryBase/CouchBase/Services/KV" data-name="crybase::couchbase::services::kv">
+      <a href="../../../../CryBase/CouchBase/Services/KV.html">KV</a>
+      
+        <ul>
+  
+  <li class=" " data-id="crybase/CryBase/CouchBase/Services/KV/AuthFailed" data-name="crybase::couchbase::services::kv::authfailed">
+      <a href="../../../../CryBase/CouchBase/Services/KV/AuthFailed.html">AuthFailed</a>
+      
+    </li>
+  
+  <li class=" " data-id="crybase/CryBase/CouchBase/Services/KV/Bucket" data-name="crybase::couchbase::services::kv::bucket">
+      <a href="../../../../CryBase/CouchBase/Services/KV/Bucket.html">Bucket</a>
+      
+    </li>
+  
+  <li class=" " data-id="crybase/CryBase/CouchBase/Services/KV/Client" data-name="crybase::couchbase::services::kv::client">
+      <a href="../../../../CryBase/CouchBase/Services/KV/Client.html">Client</a>
+      
+    </li>
+  
+  <li class=" " data-id="crybase/CryBase/CouchBase/Services/KV/Error" data-name="crybase::couchbase::services::kv::error">
+      <a href="../../../../CryBase/CouchBase/Services/KV/Error.html">Error</a>
+      
+    </li>
+  
+  <li class=" " data-id="crybase/CryBase/CouchBase/Services/KV/NotFound" data-name="crybase::couchbase::services::kv::notfound">
+      <a href="../../../../CryBase/CouchBase/Services/KV/NotFound.html">NotFound</a>
+      
+    </li>
+  
+  <li class=" " data-id="crybase/CryBase/CouchBase/Services/KV/Opcode" data-name="crybase::couchbase::services::kv::opcode">
+      <a href="../../../../CryBase/CouchBase/Services/KV/Opcode.html">Opcode</a>
+      
+    </li>
+  
+  <li class=" current" data-id="crybase/CryBase/CouchBase/Services/KV/Request" data-name="crybase::couchbase::services::kv::request">
+      <a href="../../../../CryBase/CouchBase/Services/KV/Request.html">Request</a>
+      
+    </li>
+  
+  <li class=" " data-id="crybase/CryBase/CouchBase/Services/KV/RequestWriter" data-name="crybase::couchbase::services::kv::requestwriter">
+      <a href="../../../../CryBase/CouchBase/Services/KV/RequestWriter.html">RequestWriter</a>
+      
+    </li>
+  
+  <li class=" " data-id="crybase/CryBase/CouchBase/Services/KV/Response" data-name="crybase::couchbase::services::kv::response">
+      <a href="../../../../CryBase/CouchBase/Services/KV/Response.html">Response</a>
+      
+    </li>
+  
+  <li class=" " data-id="crybase/CryBase/CouchBase/Services/KV/ResponseReader" data-name="crybase::couchbase::services::kv::responsereader">
+      <a href="../../../../CryBase/CouchBase/Services/KV/ResponseReader.html">ResponseReader</a>
+      
+    </li>
+  
+  <li class=" " data-id="crybase/CryBase/CouchBase/Services/KV/Status" data-name="crybase::couchbase::services::kv::status">
+      <a href="../../../../CryBase/CouchBase/Services/KV/Status.html">Status</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class="parent " data-id="crybase/CryBase/Interfaces" data-name="crybase::interfaces">
+      <a href="../../../../CryBase/Interfaces.html">Interfaces</a>
+      
+        <ul>
+  
+  <li class=" " data-id="crybase/CryBase/Interfaces/Client" data-name="crybase::interfaces::client">
+      <a href="../../../../CryBase/Interfaces/Client.html">Client</a>
+      
+    </li>
+  
+  <li class=" " data-id="crybase/CryBase/Interfaces/ConnectionString" data-name="crybase::interfaces::connectionstring">
+      <a href="../../../../CryBase/Interfaces/ConnectionString.html">ConnectionString</a>
+      
+    </li>
+  
+  <li class=" " data-id="crybase/CryBase/Interfaces/Endpoint" data-name="crybase::interfaces::endpoint">
+      <a href="../../../../CryBase/Interfaces/Endpoint.html">Endpoint</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+</ul>
+
+  </div>
+</div>
+
+
+<div class="main-content">
+<h1 class="type-name">
+
+  <span class="kind">
+    struct
+  </span> CryBase::<wbr>CouchBase::<wbr>Services::<wbr>KV::<wbr>Request
+
+</h1>
+
+
+  <ul class="superclass-hierarchy"><li class="superclass"><a href="../../../../CryBase/CouchBase/Services/KV/Request.html">CryBase::CouchBase::Services::KV::Request</a></li><li class="superclass">Struct</li><li class="superclass">Value</li><li class="superclass">Object</li></ul>
+
+
+
+
+  <h2>
+    <a id="overview" class="anchor" href="#overview">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Overview
+  </h2>
+
+  <p>One outbound packet for the KV service, as a pure value type.
+<code>RequestWriter#write</code> knows how to serialize it.</p>
+<pre><code class="language-crystal">req <span class="o">=</span> <span class="t">KV</span><span class="t">::</span><span class="t">Request</span>.new(<span class="t">KV</span><span class="t">::</span><span class="t">Opcode</span><span class="t">::</span><span class="t">Get</span>, key: <span class="s">&quot;hello&quot;</span>)
+req.opcode <span class="c"># =&gt; KV::Opcode::Get</span>
+req.key    <span class="c"># =&gt; &quot;hello&quot;</span>
+req.opaque <span class="c"># =&gt; 0_u32</span></code></pre>
+<p>The fields:</p>
+<ul>
+<li><em>opcode</em>  — the command code (<code><a href="../../../../CryBase/CouchBase/Services/KV/Opcode.html#Get">Opcode::Get</a></code>, <code>::Set</code>, etc.)</li>
+<li><em>key</em>     — the document/operation key (UTF-8 string)</li>
+<li><em>extras</em>  — opcode-specific bytes that precede the body</li>
+<li><em>value</em>   — the document/operation body</li>
+<li><em>cas</em>     — compare-and-swap token, or <code>0</code> for &quot;any&quot;</li>
+<li><em>opaque</em>  — caller-controlled echo field; the server returns it
+verbatim in the response</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <h2>
+    <a id="defined-in" class="anchor" href="#defined-in">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Defined in:
+  </h2>
+  
+    
+      crybase/couchbase/services/kv/request.cr
+    
+    <br/>
+  
+
+
+
+
+
+  
+  <h2>
+    <a id="constructors" class="anchor" href="#constructors">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Constructors
+  </h2>
+  <ul class="list-summary">
+    
+      <li class="entry-summary">
+        <a href="#new%28opcode%3AOpcode%2Ckey%3AString%3D%22%22%2Cextras%3ABytes%3DBytes.empty%2Cvalue%3ABytes%3DBytes.empty%2Ccas%3AUInt64%3D0_u64%2Copaque%3AUInt32%3D0_u32%29-class-method" class="signature"><strong>.new</strong>(opcode : Opcode, key : String = <span class="s">&quot;&quot;</span>, extras : Bytes = <span class="t">Bytes</span>.empty, value : Bytes = <span class="t">Bytes</span>.empty, cas : UInt64 = <span class="n">0_u64</span>, opaque : UInt32 = <span class="n">0_u32</span>)</a>
+        
+      </li>
+    
+  </ul>
+
+
+  
+
+  
+
+  
+  <h2>
+    <a id="instance-method-summary" class="anchor" href="#instance-method-summary">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Instance Method Summary
+  </h2>
+  <ul class="list-summary">
+    
+      <li class="entry-summary">
+        <a href="#cas%3AUInt64-instance-method" class="signature"><strong>#cas</strong> : UInt64</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#clone-instance-method" class="signature"><strong>#clone</strong></a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#copy_with%28opcode_opcode%3D%40opcode%2Ckey_key%3D%40key%2Cextras_extras%3D%40extras%2Cvalue_value%3D%40value%2Ccas_cas%3D%40cas%2Copaque_opaque%3D%40opaque%29-instance-method" class="signature"><strong>#copy_with</strong>(opcode _opcode = @opcode, key _key = @key, extras _extras = @extras, value _value = @value, cas _cas = @cas, opaque _opaque = @opaque)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#extras%3ABytes-instance-method" class="signature"><strong>#extras</strong> : Bytes</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#key%3AString-instance-method" class="signature"><strong>#key</strong> : String</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#opaque%3AUInt32-instance-method" class="signature"><strong>#opaque</strong> : UInt32</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#opcode%3AOpcode-instance-method" class="signature"><strong>#opcode</strong> : Opcode</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#value%3ABytes-instance-method" class="signature"><strong>#value</strong> : Bytes</a>
+        
+      </li>
+    
+  </ul>
+
+
+
+  <div class="methods-inherited">
+    
+      
+
+
+      
+
+
+      
+
+
+      
+
+
+    
+      
+
+
+      
+
+
+      
+
+
+      
+
+
+    
+      
+
+
+      
+
+
+      
+
+
+      
+
+
+    
+  </div>
+
+  
+  <h2>
+    <a id="constructor-detail" class="anchor" href="#constructor-detail">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Constructor Detail
+  </h2>
+  
+    <div class="entry-detail" id="new(opcode:Opcode,key:String=&quot;&quot;,extras:Bytes=Bytes.empty,value:Bytes=Bytes.empty,cas:UInt64=0_u64,opaque:UInt32=0_u32)-class-method">
+      <div class="signature">
+        
+        def self.<strong>new</strong>(opcode : <a href="../../../../CryBase/CouchBase/Services/KV/Opcode.html">Opcode</a>, key : String = <span class="s">&quot;&quot;</span>, extras : Bytes = <span class="t">Bytes</span>.empty, value : Bytes = <span class="t">Bytes</span>.empty, cas : UInt64 = <span class="n">0_u64</span>, opaque : UInt32 = <span class="n">0_u32</span>)
+
+        <a class="method-permalink" href="#new%28opcode%3AOpcode%2Ckey%3AString%3D%22%22%2Cextras%3ABytes%3DBytes.empty%2Cvalue%3ABytes%3DBytes.empty%2Ccas%3AUInt64%3D0_u64%2Copaque%3AUInt32%3D0_u32%29-class-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+
+
+  
+
+  
+
+  
+  <h2>
+    <a id="instance-method-detail" class="anchor" href="#instance-method-detail">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Instance Method Detail
+  </h2>
+  
+    <div class="entry-detail" id="cas:UInt64-instance-method">
+      <div class="signature">
+        
+        def <strong>cas</strong> : UInt64
+
+        <a class="method-permalink" href="#cas%3AUInt64-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="clone-instance-method">
+      <div class="signature">
+        
+        def <strong>clone</strong>
+
+        <a class="method-permalink" href="#clone-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="copy_with(opcode_opcode=@opcode,key_key=@key,extras_extras=@extras,value_value=@value,cas_cas=@cas,opaque_opaque=@opaque)-instance-method">
+      <div class="signature">
+        
+        def <strong>copy_with</strong>(opcode _opcode = @opcode, key _key = @key, extras _extras = @extras, value _value = @value, cas _cas = @cas, opaque _opaque = @opaque)
+
+        <a class="method-permalink" href="#copy_with%28opcode_opcode%3D%40opcode%2Ckey_key%3D%40key%2Cextras_extras%3D%40extras%2Cvalue_value%3D%40value%2Ccas_cas%3D%40cas%2Copaque_opaque%3D%40opaque%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="extras:Bytes-instance-method">
+      <div class="signature">
+        
+        def <strong>extras</strong> : Bytes
+
+        <a class="method-permalink" href="#extras%3ABytes-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="key:String-instance-method">
+      <div class="signature">
+        
+        def <strong>key</strong> : String
+
+        <a class="method-permalink" href="#key%3AString-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="opaque:UInt32-instance-method">
+      <div class="signature">
+        
+        def <strong>opaque</strong> : UInt32
+
+        <a class="method-permalink" href="#opaque%3AUInt32-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="opcode:Opcode-instance-method">
+      <div class="signature">
+        
+        def <strong>opcode</strong> : <a href="../../../../CryBase/CouchBase/Services/KV/Opcode.html">Opcode</a>
+
+        <a class="method-permalink" href="#opcode%3AOpcode-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="value:Bytes-instance-method">
+      <div class="signature">
+        
+        def <strong>value</strong> : Bytes
+
+        <a class="method-permalink" href="#value%3ABytes-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+
+
+
+</div>
+
+</body>
+</html>
