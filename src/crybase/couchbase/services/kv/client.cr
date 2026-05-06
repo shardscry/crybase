@@ -66,14 +66,25 @@ module CryBase::CouchBase::Services::KV
       end
     end
 
-    # Fetches the document at *key*. Raises `NotFound` if absent.
+    # Fetches the document at *key*. When *expiry* is provided, fetches
+    # and updates the document expiration atomically. Raises `NotFound`
+    # if absent.
     #
     # ```
     # bytes = kv.get("user:42")
     # JSON.parse(String.new(bytes))
     # ```
-    def get(key : String) : Bytes
-      resp = call(Opcode::Get, key: key, vbucket: vbucket_id(key))
+    def get(key : String, expiry : UInt32? = nil) : Bytes
+      resp = if expiry
+               call(
+                 Opcode::GetAndTouch,
+                 key: key,
+                 extras: CryBase::CouchBase::Services::KV.expiry_extras(expiry),
+                 vbucket: vbucket_id(key)
+               )
+             else
+               call(Opcode::Get, key: key, vbucket: vbucket_id(key))
+             end
       ensure_success!(resp, "GET #{key}")
       resp.value
     end
@@ -103,6 +114,42 @@ module CryBase::CouchBase::Services::KV
     def delete(key : String) : Nil
       resp = call(Opcode::Delete, key: key, vbucket: vbucket_id(key))
       ensure_success!(resp, "DELETE #{key}")
+    end
+
+    # Updates the document expiration without changing its value.
+    # Returns the new CAS token.
+    def touch(key : String, expiry : UInt32) : UInt64
+      resp = call(
+        Opcode::Touch,
+        key: key,
+        extras: CryBase::CouchBase::Services::KV.expiry_extras(expiry),
+        vbucket: vbucket_id(key)
+      )
+      ensure_success!(resp, "TOUCH #{key}")
+      resp.cas
+    end
+
+    # Atomically increments the unsigned integer document at *key* by
+    # *delta*. If the key is missing, Couchbase creates it with *initial*
+    # and applies *expiry*.
+    def increment(
+      key : String,
+      delta : UInt64 = 1_u64,
+      initial : UInt64 = 0_u64,
+      expiry : UInt32 = 0_u32,
+    ) : UInt64
+      counter(Opcode::Increment, "INCREMENT", key, delta, initial, expiry)
+    end
+
+    # Atomically decrements the unsigned integer document at *key* by
+    # *delta*. Couchbase counters do not go below zero.
+    def decrement(
+      key : String,
+      delta : UInt64 = 1_u64,
+      initial : UInt64 = 0_u64,
+      expiry : UInt32 = 0_u32,
+    ) : UInt64
+      counter(Opcode::Decrement, "DECREMENT", key, delta, initial, expiry)
     end
 
     # Closes the underlying TCP socket. Idempotent — safe to call when
@@ -147,6 +194,24 @@ module CryBase::CouchBase::Services::KV
 
     private def vbucket_id(key : String) : UInt16
       CryBase::CouchBase::Services::KV.vbucket_id(key)
+    end
+
+    private def counter(
+      opcode : Opcode,
+      op : String,
+      key : String,
+      delta : UInt64,
+      initial : UInt64,
+      expiry : UInt32,
+    ) : UInt64
+      resp = call(
+        opcode,
+        key: key,
+        extras: CryBase::CouchBase::Services::KV.counter_extras(delta, initial, expiry),
+        vbucket: vbucket_id(key)
+      )
+      ensure_success!(resp, "#{op} #{key}")
+      CryBase::CouchBase::Services::KV.counter_value(resp.value)
     end
 
     private def ensure_success!(resp : Response, op : String) : Nil

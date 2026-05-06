@@ -342,6 +342,11 @@
       </li>
     
       <li class="entry-summary">
+        <a href="#decrement%28key%3AString%2Cdelta%3AUInt64%3D1_u64%2Cinitial%3AUInt64%3D0_u64%2Cexpiry%3AUInt32%3D0_u32%29%3AUInt64-instance-method" class="signature"><strong>#decrement</strong>(key : String, delta : UInt64 = <span class="n">1_u64</span>, initial : UInt64 = <span class="n">0_u64</span>, expiry : UInt32 = <span class="n">0_u32</span>) : UInt64</a>
+        
+      </li>
+    
+      <li class="entry-summary">
         <a href="#delete%28key%3AString%29%3ANil-instance-method" class="signature"><strong>#delete</strong>(key : String) : Nil</a>
         
       </li>
@@ -352,7 +357,12 @@
       </li>
     
       <li class="entry-summary">
-        <a href="#get%28key%3AString%29%3ABytes-instance-method" class="signature"><strong>#get</strong>(key : String) : Bytes</a>
+        <a href="#get%28key%3AString%2Cexpiry%3AUInt32%7CNil%3Dnil%29%3ABytes-instance-method" class="signature"><strong>#get</strong>(key : String, expiry : UInt32 | Nil = <span class="n">nil</span>) : Bytes</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#increment%28key%3AString%2Cdelta%3AUInt64%3D1_u64%2Cinitial%3AUInt64%3D0_u64%2Cexpiry%3AUInt32%3D0_u32%29%3AUInt64-instance-method" class="signature"><strong>#increment</strong>(key : String, delta : UInt64 = <span class="n">1_u64</span>, initial : UInt64 = <span class="n">0_u64</span>, expiry : UInt32 = <span class="n">0_u32</span>) : UInt64</a>
         
       </li>
     
@@ -363,6 +373,11 @@
     
       <li class="entry-summary">
         <a href="#size%3AInt32-instance-method" class="signature"><strong>#size</strong> : Int32</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#touch%28key%3AString%2Cexpiry%3AUInt32%29%3AUInt64-instance-method" class="signature"><strong>#touch</strong>(key : String, expiry : UInt32) : UInt64</a>
         
       </li>
     
@@ -496,6 +511,20 @@
       </div>
     </div>
   
+    <div class="entry-detail" id="decrement(key:String,delta:UInt64=1_u64,initial:UInt64=0_u64,expiry:UInt32=0_u32):UInt64-instance-method">
+      <div class="signature">
+        
+        def <strong>decrement</strong>(key : String, delta : UInt64 = <span class="n">1_u64</span>, initial : UInt64 = <span class="n">0_u64</span>, expiry : UInt32 = <span class="n">0_u32</span>) : UInt64
+
+        <a class="method-permalink" href="#decrement%28key%3AString%2Cdelta%3AUInt64%3D1_u64%2Cinitial%3AUInt64%3D0_u64%2Cexpiry%3AUInt32%3D0_u32%29%3AUInt64-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
     <div class="entry-detail" id="delete(key:String):Nil-instance-method">
       <div class="signature">
         
@@ -524,12 +553,26 @@
       </div>
     </div>
   
-    <div class="entry-detail" id="get(key:String):Bytes-instance-method">
+    <div class="entry-detail" id="get(key:String,expiry:UInt32|Nil=nil):Bytes-instance-method">
       <div class="signature">
         
-        def <strong>get</strong>(key : String) : Bytes
+        def <strong>get</strong>(key : String, expiry : UInt32 | Nil = <span class="n">nil</span>) : Bytes
 
-        <a class="method-permalink" href="#get%28key%3AString%29%3ABytes-instance-method">#</a>
+        <a class="method-permalink" href="#get%28key%3AString%2Cexpiry%3AUInt32%7CNil%3Dnil%29%3ABytes-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="increment(key:String,delta:UInt64=1_u64,initial:UInt64=0_u64,expiry:UInt32=0_u32):UInt64-instance-method">
+      <div class="signature">
+        
+        def <strong>increment</strong>(key : String, delta : UInt64 = <span class="n">1_u64</span>, initial : UInt64 = <span class="n">0_u64</span>, expiry : UInt32 = <span class="n">0_u32</span>) : UInt64
+
+        <a class="method-permalink" href="#increment%28key%3AString%2Cdelta%3AUInt64%3D1_u64%2Cinitial%3AUInt64%3D0_u64%2Cexpiry%3AUInt32%3D0_u32%29%3AUInt64-instance-method">#</a>
       </div>
       
       <br/>
@@ -558,6 +601,20 @@
         def <strong>size</strong> : Int32
 
         <a class="method-permalink" href="#size%3AInt32-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="touch(key:String,expiry:UInt32):UInt64-instance-method">
+      <div class="signature">
+        
+        def <strong>touch</strong>(key : String, expiry : UInt32) : UInt64
+
+        <a class="method-permalink" href="#touch%28key%3AString%2Cexpiry%3AUInt32%29%3AUInt64-instance-method">#</a>
       </div>
       
       <br/>

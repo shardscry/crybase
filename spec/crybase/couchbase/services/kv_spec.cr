@@ -7,6 +7,10 @@ describe KV do
     KV::Opcode::Get.value.should eq(0x00_u8)
     KV::Opcode::Set.value.should eq(0x01_u8)
     KV::Opcode::Delete.value.should eq(0x04_u8)
+    KV::Opcode::Increment.value.should eq(0x05_u8)
+    KV::Opcode::Decrement.value.should eq(0x06_u8)
+    KV::Opcode::Touch.value.should eq(0x1C_u8)
+    KV::Opcode::GetAndTouch.value.should eq(0x1D_u8)
     KV::Opcode::Hello.value.should eq(0x1F_u8)
     KV::Opcode::SaslAuth.value.should eq(0x21_u8)
     KV::Opcode::SelectBucket.value.should eq(0x89_u8)
@@ -25,10 +29,41 @@ describe KV do
     KV::RESPONSE_MAGIC.should eq(0x81_u8)
     KV::HEADER_SIZE.should eq(24)
     KV::VBUCKET_COUNT.should eq(1024_u16)
+    KV::EXPIRY_EXTRAS_SIZE.should eq(4)
+    KV::COUNTER_EXTRAS_SIZE.should eq(20)
   end
 
   it "maps document keys to Couchbase vbuckets" do
     KV.vbucket_id("crybase:hello").should eq(475_u16)
     KV.vbucket_id("crybase:demo").should eq(1009_u16)
+  end
+
+  it "encodes counter extras as delta, initial, expiry" do
+    extras = KV.counter_extras(3_u64, 10_u64, 60_u32)
+
+    extras.size.should eq(KV::COUNTER_EXTRAS_SIZE)
+    IO::ByteFormat::BigEndian.decode(UInt64, extras[0, 8]).should eq(3_u64)
+    IO::ByteFormat::BigEndian.decode(UInt64, extras[8, 8]).should eq(10_u64)
+    IO::ByteFormat::BigEndian.decode(UInt32, extras[16, 4]).should eq(60_u32)
+  end
+
+  it "encodes expiry extras" do
+    extras = KV.expiry_extras(60_u32)
+
+    extras.size.should eq(KV::EXPIRY_EXTRAS_SIZE)
+    IO::ByteFormat::BigEndian.decode(UInt32, extras).should eq(60_u32)
+  end
+
+  it "decodes counter response values" do
+    io = IO::Memory.new(8)
+    io.write_bytes(42_u64, IO::ByteFormat::BigEndian)
+
+    KV.counter_value(io.to_slice).should eq(42_u64)
+  end
+
+  it "rejects invalid counter response sizes" do
+    expect_raises(IO::Error, /counter response size/) do
+      KV.counter_value(Bytes[1, 2, 3])
+    end
   end
 end

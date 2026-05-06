@@ -19,7 +19,8 @@ CryBase is still early, but it now has two useful layers:
 - A cluster-level client that expands Couchbase connection strings into service
   endpoints and TCP-probes them.
 - A KV client that speaks the Couchbase binary protocol for authenticated
-  `get`, `set`, and `delete` operations, plus a fixed-size connection pool.
+  `get`, `set`, `delete`, `touch`, and counter operations, plus a fixed-size
+  connection pool.
 
 ## Status
 
@@ -31,7 +32,8 @@ Implemented:
   Eventing, Views, and Management.
 - Plain TCP reachability probing for cluster service endpoints.
 - KV binary protocol handshake: `HELLO`, SASL PLAIN auth, and `SELECT_BUCKET`.
-- KV document operations: `get`, `set`, `delete`.
+- KV document operations: `get`, `set`, `delete`, `touch`, `increment`,
+  `decrement`.
 - Couchbase vbucket hashing for KV document routing.
 - `KV::Pool` with 10 authenticated connections by default.
 - Real Couchbase integration specs in GitHub Actions.
@@ -96,6 +98,8 @@ kv = CryBase::CouchBase::Services::KV::Client.new(
 
 kv.set("crybase:hello", %({"hello":"world"}))
 puts String.new(kv.get("crybase:hello"))
+kv.touch("crybase:hello", 3600_u32)
+puts String.new(kv.get("crybase:hello", expiry: 3600_u32))
 kv.delete("crybase:hello")
 kv.close
 ```
@@ -126,6 +130,10 @@ pool.checkout do |client|
   client.set("crybase:borrowed", "value")
 end
 
+pool.increment("crybase:counter", delta: 2_u64, initial: 10_u64)
+pool.decrement("crybase:counter", delta: 1_u64)
+pool.touch("crybase:pooled", 3600_u32)
+
 pool.close
 ```
 
@@ -141,7 +149,9 @@ pool = CryBase::CouchBase::Services::KV::Pool.new(
 )
 ```
 
-`KV::Client` and `KV::Pool` both expose `get`, `set`, `delete`, and `close`.
+`KV::Client` and `KV::Pool` both expose `get`, `set`, `delete`, `touch`,
+`increment`, `decrement`, and `close`. Pass `expiry:` to `get` to fetch a
+document and reset expiration atomically.
 `KV::Pool` also exposes `checkout`, `closed?`, `size`, `endpoint`, and `bucket`.
 
 ## Public API Map

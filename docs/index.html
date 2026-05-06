@@ -228,7 +228,8 @@
 <li>A cluster-level client that expands Couchbase connection strings into service
 endpoints and TCP-probes them.</li>
 <li>A KV client that speaks the Couchbase binary protocol for authenticated
-<code>get</code>, <code>set</code>, and <code>delete</code> operations, plus a fixed-size connection pool.</li>
+<code>get</code>, <code>set</code>, <code>delete</code>, <code>touch</code>, and counter operations, plus a fixed-size
+connection pool.</li>
 </ul>
 <h2><a id="status" class="anchor" href="#status">
   <svg class="octicon-link" aria-hidden="true">
@@ -243,7 +244,8 @@ endpoints and TCP-probes them.</li>
 Eventing, Views, and Management.</li>
 <li>Plain TCP reachability probing for cluster service endpoints.</li>
 <li>KV binary protocol handshake: <code>HELLO</code>, SASL PLAIN auth, and <code>SELECT_BUCKET</code>.</li>
-<li>KV document operations: <code>get</code>, <code>set</code>, <code>delete</code>.</li>
+<li>KV document operations: <code>get</code>, <code>set</code>, <code>delete</code>, <code>touch</code>, <code>increment</code>,
+<code>decrement</code>.</li>
 <li>Couchbase vbucket hashing for KV document routing.</li>
 <li><code>KV::Pool</code> with 10 authenticated connections by default.</li>
 <li>Real Couchbase integration specs in GitHub Actions.</li>
@@ -308,6 +310,8 @@ kv <span class="o">=</span> <span class="t">CryBase</span><span class="t">::</sp
 
 kv.set(<span class="s">&quot;crybase:hello&quot;</span>, <span class="s">%({&quot;hello&quot;:&quot;world&quot;})</span>)
 puts <span class="t">String</span>.new(kv.get(<span class="s">&quot;crybase:hello&quot;</span>))
+kv.touch(<span class="s">&quot;crybase:hello&quot;</span>, <span class="n">3600_u32</span>)
+puts <span class="t">String</span>.new(kv.get(<span class="s">&quot;crybase:hello&quot;</span>, expiry: <span class="n">3600_u32</span>))
 kv.delete(<span class="s">&quot;crybase:hello&quot;</span>)
 kv.close</code></pre>
 <h3><a id="use-the-kv-pool" class="anchor" href="#use-the-kv-pool">
@@ -338,6 +342,10 @@ pool.checkout <span class="k">do</span> <span class="o">|</span>client<span clas
   client.set(<span class="s">&quot;crybase:borrowed&quot;</span>, <span class="s">&quot;value&quot;</span>)
 <span class="k">end</span>
 
+pool.increment(<span class="s">&quot;crybase:counter&quot;</span>, delta: <span class="n">2_u64</span>, initial: <span class="n">10_u64</span>)
+pool.decrement(<span class="s">&quot;crybase:counter&quot;</span>, delta: <span class="n">1_u64</span>)
+pool.touch(<span class="s">&quot;crybase:pooled&quot;</span>, <span class="n">3600_u32</span>)
+
 pool.close</code></pre>
 <p><code>KV::Pool</code> opens 10 connections by default. Override it with <code>size:</code>:</p>
 <pre><code class="language-crystal">pool <span class="o">=</span> <span class="t">CryBase</span><span class="t">::</span><span class="t">CouchBase</span><span class="t">::</span><span class="t">Services</span><span class="t">::</span><span class="t">KV</span><span class="t">::</span><span class="t">Pool</span>.new(
@@ -347,7 +355,9 @@ pool.close</code></pre>
   <span class="s">&quot;default&quot;</span>,
   size: <span class="n">20</span>,
 )</code></pre>
-<p><code>KV::Client</code> and <code>KV::Pool</code> both expose <code>get</code>, <code>set</code>, <code>delete</code>, and <code>close</code>.
+<p><code>KV::Client</code> and <code>KV::Pool</code> both expose <code>get</code>, <code>set</code>, <code>delete</code>, <code>touch</code>,
+<code>increment</code>, <code>decrement</code>, and <code>close</code>. Pass <code>expiry:</code> to <code>get</code> to fetch a
+document and reset expiration atomically.
 <code>KV::Pool</code> also exposes <code>checkout</code>, <code>closed?</code>, <code>size</code>, <code>endpoint</code>, and <code>bucket</code>.</p>
 <h2><a id="public-api-map" class="anchor" href="#public-api-map">
   <svg class="octicon-link" aria-hidden="true">

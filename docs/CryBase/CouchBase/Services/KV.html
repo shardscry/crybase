@@ -298,7 +298,17 @@ kv.close</code></pre>
     <br/>
   
     
+      crybase/couchbase/services/kv/counter.cr
+    
+    <br/>
+  
+    
       crybase/couchbase/services/kv/error.cr
+    
+    <br/>
+  
+    
+      crybase/couchbase/services/kv/expiry.cr
     
     <br/>
   
@@ -371,6 +381,16 @@ kv.close</code></pre>
       </dd>
       
     
+      <dt class="entry-const" id="COUNTER_EXTRAS_SIZE">
+        <strong>COUNTER_EXTRAS_SIZE</strong> = <code><span class="n">20</span></code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="EXPIRY_EXTRAS_SIZE">
+        <strong>EXPIRY_EXTRAS_SIZE</strong> = <code><span class="n">4</span></code>
+      </dt>
+      
+    
       <dt class="entry-const" id="FEATURE_SELECT_BUCKET">
         <strong>FEATURE_SELECT_BUCKET</strong> = <code><span class="n">8_u16</span></code>
       </dt>
@@ -435,6 +455,21 @@ Sent during the handshake so the server accepts SELECT_BUCKET.</p>
   <ul class="list-summary">
     
       <li class="entry-summary">
+        <a href="#counter_extras%28delta%3AUInt64%2Cinitial%3AUInt64%2Cexpiry%3AUInt32%29%3ABytes-class-method" class="signature"><strong>.counter_extras</strong>(delta : UInt64, initial : UInt64, expiry : UInt32) : Bytes</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#counter_value%28value%3ABytes%29%3AUInt64-class-method" class="signature"><strong>.counter_value</strong>(value : Bytes) : UInt64</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#expiry_extras%28expiry%3AUInt32%29%3ABytes-class-method" class="signature"><strong>.expiry_extras</strong>(expiry : UInt32) : Bytes</a>
+        
+      </li>
+    
+      <li class="entry-summary">
         <a href="#vbucket_id%28key%3AString%2Ccount%3AUInt16%3DVBUCKET_COUNT%29%3AUInt16-class-method" class="signature"><strong>.vbucket_id</strong>(key : String, count : UInt16 = <span class="t">VBUCKET_COUNT</span>) : UInt16</a>
         
       </li>
@@ -462,6 +497,48 @@ Sent during the handshake so the server accepts SELECT_BUCKET.</p>
 </a>
     Class Method Detail
   </h2>
+  
+    <div class="entry-detail" id="counter_extras(delta:UInt64,initial:UInt64,expiry:UInt32):Bytes-class-method">
+      <div class="signature">
+        
+        def self.<strong>counter_extras</strong>(delta : UInt64, initial : UInt64, expiry : UInt32) : Bytes
+
+        <a class="method-permalink" href="#counter_extras%28delta%3AUInt64%2Cinitial%3AUInt64%2Cexpiry%3AUInt32%29%3ABytes-class-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="counter_value(value:Bytes):UInt64-class-method">
+      <div class="signature">
+        
+        def self.<strong>counter_value</strong>(value : Bytes) : UInt64
+
+        <a class="method-permalink" href="#counter_value%28value%3ABytes%29%3AUInt64-class-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="expiry_extras(expiry:UInt32):Bytes-class-method">
+      <div class="signature">
+        
+        def self.<strong>expiry_extras</strong>(expiry : UInt32) : Bytes
+
+        <a class="method-permalink" href="#expiry_extras%28expiry%3AUInt32%29%3ABytes-class-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
   
     <div class="entry-detail" id="vbucket_id(key:String,count:UInt16=VBUCKET_COUNT):UInt16-class-method">
       <div class="signature">

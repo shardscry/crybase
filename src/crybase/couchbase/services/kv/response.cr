@@ -23,7 +23,6 @@ module CryBase::CouchBase::Services::KV
     value : Bytes
 
   struct Response
-    # `true` iff `status == Status::Success`.
     def success? : Bool
       status.success?
     end

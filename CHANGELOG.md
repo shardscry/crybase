@@ -10,6 +10,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Binary-protocol KV client support for authenticated `get`, `set`, and
   `delete` operations against Couchbase Server.
+- KV expiration updates through `touch`, plus atomic get-and-touch via
+  `get(key, expiry:)`, on both `KV::Client` and `KV::Pool`.
+- KV counter operations through `increment` and `decrement` on both
+  `KV::Client` and `KV::Pool`.
 - Couchbase vbucket hashing for document operations so KV writes are visible
   through Couchbase management and dashboard document lookup.
 - `CryBase::CouchBase::Services::KV::Pool`, a fixed-size pool of authenticated

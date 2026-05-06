@@ -233,7 +233,7 @@
   </h2>
 
   <p>Raised when the server replies with <code><a href="../../../../CryBase/CouchBase/Services/KV/Status.html#KeyNotFound">Status::KeyNotFound</a></code>. Typical
-source: <code><a href="../../../../CryBase/CouchBase/Services/KV/Client.html#get%28key%3AString%29%3ABytes-instance-method">Client#get</a></code> for an absent key.</p>
+source: <code><a href="../../../../CryBase/CouchBase/Services/KV/Client.html#get%28key%3AString%2Cexpiry%3AUInt32%7CNil%3Dnil%29%3ABytes-instance-method">Client#get</a></code> for an absent key.</p>
 <pre><code class="language-crystal"><span class="k">begin</span>
   kv.get(<span class="s">&quot;never-set&quot;</span>)
 <span class="k">rescue</span> <span class="t">KV</span><span class="t">::</span><span class="t">NotFound</span>

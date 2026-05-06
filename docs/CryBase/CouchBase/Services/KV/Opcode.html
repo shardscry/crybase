@@ -295,6 +295,26 @@ specification.</p>
       </dt>
       
     
+      <dt class="entry-const" id="Increment">
+        <strong>Increment</strong> = <code><span class="n">5_u8</span></code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Decrement">
+        <strong>Decrement</strong> = <code><span class="n">6_u8</span></code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Touch">
+        <strong>Touch</strong> = <code><span class="n">28_u8</span></code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="GetAndTouch">
+        <strong>GetAndTouch</strong> = <code><span class="n">29_u8</span></code>
+      </dt>
+      
+    
       <dt class="entry-const" id="Hello">
         <strong>Hello</strong> = <code><span class="n">31_u8</span></code>
       </dt>
@@ -332,6 +352,13 @@ specification.</p>
   <ul class="list-summary">
     
       <li class="entry-summary">
+        <a href="#decrement%3F-instance-method" class="signature"><strong>#decrement?</strong></a>
+        
+          <div class="summary"><p>Returns <code>true</code> if this enum value equals <code><a href="../../../../CryBase/CouchBase/Services/KV/Opcode.html#Decrement">Decrement</a></code></p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
         <a href="#delete%3F-instance-method" class="signature"><strong>#delete?</strong></a>
         
           <div class="summary"><p>Returns <code>true</code> if this enum value equals <code><a href="../../../../CryBase/CouchBase/Services/KV/Opcode.html#Delete">Delete</a></code></p></div>
@@ -346,9 +373,23 @@ specification.</p>
       </li>
     
       <li class="entry-summary">
+        <a href="#get_and_touch%3F-instance-method" class="signature"><strong>#get_and_touch?</strong></a>
+        
+          <div class="summary"><p>Returns <code>true</code> if this enum value equals <code><a href="../../../../CryBase/CouchBase/Services/KV/Opcode.html#GetAndTouch">GetAndTouch</a></code></p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
         <a href="#hello%3F-instance-method" class="signature"><strong>#hello?</strong></a>
         
           <div class="summary"><p>Returns <code>true</code> if this enum value equals <code><a href="../../../../CryBase/CouchBase/Services/KV/Opcode.html#Hello">Hello</a></code></p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#increment%3F-instance-method" class="signature"><strong>#increment?</strong></a>
+        
+          <div class="summary"><p>Returns <code>true</code> if this enum value equals <code><a href="../../../../CryBase/CouchBase/Services/KV/Opcode.html#Increment">Increment</a></code></p></div>
         
       </li>
     
@@ -370,6 +411,13 @@ specification.</p>
         <a href="#set%3F-instance-method" class="signature"><strong>#set?</strong></a>
         
           <div class="summary"><p>Returns <code>true</code> if this enum value equals <code><a href="../../../../CryBase/CouchBase/Services/KV/Opcode.html#Set">Set</a></code></p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#touch%3F-instance-method" class="signature"><strong>#touch?</strong></a>
+        
+          <div class="summary"><p>Returns <code>true</code> if this enum value equals <code><a href="../../../../CryBase/CouchBase/Services/KV/Opcode.html#Touch">Touch</a></code></p></div>
         
       </li>
     
@@ -449,6 +497,25 @@ specification.</p>
     Instance Method Detail
   </h2>
   
+    <div class="entry-detail" id="decrement?-instance-method">
+      <div class="signature">
+        
+        def <strong>decrement?</strong>
+
+        <a class="method-permalink" href="#decrement%3F-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Returns <code>true</code> if this enum value equals <code><a href="../../../../CryBase/CouchBase/Services/KV/Opcode.html#Decrement">Decrement</a></code></p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
     <div class="entry-detail" id="delete?-instance-method">
       <div class="signature">
         
@@ -487,6 +554,25 @@ specification.</p>
       </div>
     </div>
   
+    <div class="entry-detail" id="get_and_touch?-instance-method">
+      <div class="signature">
+        
+        def <strong>get_and_touch?</strong>
+
+        <a class="method-permalink" href="#get_and_touch%3F-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Returns <code>true</code> if this enum value equals <code><a href="../../../../CryBase/CouchBase/Services/KV/Opcode.html#GetAndTouch">GetAndTouch</a></code></p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
     <div class="entry-detail" id="hello?-instance-method">
       <div class="signature">
         
@@ -498,6 +584,25 @@ specification.</p>
         <div class="doc">
           
           <p>Returns <code>true</code> if this enum value equals <code><a href="../../../../CryBase/CouchBase/Services/KV/Opcode.html#Hello">Hello</a></code></p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="increment?-instance-method">
+      <div class="signature">
+        
+        def <strong>increment?</strong>
+
+        <a class="method-permalink" href="#increment%3F-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Returns <code>true</code> if this enum value equals <code><a href="../../../../CryBase/CouchBase/Services/KV/Opcode.html#Increment">Increment</a></code></p>
         </div>
       
       <br/>
@@ -555,6 +660,25 @@ specification.</p>
         <div class="doc">
           
           <p>Returns <code>true</code> if this enum value equals <code><a href="../../../../CryBase/CouchBase/Services/KV/Opcode.html#Set">Set</a></code></p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="touch?-instance-method">
+      <div class="signature">
+        
+        def <strong>touch?</strong>
+
+        <a class="method-permalink" href="#touch%3F-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Returns <code>true</code> if this enum value equals <code><a href="../../../../CryBase/CouchBase/Services/KV/Opcode.html#Touch">Touch</a></code></p>
         </div>
       
       <br/>
