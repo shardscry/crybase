@@ -1,53 +1,42 @@
 require "../spec_helper"
-require "base64"
 require "http/client"
 
-private alias CB = CryBase::CouchBase
 private alias KV = CryBase::CouchBase::Services::KV
-
-private INTEGRATION = ENV["COUCHBASE_INTEGRATION"]? == "1"
+private alias Couchbase = CryBase::SpecHelpers::CouchbaseIntegrationHelpers
 
 describe "Couchbase KV integration" do
   it "stores a document that is visible through Couchbase management" do
     key = "crybase:ci:#{Time.utc.to_unix_ms}"
     kv = nil
-    pending! "set COUCHBASE_INTEGRATION=1 to run real Couchbase integration specs" unless INTEGRATION
+    pending! "set COUCHBASE_INTEGRATION=1 to run real Couchbase integration specs" unless Couchbase.enabled?
 
-    host = ENV["COUCHBASE_HOST"]? || "127.0.0.1"
-    user = ENV["COUCHBASE_USER"]? || "Administrator"
-    pass = ENV["COUCHBASE_PASS"]? || "password"
-    bucket = ENV["COUCHBASE_BUCKET"]? || "default"
+    config = Couchbase.config
     value = %({"source":"crybase","kind":"integration"})
 
-    endpoint = CB::Endpoint.new(host, 11210, CB::Service::KV, false)
-    kv = KV::Client.new(endpoint, user, pass, bucket)
+    kv = KV::Client.new(Couchbase.kv_endpoint(config), config.user, config.pass, config.bucket)
     kv.set(key, value)
     String.new(kv.get(key)).should eq(value)
 
-    encoded_key = URI.encode_path_segment(key)
-    uri = URI.parse("http://#{host}:8091/pools/default/buckets/#{bucket}/scopes/_default/collections/_default/docs/#{encoded_key}")
-    headers = HTTP::Headers{"Authorization" => "Basic #{Base64.strict_encode("#{user}:#{pass}")}"}
-    response = HTTP::Client.get(uri, headers)
+    response = HTTP::Client.get(
+      Couchbase.management_document_uri(config, key),
+      Couchbase.auth_headers(config)
+    )
 
     response.status_code.should eq(200)
     response.body.should contain(key)
   ensure
-    kv.try &.delete(key.not_nil!) rescue nil if INTEGRATION
+    kv.try &.delete(key.not_nil!) rescue nil if Couchbase.enabled?
     kv.try &.close rescue nil
   end
 
   it "reuses pooled connections for KV operations" do
     key = "crybase:pool:#{Time.utc.to_unix_ms}"
     pool = nil
-    pending! "set COUCHBASE_INTEGRATION=1 to run real Couchbase integration specs" unless INTEGRATION
+    pending! "set COUCHBASE_INTEGRATION=1 to run real Couchbase integration specs" unless Couchbase.enabled?
 
-    host = ENV["COUCHBASE_HOST"]? || "127.0.0.1"
-    user = ENV["COUCHBASE_USER"]? || "Administrator"
-    pass = ENV["COUCHBASE_PASS"]? || "password"
-    bucket = ENV["COUCHBASE_BUCKET"]? || "default"
-    endpoint = CB::Endpoint.new(host, 11210, CB::Service::KV, false)
+    config = Couchbase.config
 
-    pool = KV::Pool.new(endpoint, user, pass, bucket, size: 2)
+    pool = KV::Pool.new(Couchbase.kv_endpoint(config), config.user, config.pass, config.bucket, size: 2)
     pool.set(key, "pooled")
     String.new(pool.get(key)).should eq("pooled")
 
@@ -65,7 +54,7 @@ describe "Couchbase KV integration" do
       pool.get(key)
     end
   ensure
-    pool.try &.delete(key.not_nil!) rescue nil if INTEGRATION
+    pool.try &.delete(key.not_nil!) rescue nil if Couchbase.enabled?
     pool.try &.close rescue nil
   end
 end

@@ -1,2 +1,9 @@
 require "spec"
 require "../src/crybase"
+
+require "./helpers/kv_helpers/writer_peer"
+require "./helpers/kv_helpers/reader_peer"
+require "./helpers/kv_helpers/bucket_peer"
+require "./helpers/kv_helpers"
+require "./helpers/couchbase_integration_helpers/config"
+require "./helpers/couchbase_integration_helpers"
