@@ -28,8 +28,8 @@ module CryBase::CouchBase::Services::KV
       io.write_byte(request.opcode.value)
       io.write_bytes(key_bytes.size.to_u16, IO::ByteFormat::BigEndian)
       io.write_byte(request.extras.size.to_u8)
-      io.write_byte(0_u8)                              # data type
-      io.write_bytes(0_u16, IO::ByteFormat::BigEndian) # vbucket
+      io.write_byte(0_u8) # data type
+      io.write_bytes(request.vbucket, IO::ByteFormat::BigEndian)
       io.write_bytes(total_body.to_u32, IO::ByteFormat::BigEndian)
       io.write_bytes(request.opaque, IO::ByteFormat::BigEndian)
       io.write_bytes(request.cas, IO::ByteFormat::BigEndian)

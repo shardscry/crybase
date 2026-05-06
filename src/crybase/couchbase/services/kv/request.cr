@@ -18,11 +18,13 @@ module CryBase::CouchBase::Services::KV
   # * *cas*     — compare-and-swap token, or `0` for "any"
   # * *opaque*  — caller-controlled echo field; the server returns it
   #               verbatim in the response
+  # * *vbucket* — key partition id used by document operations
   record Request,
     opcode : Opcode,
     key : String = "",
     extras : Bytes = Bytes.empty,
     value : Bytes = Bytes.empty,
     cas : UInt64 = 0_u64,
-    opaque : UInt32 = 0_u32
+    opaque : UInt32 = 0_u32,
+    vbucket : UInt16 = 0_u16
 end

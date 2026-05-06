@@ -74,7 +74,7 @@ module CryBase::CouchBase::Services::KV
     # JSON.parse(String.new(bytes))
     # ```
     def get(key : String) : Bytes
-      resp = call(Opcode::Get, key: key)
+      resp = call(Opcode::Get, key: key, vbucket: vbucket_id(key))
       ensure_success!(resp, "GET #{key}")
       resp.value
     end
@@ -91,7 +91,7 @@ module CryBase::CouchBase::Services::KV
       extras = IO::Memory.new(8)
       extras.write_bytes(0_u32, IO::ByteFormat::BigEndian) # flags
       extras.write_bytes(expiry, IO::ByteFormat::BigEndian)
-      resp = call(Opcode::Set, key: key, extras: extras.to_slice, value: bytes)
+      resp = call(Opcode::Set, key: key, extras: extras.to_slice, value: bytes, vbucket: vbucket_id(key))
       ensure_success!(resp, "SET #{key}")
       resp.cas
     end
@@ -102,7 +102,7 @@ module CryBase::CouchBase::Services::KV
     # kv.delete("hello")
     # ```
     def delete(key : String) : Nil
-      resp = call(Opcode::Delete, key: key)
+      resp = call(Opcode::Delete, key: key, vbucket: vbucket_id(key))
       ensure_success!(resp, "DELETE #{key}")
     end
 
@@ -139,10 +139,15 @@ module CryBase::CouchBase::Services::KV
       extras : Bytes = Bytes.empty,
       value : Bytes = Bytes.empty,
       cas : UInt64 = 0_u64,
+      vbucket : UInt16 = 0_u16,
     ) : Response
       @opaque &+= 1
-      write(Request.new(opcode, key, extras, value, cas, @opaque))
+      write(Request.new(opcode, key, extras, value, cas, @opaque, vbucket))
       read
+    end
+
+    private def vbucket_id(key : String) : UInt16
+      CryBase::CouchBase::Services::KV.vbucket_id(key)
     end
 
     private def ensure_success!(resp : Response, op : String) : Nil

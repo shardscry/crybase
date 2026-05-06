@@ -39,10 +39,16 @@ module CryBase::CouchBase::Services::KV
   # HELLO feature code that opts the connection into bucket selection.
   # Sent during the handshake so the server accepts SELECT_BUCKET.
   FEATURE_SELECT_BUCKET = 0x0008_u16
+
+  # Number of vbuckets in Couchbase buckets.
+  VBUCKET_COUNT = 1024_u16
 end
+
+require "digest/crc32"
 
 require "./kv/opcode"
 require "./kv/status"
+require "./kv/vbucket"
 require "./kv/response"
 require "./kv/error"
 require "./kv/not_found"

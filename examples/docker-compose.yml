@@ -1,0 +1,60 @@
+services:
+  couchbase:
+    image: couchbase:community-7.6.0
+    container_name: crybase-couchbase
+    ports:
+      - "8091:8091"   # Cluster Manager / Web UI
+      - "8092:8092"   # Views
+      - "8093:8093"   # Query (N1QL)
+      - "8094:8094"   # Search (FTS)
+      - "8095:8095"   # Analytics
+      - "8096:8096"   # Eventing
+      - "9102:9102"   # Index
+      - "11210:11210" # KV
+      - "11207:11207" # KV (TLS)
+      - "18091:18091" # Cluster Manager (TLS)
+      - "18092:18092" # Views (TLS)
+      - "18093:18093" # Query (TLS)
+      - "18094:18094" # Search (TLS)
+    volumes:
+      - ./volumes/couchbase-data:/opt/couchbase/var
+    healthcheck:
+      test: ["CMD", "curl", "-fs", "http://localhost:8091/pools"]
+      interval: 5s
+      timeout: 3s
+      retries: 60
+      start_period: 10s
+
+  couchbase-init:
+    image: couchbase:community-7.6.0
+    container_name: crybase-couchbase-init
+    depends_on:
+      couchbase:
+        condition: service_healthy
+    environment:
+      COUCHBASE_USER: ${COUCHBASE_USER:-Administrator}
+      COUCHBASE_PASS: ${COUCHBASE_PASS:-password}
+      COUCHBASE_BUCKET: ${COUCHBASE_BUCKET:-default}
+    entrypoint: ["/bin/bash", "-ec"]
+    command:
+      - |
+        couchbase-cli cluster-init \
+          --cluster http://couchbase:8091 \
+          --cluster-username "$$COUCHBASE_USER" \
+          --cluster-password "$$COUCHBASE_PASS" \
+          --services data,index,query,fts \
+          --cluster-ramsize 512 \
+          --cluster-index-ramsize 256 \
+          --cluster-fts-ramsize 256 \
+          2>/dev/null || true
+        couchbase-cli bucket-create \
+          --cluster http://couchbase:8091 \
+          --username "$$COUCHBASE_USER" \
+          --password "$$COUCHBASE_PASS" \
+          --bucket "$$COUCHBASE_BUCKET" \
+          --bucket-type couchbase \
+          --bucket-ramsize 256 \
+          --enable-flush 1 \
+          2>/dev/null || true
+        echo "Couchbase ready: http://localhost:8091 (user=$$COUCHBASE_USER, bucket=$$COUCHBASE_BUCKET)"
+    restart: "no"

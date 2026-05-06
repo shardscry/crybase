@@ -24,5 +24,11 @@ describe KV do
     KV::REQUEST_MAGIC.should eq(0x80_u8)
     KV::RESPONSE_MAGIC.should eq(0x81_u8)
     KV::HEADER_SIZE.should eq(24)
+    KV::VBUCKET_COUNT.should eq(1024_u16)
+  end
+
+  it "maps document keys to Couchbase vbuckets" do
+    KV.vbucket_id("crybase:hello").should eq(475_u16)
+    KV.vbucket_id("crybase:demo").should eq(1009_u16)
   end
 end

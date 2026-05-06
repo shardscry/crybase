@@ -24,6 +24,93 @@ jobs:
       - name: Run specs
         run: crystal spec --error-trace
 
+  integration-couchbase:
+    name: integration-couchbase
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      COUCHBASE_HOST: 127.0.0.1
+      COUCHBASE_USER: Administrator
+      COUCHBASE_PASS: password
+      COUCHBASE_BUCKET: default
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Crystal
+        uses: crystal-lang/install-crystal@v1
+        with:
+          crystal: latest
+
+      - name: Install shards
+        run: shards install
+
+      - name: Start Couchbase
+        run: |
+          docker run -d \
+            --name crybase-couchbase \
+            -p 8091:8091 \
+            -p 11210:11210 \
+            couchbase:community-7.6.0
+
+      - name: Wait for Couchbase management API
+        run: |
+          for i in {1..90}; do
+            if curl -fsS http://127.0.0.1:8091/pools >/dev/null; then
+              exit 0
+            fi
+            sleep 2
+          done
+
+          docker logs crybase-couchbase
+          exit 1
+
+      - name: Initialize Couchbase
+        run: |
+          docker exec crybase-couchbase couchbase-cli cluster-init \
+            --cluster http://127.0.0.1:8091 \
+            --cluster-username "$COUCHBASE_USER" \
+            --cluster-password "$COUCHBASE_PASS" \
+            --services data,index,query \
+            --cluster-ramsize 512 \
+            --cluster-index-ramsize 256
+
+          docker exec crybase-couchbase couchbase-cli bucket-create \
+            --cluster http://127.0.0.1:8091 \
+            --username "$COUCHBASE_USER" \
+            --password "$COUCHBASE_PASS" \
+            --bucket "$COUCHBASE_BUCKET" \
+            --bucket-type couchbase \
+            --bucket-ramsize 256 \
+            --enable-flush 1
+
+      - name: Wait for bucket
+        run: |
+          for i in {1..60}; do
+            if docker exec crybase-couchbase couchbase-cli bucket-list \
+              --cluster http://127.0.0.1:8091 \
+              --username "$COUCHBASE_USER" \
+              --password "$COUCHBASE_PASS" | grep -q "^$COUCHBASE_BUCKET$"; then
+              exit 0
+            fi
+            sleep 2
+          done
+
+          docker logs crybase-couchbase
+          exit 1
+
+      - name: Run Couchbase integration specs
+        env:
+          COUCHBASE_INTEGRATION: "1"
+        run: crystal spec spec/integration --error-trace
+
+      - name: Dump Couchbase logs on failure
+        if: failure()
+        run: docker logs crybase-couchbase
+
+      - name: Stop Couchbase
+        if: always()
+        run: docker rm -f crybase-couchbase
+
   format:
     name: format
     runs-on: ubuntu-latest

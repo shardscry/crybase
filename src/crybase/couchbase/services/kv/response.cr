@@ -20,8 +20,9 @@ module CryBase::CouchBase::Services::KV
     cas : UInt64,
     extras : Bytes,
     key : String,
-    value : Bytes \
-     do
+    value : Bytes
+
+  struct Response
     # `true` iff `status == Status::Success`.
     def success? : Bool
       status.success?

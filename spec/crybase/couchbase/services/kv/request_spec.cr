@@ -11,6 +11,7 @@ describe KV::Request do
     req.value.should eq(Bytes.empty)
     req.cas.should eq(0_u64)
     req.opaque.should eq(0_u32)
+    req.vbucket.should eq(0_u16)
   end
 
   it "stores all fields when provided" do
@@ -20,11 +21,13 @@ describe KV::Request do
       value: "v".to_slice,
       cas: 5_u64,
       opaque: 9_u32,
+      vbucket: 475_u16,
     )
     req.opcode.should eq(KV::Opcode::Set)
     req.key.should eq("k")
     req.value.should eq("v".to_slice)
     req.cas.should eq(5_u64)
     req.opaque.should eq(9_u32)
+    req.vbucket.should eq(475_u16)
   end
 end

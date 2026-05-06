@@ -76,4 +76,15 @@ describe KV::RequestWriter do
     io.read_fully(header)
     IO::ByteFormat::BigEndian.decode(UInt32, header[12, 4]).should eq(42_u32)
   end
+
+  it "honors the vbucket field" do
+    io = IO::Memory.new
+    req = KV::Request.new(KV::Opcode::Get, key: "crybase:hello", vbucket: 475_u16)
+    WriterPeer.new(io).call(req)
+
+    io.rewind
+    header = Bytes.new(KV::HEADER_SIZE)
+    io.read_fully(header)
+    IO::ByteFormat::BigEndian.decode(UInt16, header[6, 2]).should eq(475_u16)
+  end
 end
