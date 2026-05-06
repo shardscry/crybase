@@ -11,7 +11,7 @@ module CryBase::CouchBase::Services::KV
   #   key: "",
   #   value: "world".to_slice,
   # )
-  # resp.success?    # => true
+  # resp.success?          # => true
   # String.new(resp.value) # => "world"
   # ```
   record Response,
@@ -21,7 +21,7 @@ module CryBase::CouchBase::Services::KV
     extras : Bytes,
     key : String,
     value : Bytes \
-  do
+     do
     # `true` iff `status == Status::Success`.
     def success? : Bool
       status.success?

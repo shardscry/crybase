@@ -42,7 +42,7 @@ module CryBase::CouchBase
     # (e.g. `"Data (KV)"`, `"Query (N1QL)"`).
     #
     # ```
-    # Service::KV.display_name    # => "Data (KV)"
+    # Service::KV.display_name     # => "Data (KV)"
     # Service::Search.display_name # => "Search (FTS)"
     # ```
     def display_name : String

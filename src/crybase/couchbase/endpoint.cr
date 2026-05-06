@@ -23,9 +23,9 @@ module CryBase::CouchBase
     # * `"http"` / `"https"` for every other service
     #
     # ```
-    # Endpoint.new("h", 11210, Service::KV, false).scheme    # => "couchbase"
-    # Endpoint.new("h", 11207, Service::KV, true).scheme     # => "couchbases"
-    # Endpoint.new("h", 8093, Service::Query, false).scheme  # => "http"
+    # Endpoint.new("h", 11210, Service::KV, false).scheme   # => "couchbase"
+    # Endpoint.new("h", 11207, Service::KV, true).scheme    # => "couchbases"
+    # Endpoint.new("h", 8093, Service::Query, false).scheme # => "http"
     # ```
     def scheme : String
       case service
