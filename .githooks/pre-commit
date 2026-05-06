@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+# Pre-commit hook: blocks the commit if formatting or specs fail.
+#
+# Activate once per clone:
+#   git config core.hooksPath .githooks
+#
+# Bypass for an emergency commit:
+#   git commit --no-verify
+
+set -euo pipefail
+
+echo "[pre-commit] crystal tool format --check"
+crystal tool format --check
+
+echo "[pre-commit] crystal build --no-codegen src/crybase.cr"
+crystal build --no-codegen src/crybase.cr
+
+echo "[pre-commit] crystal spec"
+crystal spec --order=random --error-trace
