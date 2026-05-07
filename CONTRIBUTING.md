@@ -13,8 +13,8 @@ By participating in this project you agree to abide by the
 You'll need [Crystal](https://crystal-lang.org/install/) `>= 1.20.1`.
 
 ```sh
-git clone https://github.com/num8er/crybase.git
-cd crybase
+git clone https://github.com/shardscry/crybase.git
+cd couchbase.cr
 shards install
 crystal spec
 ```
@@ -124,5 +124,5 @@ Maintainers only:
 
 ## Questions?
 
-- Bug or concrete feature → [open an issue](https://github.com/num8er/crybase/issues/new/choose).
-- Open-ended question → start a [Discussion](https://github.com/num8er/crybase/discussions).
+- Bug or concrete feature → [open an issue](https://github.com/shardscry/crybase/issues/new/choose).
+- Open-ended question → start a [Discussion](https://github.com/shardscry/crybase/discussions).

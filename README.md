@@ -52,7 +52,7 @@ Add CryBase to `shard.yml`:
 ```yaml
 dependencies:
   crybase:
-    github: num8er/crybase
+    github: shardscry/crybase
 ```
 
 Then install dependencies:

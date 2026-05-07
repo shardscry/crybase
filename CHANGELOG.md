@@ -47,4 +47,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   endpoint and TCP-probes reachability across all interfaces. No Couchbase
   protocol handshake is performed yet.
 
-[0.0.1]: https://github.com/num8er/crybase/releases/tag/v0.0.1
+[0.0.1]: https://github.com/shardscry/crybase/releases/tag/v0.0.1
