@@ -1,6 +1,6 @@
 require "../../../spec_helper"
 
-private alias KV = CryBase::CouchBase::Services::KV
+private alias KV = CryBase::CouchBase::KV
 
 describe KV do
   it "pins documented opcode values" do

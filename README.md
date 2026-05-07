@@ -165,6 +165,7 @@ document and reset expiration atomically.
 | `CryBase::CouchBase::Service` | Service enum with plaintext and TLS default ports. |
 | `CryBase::CouchBase::Client` | Cluster endpoint enumerator and TCP probe client. |
 | `CryBase::CouchBase::Services` | Namespace for service-specific protocol clients. |
+| `CryBase::CouchBase::KV` | Alias for `CryBase::CouchBase::Services::KV`. |
 | `CryBase::CouchBase::Services::KV` | Couchbase binary KV protocol namespace. |
 | `CryBase::CouchBase::Services::KV::Client` | Single authenticated KV connection. |
 | `CryBase::CouchBase::Services::KV::Pool` | Fixed-size pool of authenticated KV clients. |

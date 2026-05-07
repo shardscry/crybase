@@ -22,3 +22,7 @@ require "./couchbase/endpoint"
 require "./couchbase/connection_string"
 require "./couchbase/services"
 require "./couchbase/client"
+
+module CryBase::CouchBase
+  alias KV = Services::KV
+end
