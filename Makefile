@@ -1,6 +1,8 @@
 CRYSTAL_CACHE_DIR ?= .crystal-cache
 COVERAGE_DIR ?= coverage
 COVERAGE_BIN ?= /tmp/crybase-coverage
+KCOV_INCLUDE_PATH ?= $(CURDIR)/src
+CRYSTAL_STDLIB_PATH ?= $(word 2,$(subst :, ,$(shell crystal env | sed -n 's/^CRYSTAL_PATH=//p')))
 
 .PHONY: coverage
 
@@ -10,4 +12,4 @@ coverage:
 		exit 1; \
 	fi
 	CRYSTAL_CACHE_DIR=$(CRYSTAL_CACHE_DIR) crystal build coverage.cr --debug -o $(COVERAGE_BIN)
-	kcov $(COVERAGE_DIR) $(COVERAGE_BIN)
+	kcov --clean --include-path="$(KCOV_INCLUDE_PATH)" --exclude-path="$(CRYSTAL_STDLIB_PATH)" $(COVERAGE_DIR) $(COVERAGE_BIN)
