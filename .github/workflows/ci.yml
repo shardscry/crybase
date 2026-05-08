@@ -32,7 +32,7 @@ jobs:
         run: shards install
 
       - name: Run specs
-        run: crystal spec --error-trace
+        run: crystal spec --error-trace --tap
 
   coverage:
     name: coverage
@@ -175,7 +175,7 @@ jobs:
       - name: Run Couchbase integration specs
         env:
           COUCHBASE_INTEGRATION: "1"
-        run: crystal spec spec/integration --error-trace
+        run: crystal spec spec/integration --error-trace --tap
 
       - name: Dump Couchbase logs on failure
         if: failure()
