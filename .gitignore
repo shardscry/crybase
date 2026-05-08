@@ -13,6 +13,7 @@
 .envrc
 AGENTS.md
 .crystal-cache
+/coverage/
 /bin/ameba
 /bin/ameba.cr
 examples/volumes/
