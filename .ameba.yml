@@ -1,0 +1,5 @@
+Globs:
+  - "**/*.cr"
+  - "!lib"
+Excluded:
+  - spec/helpers/**/*.cr

@@ -254,6 +254,7 @@ git config core.hooksPath .githooks
 The pre-commit hook:
 
 - Checks Crystal formatting.
+- Runs Ameba on staged Crystal files.
 - Verifies the library builds.
 - Regenerates `docs/` with deterministic project metadata.
 - Fails if regenerated docs are not staged.

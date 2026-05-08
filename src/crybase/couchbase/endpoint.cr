@@ -13,7 +13,7 @@ module CryBase::CouchBase
     getter host : String
     getter port : Int32
     getter service : Service
-    getter tls : Bool
+    getter? tls : Bool
 
     def initialize(@host : String, @port : Int32, @service : Service, @tls : Bool)
     end
@@ -30,9 +30,9 @@ module CryBase::CouchBase
     def scheme : String
       case service
       when .kv?
-        tls ? "couchbases" : "couchbase"
+        tls? ? "couchbases" : "couchbase"
       else
-        tls ? "https" : "http"
+        tls? ? "https" : "http"
       end
     end
 

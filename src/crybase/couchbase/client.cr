@@ -64,8 +64,8 @@ module CryBase::CouchBase
     # ```
     def connect : Array(Endpoint)
       reachable = [] of Endpoint
-      @endpoints.each do |ep|
-        reachable << ep if probe(ep)
+      @endpoints.each do |endpoint|
+        reachable << endpoint if probe(endpoint)
       end
 
       if reachable.empty?
@@ -99,8 +99,13 @@ module CryBase::CouchBase
       list = [] of Endpoint
       cs.hosts.each do |host|
         Services.list.each do |service|
-          port = cs.explicit_port && service.management? ? cs.explicit_port.not_nil! : service.default_port(cs.tls)
-          list << Endpoint.new(host, port, service, cs.tls)
+          port =
+            if service.management? && (explicit_port = cs.explicit_port)
+              explicit_port
+            else
+              service.default_port(cs.tls?)
+            end
+          list << Endpoint.new(host, port, service, cs.tls?)
         end
       end
       list

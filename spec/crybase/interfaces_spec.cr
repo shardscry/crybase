@@ -13,7 +13,7 @@ describe Interfaces::ConnectionString do
     cs = CB::ConnectionString.parse("couchbases://h1,h2")
     abs = cs.as(Interfaces::ConnectionString)
     abs.hosts.should eq(["h1", "h2"])
-    abs.tls.should be_true
+    abs.tls?.should be_true
   end
 end
 
@@ -28,7 +28,7 @@ describe Interfaces::Endpoint do
     abs = ep.as(Interfaces::Endpoint)
     abs.host.should eq("h")
     abs.port.should eq(18091)
-    abs.tls.should be_true
+    abs.tls?.should be_true
   end
 end
 

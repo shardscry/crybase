@@ -117,6 +117,11 @@
       
     </li>
   
+  <li class=" " data-id="crybase/CryBase/CouchBase/Services/KV/ClientDelegate" data-name="crybase::couchbase::services::kv::clientdelegate">
+      <a href="../../CryBase/CouchBase/Services/KV/ClientDelegate.html">ClientDelegate</a>
+      
+    </li>
+  
   <li class=" " data-id="crybase/CryBase/CouchBase/Services/KV/Error" data-name="crybase::couchbase::services::kv::error">
       <a href="../../CryBase/CouchBase/Services/KV/Error.html">Error</a>
       
@@ -245,7 +250,7 @@
 </ul>
 <pre><code class="language-crystal">cs <span class="o">=</span> <span class="t">CryBase</span><span class="t">::</span><span class="t">CouchBase</span><span class="t">::</span><span class="t">ConnectionString</span>.parse(<span class="s">&quot;couchbases://n1,n2:18091&quot;</span>)
 cs.hosts         <span class="c"># =&gt; [&quot;n1&quot;, &quot;n2&quot;]</span>
-cs.tls           <span class="c"># =&gt; true</span>
+cs.tls?          <span class="c"># =&gt; true</span>
 cs.explicit_port <span class="c"># =&gt; 18091</span></code></pre>
 
 
@@ -340,7 +345,7 @@ cs.explicit_port <span class="c"># =&gt; 18091</span></code></pre>
       </li>
     
       <li class="entry-summary">
-        <a href="#tls%3ABool-instance-method" class="signature"><strong>#tls</strong> : Bool</a>
+        <a href="#tls%3F%3ABool-instance-method" class="signature"><strong>#tls?</strong> : Bool</a>
         
           <div class="summary"><p>Whether the connection should be made over TLS.</p></div>
         
@@ -367,9 +372,9 @@ cs.explicit_port <span class="c"># =&gt; 18091</span></code></pre>
     initialize</a>, 
     
   
-    <a href="../../CryBase/Interfaces/ConnectionString.html#tls%3ABool-instance-method" class="tooltip">
-      <span>tls : Bool</span>
-    tls</a>
+    <a href="../../CryBase/Interfaces/ConnectionString.html#tls%3F%3ABool-instance-method" class="tooltip">
+      <span>tls? : Bool</span>
+    tls?</a>
     
   
 
@@ -549,12 +554,12 @@ services always use their <code><a href="../../CryBase/CouchBase/Service.html#de
       </div>
     </div>
   
-    <div class="entry-detail" id="tls:Bool-instance-method">
+    <div class="entry-detail" id="tls?:Bool-instance-method">
       <div class="signature">
         
-        def <strong>tls</strong> : Bool
+        def <strong>tls?</strong> : Bool
 
-        <a class="method-permalink" href="#tls%3ABool-instance-method">#</a>
+        <a class="method-permalink" href="#tls%3F%3ABool-instance-method">#</a>
       </div>
       
         <div class="doc">

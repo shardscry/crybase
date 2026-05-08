@@ -8,7 +8,7 @@ module CryBase::Interfaces
   # ep.is_a?(CryBase::Interfaces::Endpoint) # => true
   # ep.host                                 # => "h"
   # ep.port                                 # => 11210
-  # ep.tls                                  # => false
+  # ep.tls?                                 # => false
   # ```
   abstract struct Endpoint
     # The hostname or IP address for this endpoint.
@@ -18,6 +18,6 @@ module CryBase::Interfaces
     abstract def port : Int32
 
     # Whether this endpoint speaks TLS.
-    abstract def tls : Bool
+    abstract def tls? : Bool
   end
 end

@@ -9,7 +9,7 @@ describe Endpoint do
     ep.host.should eq("node1")
     ep.port.should eq(11210)
     ep.service.should eq(Service::KV)
-    ep.tls.should be_false
+    ep.tls?.should be_false
   end
 
   it "renders the couchbase scheme for plaintext KV" do

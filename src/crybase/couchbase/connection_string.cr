@@ -8,12 +8,12 @@ module CryBase::CouchBase
   # ```
   # cs = CryBase::CouchBase::ConnectionString.parse("couchbases://n1,n2:18091")
   # cs.hosts         # => ["n1", "n2"]
-  # cs.tls           # => true
+  # cs.tls?          # => true
   # cs.explicit_port # => 18091
   # ```
   struct ConnectionString < CryBase::Interfaces::ConnectionString
     getter hosts : Array(String)
-    getter tls : Bool
+    getter? tls : Bool
 
     # Port explicitly given in the URI, or `nil` when none was supplied.
     # Used to override the `Management` service's default port; other

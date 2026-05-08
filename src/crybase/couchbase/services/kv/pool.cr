@@ -1,6 +1,8 @@
 module CryBase::CouchBase::Services::KV
   # Fixed-size pool of authenticated KV clients for concurrent fibers.
   class Pool
+    include ClientDelegate
+
     DEFAULT_SIZE = 10
 
     getter endpoint : Endpoint
@@ -59,40 +61,6 @@ module CryBase::CouchBase::Services::KV
           @available.send(client)
         end
       end
-    end
-
-    def get(key : String, expiry : UInt32? = nil) : Bytes
-      checkout { |client| client.get(key, expiry) }
-    end
-
-    def set(key : String, value : String | Bytes, expiry : UInt32 = 0_u32) : UInt64
-      checkout { |client| client.set(key, value, expiry) }
-    end
-
-    def delete(key : String) : Nil
-      checkout { |client| client.delete(key) }
-    end
-
-    def touch(key : String, expiry : UInt32) : UInt64
-      checkout { |client| client.touch(key, expiry) }
-    end
-
-    def increment(
-      key : String,
-      delta : UInt64 = 1_u64,
-      initial : UInt64 = 0_u64,
-      expiry : UInt32 = 0_u32,
-    ) : UInt64
-      checkout { |client| client.increment(key, delta, initial, expiry) }
-    end
-
-    def decrement(
-      key : String,
-      delta : UInt64 = 1_u64,
-      initial : UInt64 = 0_u64,
-      expiry : UInt32 = 0_u32,
-    ) : UInt64
-      checkout { |client| client.decrement(key, delta, initial, expiry) }
     end
 
     def close : Nil

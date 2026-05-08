@@ -15,6 +15,6 @@ puts "Probing #{client.connection_string.hosts.join(", ")} (#{client.endpoints.s
 
 reachable = client.connect
 puts "Reachable:"
-reachable.each { |ep| puts "  - #{ep}" }
+reachable.each { |endpoint| puts "  - #{endpoint}" }
 
 client.close

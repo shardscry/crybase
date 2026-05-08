@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Pre-commit hook: blocks the commit if formatting or specs fail.
+# Pre-commit hook: blocks the commit if formatting, lint, build, docs, or specs fail.
 #
 # Activate once per clone:
 #   git config core.hooksPath .githooks
@@ -8,9 +8,23 @@
 #   git commit --no-verify
 
 set -euo pipefail
+export CRYSTAL_CACHE_DIR="${CRYSTAL_CACHE_DIR:-.crystal-cache}"
+mkdir -p "$CRYSTAL_CACHE_DIR"
 
 echo "[pre-commit] crystal tool format --check"
 crystal tool format --check
+
+staged_crystal_files=()
+while IFS= read -r path; do
+  staged_crystal_files+=("$path")
+done < <(git diff --cached --name-only --diff-filter=ACMR | rg '\.cr$' || true)
+
+if ((${#staged_crystal_files[@]})); then
+  echo "[pre-commit] ameba ${staged_crystal_files[*]}"
+  ameba "${staged_crystal_files[@]}"
+else
+  echo "[pre-commit] skipping ameba (no staged Crystal files)"
+fi
 
 echo "[pre-commit] crystal build --no-codegen src/crybase.cr"
 crystal build --no-codegen src/crybase.cr
