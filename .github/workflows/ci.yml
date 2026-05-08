@@ -50,13 +50,11 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-shards-
 
-      - name: Cache apt
+      - name: Cache kcov packages
         uses: actions/cache@v4
         with:
-          path: |
-            /var/cache/apt
-            /var/lib/apt
-          key: ${{ runner.os }}-apt-kcov
+          path: .cache/apt-archives
+          key: ${{ runner.os }}-kcov-debs-v1
 
       - name: Install Crystal
         uses: crystal-lang/install-crystal@v1
@@ -67,7 +65,17 @@ jobs:
         run: shards install
 
       - name: Install kcov
-        run: sudo apt-get update && sudo apt-get install -y kcov
+        run: |
+          mkdir -p .cache/apt-archives
+
+          if ! ls .cache/apt-archives/kcov_*.deb >/dev/null 2>&1; then
+            sudo apt-get update
+            sudo apt-get install -y --download-only \
+              -o Dir::Cache::archives="$PWD/.cache/apt-archives" \
+              kcov
+          fi
+
+          sudo apt-get install -y "$PWD"/.cache/apt-archives/*.deb
 
       - name: Build and run coverage
         run: make coverage
