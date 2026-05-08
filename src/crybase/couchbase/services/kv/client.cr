@@ -132,6 +132,23 @@ module CryBase::CouchBase::Services::KV
       resp.cas
     end
 
+    # Stores *value* at *key*, encoding `JSON::Serializable` values as JSON
+    # and all other non-raw values with `to_s`. Returns the new CAS token.
+    #
+    # Use `get_as(key, Type)` to load JSON-backed objects back into their
+    # original type. `String` and `Bytes` are stored unchanged by the raw
+    # overload above.
+    #
+    # ```
+    # struct Profile
+    #   include JSON::Serializable
+    #
+    #   property name : String
+    #   property score : Int32
+    # end
+    #
+    # cas = kv.set("user:42", Profile.new("ada", 42))
+    # ```
     def set(key : String, value : T, expiry : UInt32 = 0_u32) : UInt64 forall T
       set(key, Serializable.encode(value), expiry)
     end

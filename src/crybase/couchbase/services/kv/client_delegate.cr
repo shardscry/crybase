@@ -25,6 +25,9 @@ module CryBase::CouchBase::Services::KV
       with_client(&.set(key, value, expiry))
     end
 
+    # Stores *value* through a pooled client.
+    #
+    # See `KV::Client#set` for typed value encoding and expiration behavior.
     def set(key : String, value : T, expiry : UInt32 = 0_u32) : UInt64 forall T
       with_client(&.set(key, value, expiry))
     end

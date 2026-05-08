@@ -431,6 +431,8 @@ kv.close</code></pre>
       <li class="entry-summary">
         <a href="#set%28key%3AString%2Cvalue%3AT%2Cexpiry%3AUInt32%3D0_u32%29%3AUInt64forallT-instance-method" class="signature"><strong>#set</strong>(key : String, value : T, expiry : UInt32 = <span class="n">0_u32</span>) : UInt64 forall T</a>
         
+          <div class="summary"><p>Stores <em>value</em> at <em>key</em>, encoding <code>JSON::Serializable</code> values as JSON and all other non-raw values with <code>to_s</code>.</p></div>
+        
       </li>
     
       <li class="entry-summary">
@@ -607,7 +609,7 @@ already closed.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/shardscry/crybase/blob/main/src/crybase/couchbase/services/kv/client.cr#L187" target="_blank">View source</a>]
+          [<a href="https://github.com/shardscry/crybase/blob/main/src/crybase/couchbase/services/kv/client.cr#L204" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -629,7 +631,7 @@ already closed.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/shardscry/crybase/blob/main/src/crybase/couchbase/services/kv/client.cr#L176" target="_blank">View source</a>]
+          [<a href="https://github.com/shardscry/crybase/blob/main/src/crybase/couchbase/services/kv/client.cr#L193" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -651,7 +653,7 @@ already closed.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/shardscry/crybase/blob/main/src/crybase/couchbase/services/kv/client.cr#L144" target="_blank">View source</a>]
+          [<a href="https://github.com/shardscry/crybase/blob/main/src/crybase/couchbase/services/kv/client.cr#L161" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -774,7 +776,7 @@ and applies <em>expiry</em>.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/shardscry/crybase/blob/main/src/crybase/couchbase/services/kv/client.cr#L165" target="_blank">View source</a>]
+          [<a href="https://github.com/shardscry/crybase/blob/main/src/crybase/couchbase/services/kv/client.cr#L182" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -811,10 +813,27 @@ cas <span class="o">=</span> kv.set(<span class="s">&quot;hello&quot;</span>, <s
         <a class="method-permalink" href="#set%28key%3AString%2Cvalue%3AT%2Cexpiry%3AUInt32%3D0_u32%29%3AUInt64forallT-instance-method">#</a>
       </div>
       
+        <div class="doc">
+          
+          <p>Stores <em>value</em> at <em>key</em>, encoding <code>JSON::Serializable</code> values as JSON
+and all other non-raw values with <code>to_s</code>. Returns the new CAS token.</p>
+<p>Use <code>get_as(key, Type)</code> to load JSON-backed objects back into their
+original type. <code>String</code> and <code>Bytes</code> are stored unchanged by the raw
+overload above.</p>
+<pre><code class="language-crystal"><span class="k">struct</span> <span class="t">Profile</span>
+  <span class="k">include</span> <span class="t">JSON</span><span class="t">::</span><span class="t">Serializable</span>
+
+  property name : <span class="t">String</span>
+  property score : <span class="t">Int32</span>
+<span class="k">end</span>
+
+cas <span class="o">=</span> kv.set(<span class="s">&quot;user:42&quot;</span>, <span class="t">Profile</span>.new(<span class="s">&quot;ada&quot;</span>, <span class="n">42</span>))</code></pre>
+        </div>
+      
       <br/>
       <div>
         
-          [<a href="https://github.com/shardscry/crybase/blob/main/src/crybase/couchbase/services/kv/client.cr#L135" target="_blank">View source</a>]
+          [<a href="https://github.com/shardscry/crybase/blob/main/src/crybase/couchbase/services/kv/client.cr#L152" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -836,7 +855,7 @@ Returns the new CAS token.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/shardscry/crybase/blob/main/src/crybase/couchbase/services/kv/client.cr#L151" target="_blank">View source</a>]
+          [<a href="https://github.com/shardscry/crybase/blob/main/src/crybase/couchbase/services/kv/client.cr#L168" target="_blank">View source</a>]
         
       </div>
     </div>
