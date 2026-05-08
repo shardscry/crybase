@@ -1,4 +1,5 @@
 /.shards/
+/lib/
 *.dwarf
 /.claude
 
@@ -12,4 +13,6 @@
 .envrc
 AGENTS.md
 .crystal-cache
+/bin/ameba
+/bin/ameba.cr
 examples/volumes/

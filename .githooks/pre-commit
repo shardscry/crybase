@@ -20,8 +20,13 @@ while IFS= read -r path; do
 done < <(git diff --cached --name-only --diff-filter=ACMR | rg '\.cr$' || true)
 
 if ((${#staged_crystal_files[@]})); then
-  echo "[pre-commit] ameba ${staged_crystal_files[*]}"
-  ameba "${staged_crystal_files[@]}"
+  if [[ ! -x bin/ameba ]]; then
+    echo "[pre-commit] missing bin/ameba; run shards install to install development dependencies"
+    exit 1
+  fi
+
+  echo "[pre-commit] bin/ameba ${staged_crystal_files[*]}"
+  bin/ameba "${staged_crystal_files[@]}"
 else
   echo "[pre-commit] skipping ameba (no staged Crystal files)"
 fi
