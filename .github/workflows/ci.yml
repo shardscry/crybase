@@ -13,6 +13,16 @@ jobs:
     steps:
       - uses: actions/checkout@v6
 
+      - name: Cache shards
+        uses: actions/cache@v4
+        with:
+          path: |
+            lib
+            .shards
+          key: ${{ runner.os }}-shards-${{ hashFiles('shard.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-shards-
+
       - name: Install Crystal
         uses: crystal-lang/install-crystal@v1
         with:
@@ -29,6 +39,24 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v6
+
+      - name: Cache shards
+        uses: actions/cache@v4
+        with:
+          path: |
+            lib
+            .shards
+          key: ${{ runner.os }}-shards-${{ hashFiles('shard.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-shards-
+
+      - name: Cache apt
+        uses: actions/cache@v4
+        with:
+          path: |
+            /var/cache/apt
+            /var/lib/apt
+          key: ${{ runner.os }}-apt-kcov
 
       - name: Install Crystal
         uses: crystal-lang/install-crystal@v1
@@ -61,6 +89,16 @@ jobs:
       COUCHBASE_BUCKET: default
     steps:
       - uses: actions/checkout@v6
+
+      - name: Cache shards
+        uses: actions/cache@v4
+        with:
+          path: |
+            lib
+            .shards
+          key: ${{ runner.os }}-shards-${{ hashFiles('shard.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-shards-
 
       - name: Install Crystal
         uses: crystal-lang/install-crystal@v1
@@ -142,6 +180,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
+
+      - name: Cache shards
+        uses: actions/cache@v4
+        with:
+          path: |
+            lib
+            .shards
+          key: ${{ runner.os }}-shards-${{ hashFiles('shard.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-shards-
 
       - name: Install Crystal
         uses: crystal-lang/install-crystal@v1
