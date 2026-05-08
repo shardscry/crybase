@@ -104,6 +104,33 @@ kv.delete("crybase:hello")
 kv.close
 ```
 
+### Store Typed KV Values
+
+Include Crystal's `JSON::Serializable` on JSON-backed value types, then use
+typed `get`:
+
+```crystal
+require "json"
+require "crybase"
+
+struct Profile
+  include JSON::Serializable
+
+  property name : String
+  property score : Int32
+
+  def initialize(@name : String, @score : Int32)
+  end
+end
+
+kv.set("crybase:profile", Profile.new("ada", 42))
+profile = kv.get("crybase:profile", Profile)
+puts profile.name
+```
+
+Values that do not include `JSON::Serializable` are stored with `to_s`; read
+them back with `get(key, String)` or raw `get(key)`.
+
 ### Use The KV Pool
 
 ```crystal

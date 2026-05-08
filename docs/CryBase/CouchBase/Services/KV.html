@@ -162,6 +162,11 @@
       
     </li>
   
+  <li class=" " data-id="crybase/CryBase/CouchBase/Services/KV/Serializable" data-name="crybase::couchbase::services::kv::serializable">
+      <a href="../../../CryBase/CouchBase/Services/KV/Serializable.html">Serializable</a>
+      
+    </li>
+  
   <li class=" " data-id="crybase/CryBase/CouchBase/Services/KV/Status" data-name="crybase::couchbase::services::kv::status">
       <a href="../../../CryBase/CouchBase/Services/KV/Status.html">Status</a>
       
@@ -250,6 +255,7 @@ as small composable pieces:</p>
 <li><code><a href="../../../CryBase/CouchBase/Services/KV/Response.html">KV::Response</a></code>       — value type describing one inbound packet</li>
 <li><code><a href="../../../CryBase/CouchBase/Services/KV/ResponseReader.html">KV::ResponseReader</a></code> — mixin: <code>read</code> decodes one packet from a socket</li>
 <li><code><a href="../../../CryBase/CouchBase/Services/KV/Bucket.html">KV::Bucket</a></code>         — mixin: SELECT_BUCKET handshake</li>
+<li><code><a href="../../../CryBase/CouchBase/Services/KV/Serializable.html">KV::Serializable</a></code>   — typed value codec</li>
 <li><code><a href="../../../CryBase/CouchBase/Services/KV/Pool.html">KV::Pool</a></code>           — fixed-size pool of authenticated clients</li>
 </ul>
 <p>These mixins are composed into <code><a href="../../../CryBase/CouchBase/Services/KV/Client.html">KV::Client</a></code>, which also handles
@@ -288,7 +294,7 @@ kv.close</code></pre>
   </h2>
   
     
-      <a href="https://github.com/shardscry/crybase/blob/main/src/crybase/couchbase/services/kv.cr#L27" target="_blank">
+      <a href="https://github.com/shardscry/crybase/blob/main/src/crybase/couchbase/services/kv.cr#L28" target="_blank">
         crybase/couchbase/services/kv.cr
       </a>
     
@@ -388,6 +394,13 @@ kv.close</code></pre>
     
       <a href="https://github.com/shardscry/crybase/blob/main/src/crybase/couchbase/services/kv/response_reader.cr#L1" target="_blank">
         crybase/couchbase/services/kv/response_reader.cr
+      </a>
+    
+    <br/>
+  
+    
+      <a href="https://github.com/shardscry/crybase/blob/main/src/crybase/couchbase/services/kv/serializable.cr#L3" target="_blank">
+        crybase/couchbase/services/kv/serializable.cr
       </a>
     
     <br/>

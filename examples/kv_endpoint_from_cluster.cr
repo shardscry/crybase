@@ -1,12 +1,23 @@
 # Combine cluster-level discovery with the KV protocol client:
 # probe the cluster for reachable endpoints, pick the first KV one,
-# and run a get/set/delete cycle against it.
+# and store/read a typed JSON value against it.
 #
 # Reads from `.envrc` (loaded via direnv): COUCHBASE_HOST,
 # COUCHBASE_USER, COUCHBASE_PASS, COUCHBASE_BUCKET.
 #
 #   crystal run examples/kv_endpoint_from_cluster.cr
+require "json"
 require "../src/crybase"
+
+struct Profile
+  include JSON::Serializable
+
+  property name : String
+  property score : Int32
+
+  def initialize(@name : String, @score : Int32)
+  end
+end
 
 host = ENV["COUCHBASE_HOST"]? || "localhost"
 user = ENV["COUCHBASE_USER"]? || "Administrator"
@@ -24,9 +35,10 @@ puts "Using KV endpoint: #{endpoint}"
 
 kv = CryBase::CouchBase::Services::KV::Client.new(endpoint, user, pass, bucket)
 
-kv.set("crybase:demo", %({"hello":"world"}))
+kv.set("crybase:demo", Profile.new("ada", 42))
 puts "stored crybase:demo"
-puts "loaded: #{String.new(kv.get("crybase:demo"))}"
+profile = kv.get("crybase:demo", Profile)
+puts "loaded: #{profile.name} scored #{profile.score}"
 # kv.delete("crybase:demo")
 
 kv.close

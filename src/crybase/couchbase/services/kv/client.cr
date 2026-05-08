@@ -89,6 +89,10 @@ module CryBase::CouchBase::Services::KV
       resp.value
     end
 
+    def get(key : String, type : T.class, expiry : UInt32? = nil) : T forall T
+      Serializable.decode(get(key, expiry), type)
+    end
+
     # Stores *value* at *key* with optional *expiry* (seconds, or unix
     # timestamp if greater than 30 days). Returns the new CAS token.
     #
@@ -104,6 +108,10 @@ module CryBase::CouchBase::Services::KV
       resp = call(Opcode::Set, key: key, extras: extras.to_slice, value: bytes, vbucket: vbucket_id(key))
       ensure_success!(resp, "SET #{key}")
       resp.cas
+    end
+
+    def set(key : String, value : T, expiry : UInt32 = 0_u32) : UInt64 forall T
+      set(key, Serializable.encode(value), expiry)
     end
 
     # Deletes the document at *key*. Raises `NotFound` if absent.

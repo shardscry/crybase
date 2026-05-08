@@ -14,7 +14,7 @@
 <script type="text/javascript" src="../../../../js/doc.js"></script>
 
   <meta name="repository-name" content="crybase">
-  <title>CryBase::CouchBase::Services::KV::ResponseReader - crybase main-dev</title>
+  <title>CryBase::CouchBase::Services::KV::Serializable - crybase main-dev</title>
   <script type="text/javascript">
     CrystalDocs.base_path = "../../../../";
   </script>
@@ -157,12 +157,12 @@
       
     </li>
   
-  <li class=" current" data-id="crybase/CryBase/CouchBase/Services/KV/ResponseReader" data-name="crybase::couchbase::services::kv::responsereader">
+  <li class=" " data-id="crybase/CryBase/CouchBase/Services/KV/ResponseReader" data-name="crybase::couchbase::services::kv::responsereader">
       <a href="../../../../CryBase/CouchBase/Services/KV/ResponseReader.html">ResponseReader</a>
       
     </li>
   
-  <li class=" " data-id="crybase/CryBase/CouchBase/Services/KV/Serializable" data-name="crybase::couchbase::services::kv::serializable">
+  <li class=" current" data-id="crybase/CryBase/CouchBase/Services/KV/Serializable" data-name="crybase::couchbase::services::kv::serializable">
       <a href="../../../../CryBase/CouchBase/Services/KV/Serializable.html">Serializable</a>
       
     </li>
@@ -228,7 +228,7 @@
 
   <span class="kind">
     module
-  </span> CryBase::<wbr>CouchBase::<wbr>Services::<wbr>KV::<wbr>ResponseReader
+  </span> CryBase::<wbr>CouchBase::<wbr>Services::<wbr>KV::<wbr>Serializable
 
 </h1>
 
@@ -245,19 +245,7 @@
     Overview
   </h2>
 
-  <p>Mixin that reads exactly one <code><a href="../../../../CryBase/CouchBase/Services/KV/Response.html">Response</a></code> packet from the includer's
-<code>@socket</code>. The includer is expected to own an IO-typed <code>@socket</code>.</p>
-<p>Used together with <code><a href="../../../../CryBase/CouchBase/Services/KV/RequestWriter.html">RequestWriter</a></code> and <code><a href="../../../../CryBase/CouchBase/Services/KV/Bucket.html">Bucket</a></code> to compose
-<code><a href="../../../../CryBase/CouchBase/Services/KV/Client.html">KV::Client</a></code>. Stateless on its own.</p>
-<pre><code class="language-crystal"><span class="k">class</span> <span class="t">Peer</span>
-  <span class="k">include</span> <span class="t">KV</span><span class="t">::</span><span class="t">ResponseReader</span>
-
-  <span class="k">def</span> <span class="m">initialize</span>(@socket : <span class="t">IO</span>)
-  <span class="k">end</span>
-<span class="k">end</span>
-
-<span class="c"># `io` already contains a server response packet, positioned at start.</span>
-resp <span class="o">=</span> <span class="t">Peer</span>.new(io).read</code></pre>
+  <p>Codec used by KV clients to store raw values and JSON-backed objects.</p>
 
 
 
@@ -270,20 +258,6 @@ resp <span class="o">=</span> <span class="t">Peer</span>.new(io).read</code></p
 
 
 
-
-  <h2>
-    <a id="direct-including-types" class="anchor" href="#direct-including-types">
-  <svg class="octicon-link" aria-hidden="true">
-    <use href="#octicon-link"/>
-  </svg>
-</a>
-    Direct including types
-  </h2>
-  <ul class="other-types-list">
-    
-      <li class="other-type"><a href="../../../../CryBase/CouchBase/Services/KV/Client.html">CryBase::CouchBase::Services::KV::Client</a></li>
-    
-  </ul>
 
 
 
@@ -298,8 +272,8 @@ resp <span class="o">=</span> <span class="t">Peer</span>.new(io).read</code></p
   </h2>
   
     
-      <a href="https://github.com/shardscry/crybase/blob/main/src/crybase/couchbase/services/kv/response_reader.cr#L19" target="_blank">
-        crybase/couchbase/services/kv/response_reader.cr
+      <a href="https://github.com/shardscry/crybase/blob/main/src/crybase/couchbase/services/kv/serializable.cr#L5" target="_blank">
+        crybase/couchbase/services/kv/serializable.cr
       </a>
     
     <br/>
@@ -312,6 +286,48 @@ resp <span class="o">=</span> <span class="t">Peer</span>.new(io).read</code></p
   
 
   
+  <h2>
+    <a id="class-method-summary" class="anchor" href="#class-method-summary">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Class Method Summary
+  </h2>
+  <ul class="list-summary">
+    
+      <li class="entry-summary">
+        <a href="#decode%28value%3ABytes%2Ctype%3ABytes.class%29%3ABytes-class-method" class="signature"><strong>.decode</strong>(value : Bytes, type : <span class="t">Bytes</span>.<span class="k">class</span>) : Bytes</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#decode%28value%3ABytes%2Ctype%3AString.class%29%3AString-class-method" class="signature"><strong>.decode</strong>(value : Bytes, type : <span class="t">String</span>.<span class="k">class</span>) : String</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#decode%28value%3ABytes%2Ctype%3AT.class%29%3ATforallT-class-method" class="signature"><strong>.decode</strong>(value : Bytes, type : <span class="t">T</span>.<span class="k">class</span>) : T forall T</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#encode%28value%3AString%29%3ABytes-class-method" class="signature"><strong>.encode</strong>(value : String) : Bytes</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#encode%28value%3ABytes%29%3ABytes-class-method" class="signature"><strong>.encode</strong>(value : Bytes) : Bytes</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#encode%28value%3AT%29%3ABytesforallT-class-method" class="signature"><strong>.encode</strong>(value : T) : Bytes forall T</a>
+        
+      </li>
+    
+  </ul>
+
 
   
 
@@ -325,6 +341,112 @@ resp <span class="o">=</span> <span class="t">Peer</span>.new(io).read</code></p
   
 
   
+  <h2>
+    <a id="class-method-detail" class="anchor" href="#class-method-detail">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Class Method Detail
+  </h2>
+  
+    <div class="entry-detail" id="decode(value:Bytes,type:Bytes.class):Bytes-class-method">
+      <div class="signature">
+        
+        def self.<strong>decode</strong>(value : Bytes, type : <span class="t">Bytes</span>.<span class="k">class</span>) : Bytes
+
+        <a class="method-permalink" href="#decode%28value%3ABytes%2Ctype%3ABytes.class%29%3ABytes-class-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/shardscry/crybase/blob/main/src/crybase/couchbase/services/kv/serializable.cr#L26" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="decode(value:Bytes,type:String.class):String-class-method">
+      <div class="signature">
+        
+        def self.<strong>decode</strong>(value : Bytes, type : <span class="t">String</span>.<span class="k">class</span>) : String
+
+        <a class="method-permalink" href="#decode%28value%3ABytes%2Ctype%3AString.class%29%3AString-class-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/shardscry/crybase/blob/main/src/crybase/couchbase/services/kv/serializable.cr#L30" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="decode(value:Bytes,type:T.class):TforallT-class-method">
+      <div class="signature">
+        
+        def self.<strong>decode</strong>(value : Bytes, type : <span class="t">T</span>.<span class="k">class</span>) : T forall T
+
+        <a class="method-permalink" href="#decode%28value%3ABytes%2Ctype%3AT.class%29%3ATforallT-class-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/shardscry/crybase/blob/main/src/crybase/couchbase/services/kv/serializable.cr#L34" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="encode(value:String):Bytes-class-method">
+      <div class="signature">
+        
+        def self.<strong>encode</strong>(value : String) : Bytes
+
+        <a class="method-permalink" href="#encode%28value%3AString%29%3ABytes-class-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/shardscry/crybase/blob/main/src/crybase/couchbase/services/kv/serializable.cr#L10" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="encode(value:Bytes):Bytes-class-method">
+      <div class="signature">
+        
+        def self.<strong>encode</strong>(value : Bytes) : Bytes
+
+        <a class="method-permalink" href="#encode%28value%3ABytes%29%3ABytes-class-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/shardscry/crybase/blob/main/src/crybase/couchbase/services/kv/serializable.cr#L14" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="encode(value:T):BytesforallT-class-method">
+      <div class="signature">
+        
+        def self.<strong>encode</strong>(value : T) : Bytes forall T
+
+        <a class="method-permalink" href="#encode%28value%3AT%29%3ABytesforallT-class-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/shardscry/crybase/blob/main/src/crybase/couchbase/services/kv/serializable.cr#L18" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+
 
   
 

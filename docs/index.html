@@ -162,6 +162,11 @@
       
     </li>
   
+  <li class=" " data-id="crybase/CryBase/CouchBase/Services/KV/Serializable" data-name="crybase::couchbase::services::kv::serializable">
+      <a href="CryBase/CouchBase/Services/KV/Serializable.html">Serializable</a>
+      
+    </li>
+  
   <li class=" " data-id="crybase/CryBase/CouchBase/Services/KV/Status" data-name="crybase::couchbase::services::kv::status">
       <a href="CryBase/CouchBase/Services/KV/Status.html">Status</a>
       
@@ -324,6 +329,31 @@ kv.touch(<span class="s">&quot;crybase:hello&quot;</span>, <span class="n">3600_
 puts <span class="t">String</span>.new(kv.get(<span class="s">&quot;crybase:hello&quot;</span>, expiry: <span class="n">3600_u32</span>))
 kv.delete(<span class="s">&quot;crybase:hello&quot;</span>)
 kv.close</code></pre>
+<h3><a id="store-typed-kv-values" class="anchor" href="#store-typed-kv-values">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>Store Typed KV Values</h3>
+<p>Include Crystal's <code>JSON::Serializable</code> on JSON-backed value types, then use
+typed <code>get</code>:</p>
+<pre><code class="language-crystal"><span class="k">require</span> <span class="s">&quot;json&quot;</span>
+<span class="k">require</span> <span class="s">&quot;crybase&quot;</span>
+
+<span class="k">struct</span> <span class="t">Profile</span>
+  <span class="k">include</span> <span class="t">JSON</span><span class="t">::</span><span class="t">Serializable</span>
+
+  property name : <span class="t">String</span>
+  property score : <span class="t">Int32</span>
+
+  <span class="k">def</span> <span class="m">initialize</span>(@name : <span class="t">String</span>, @score : <span class="t">Int32</span>)
+  <span class="k">end</span>
+<span class="k">end</span>
+
+kv.set(<span class="s">&quot;crybase:profile&quot;</span>, <span class="t">Profile</span>.new(<span class="s">&quot;ada&quot;</span>, <span class="n">42</span>))
+profile <span class="o">=</span> kv.get(<span class="s">&quot;crybase:profile&quot;</span>, <span class="t">Profile</span>)
+puts profile.name</code></pre>
+<p>Values that do not include <code>JSON::Serializable</code> are stored with <code>to_s</code>; read
+them back with <code>get(key, String)</code> or raw <code>get(key)</code>.</p>
 <h3><a id="use-the-kv-pool" class="anchor" href="#use-the-kv-pool">
   <svg class="octicon-link" aria-hidden="true">
     <use href="#octicon-link"/>

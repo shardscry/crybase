@@ -9,6 +9,7 @@
 # * `KV::Response`       — value type describing one inbound packet
 # * `KV::ResponseReader` — mixin: `read` decodes one packet from a socket
 # * `KV::Bucket`         — mixin: SELECT_BUCKET handshake
+# * `KV::Serializable`   — typed value codec
 # * `KV::Pool`           — fixed-size pool of authenticated clients
 #
 # These mixins are composed into `KV::Client`, which also handles
@@ -52,6 +53,7 @@ require "./kv/status"
 require "./kv/vbucket"
 require "./kv/expiry"
 require "./kv/counter"
+require "./kv/serializable"
 require "./kv/response"
 require "./kv/error"
 require "./kv/not_found"

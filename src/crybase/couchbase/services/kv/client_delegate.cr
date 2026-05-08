@@ -9,7 +9,15 @@ module CryBase::CouchBase::Services::KV
       with_client(&.get(key, expiry))
     end
 
+    def get(key : String, type : T.class, expiry : UInt32? = nil) : T forall T
+      with_client(&.get(key, type, expiry))
+    end
+
     def set(key : String, value : String | Bytes, expiry : UInt32 = 0_u32) : UInt64
+      with_client(&.set(key, value, expiry))
+    end
+
+    def set(key : String, value : T, expiry : UInt32 = 0_u32) : UInt64 forall T
       with_client(&.set(key, value, expiry))
     end
 
