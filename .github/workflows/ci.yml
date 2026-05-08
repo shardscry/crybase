@@ -14,7 +14,7 @@ jobs:
       - uses: actions/checkout@v6
 
       - name: Cache shards
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: |
             lib
@@ -41,7 +41,7 @@ jobs:
       - uses: actions/checkout@v6
 
       - name: Cache shards
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: |
             lib
@@ -51,7 +51,7 @@ jobs:
             ${{ runner.os }}-shards-
 
       - name: Cache kcov packages
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: .cache/kcov-debs
           key: ${{ runner.os }}-kcov-debs-v2
@@ -83,7 +83,7 @@ jobs:
         run: make coverage
 
       - name: Upload coverage artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: coverage-report
           path: coverage/
@@ -101,7 +101,7 @@ jobs:
       - uses: actions/checkout@v6
 
       - name: Cache shards
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: |
             lib
@@ -192,7 +192,7 @@ jobs:
       - uses: actions/checkout@v6
 
       - name: Cache shards
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: |
             lib
