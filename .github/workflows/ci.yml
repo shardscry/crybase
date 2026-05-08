@@ -53,8 +53,8 @@ jobs:
       - name: Cache kcov packages
         uses: actions/cache@v4
         with:
-          path: .cache/apt-archives
-          key: ${{ runner.os }}-kcov-debs-v1
+          path: .cache/kcov-debs
+          key: ${{ runner.os }}-kcov-debs-v2
 
       - name: Install Crystal
         uses: crystal-lang/install-crystal@v1
@@ -66,16 +66,18 @@ jobs:
 
       - name: Install kcov
         run: |
-          mkdir -p .cache/apt-archives
+          mkdir -p .cache/kcov-debs
 
-          if ! ls .cache/apt-archives/kcov_*.deb >/dev/null 2>&1; then
+          if ! ls .cache/kcov-debs/kcov_*.deb >/dev/null 2>&1; then
+            download_dir="$(mktemp -d)"
             sudo apt-get update
             sudo apt-get install -y --download-only \
-              -o Dir::Cache::archives="$PWD/.cache/apt-archives" \
+              -o Dir::Cache::archives="$download_dir" \
               kcov
+            cp "$download_dir"/*.deb .cache/kcov-debs/
           fi
 
-          sudo apt-get install -y "$PWD"/.cache/apt-archives/*.deb
+          sudo apt-get install -y "$PWD"/.cache/kcov-debs/*.deb
 
       - name: Build and run coverage
         run: make coverage
