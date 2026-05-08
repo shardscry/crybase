@@ -2,6 +2,7 @@ require "../../../../spec_helper"
 
 private alias KV = CryBase::CouchBase::Services::KV
 private alias KVSpec = CryBase::SpecHelpers::KVHelpers
+private alias WriterPeer = KVSpec::WriterPeer
 
 describe KV::RequestWriter do
   it "writes a 24-byte header followed by extras + key + value" do
@@ -15,14 +16,14 @@ describe KV::RequestWriter do
       extras: extras.to_slice,
       value: "bar".to_slice,
     )
-    KVSpec::WriterPeer.new(io).call(req)
+    WriterPeer.new(io).call(req)
     io.size.should eq(KV::HEADER_SIZE + 8 + 3 + 3)
   end
 
   it "encodes the GET header layout" do
     io = IO::Memory.new
     req = KV::Request.new(KV::Opcode::Get, key: "hello", opaque: 7_u32)
-    KVSpec::WriterPeer.new(io).call(req)
+    WriterPeer.new(io).call(req)
 
     io.rewind
     header = Bytes.new(KV::HEADER_SIZE)
@@ -46,7 +47,7 @@ describe KV::RequestWriter do
   it "honors the cas field" do
     io = IO::Memory.new
     req = KV::Request.new(KV::Opcode::Set, key: "k", cas: 0xDEADBEEF_u64)
-    KVSpec::WriterPeer.new(io).call(req)
+    WriterPeer.new(io).call(req)
 
     io.rewind
     header = Bytes.new(KV::HEADER_SIZE)
@@ -57,7 +58,7 @@ describe KV::RequestWriter do
   it "honors the opaque field" do
     io = IO::Memory.new
     req = KV::Request.new(KV::Opcode::Get, key: "k", opaque: 42_u32)
-    KVSpec::WriterPeer.new(io).call(req)
+    WriterPeer.new(io).call(req)
 
     io.rewind
     header = Bytes.new(KV::HEADER_SIZE)
@@ -68,7 +69,7 @@ describe KV::RequestWriter do
   it "honors the vbucket field" do
     io = IO::Memory.new
     req = KV::Request.new(KV::Opcode::Get, key: "crybase:hello", vbucket: 475_u16)
-    KVSpec::WriterPeer.new(io).call(req)
+    WriterPeer.new(io).call(req)
 
     io.rewind
     header = Bytes.new(KV::HEADER_SIZE)

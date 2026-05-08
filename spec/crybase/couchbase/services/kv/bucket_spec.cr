@@ -2,6 +2,7 @@ require "../../../../spec_helper"
 
 private alias KV = CryBase::CouchBase::Services::KV
 private alias KVSpec = CryBase::SpecHelpers::KVHelpers
+private alias BucketPeer = KVSpec::BucketPeer
 
 describe KV::Bucket do
   it "sends SELECT_BUCKET with the bucket name in the key field" do
@@ -12,7 +13,7 @@ describe KV::Bucket do
     write_buf = IO::Memory.new
     io = IO::Stapled.new(read_buf, write_buf)
 
-    KVSpec::BucketPeer.new(io).call("default")
+    BucketPeer.new(io).call("default")
 
     write_buf.rewind
     header = Bytes.new(KV::HEADER_SIZE)
@@ -35,7 +36,7 @@ describe KV::Bucket do
     io = IO::Stapled.new(read_buf, IO::Memory.new)
 
     expect_raises(KV::AuthFailed, /SELECT_BUCKET/) do
-      KVSpec::BucketPeer.new(io).call("locked")
+      BucketPeer.new(io).call("locked")
     end
   end
 
@@ -47,7 +48,7 @@ describe KV::Bucket do
     io = IO::Stapled.new(read_buf, IO::Memory.new)
 
     expect_raises(KV::Error, /SELECT_BUCKET/) do
-      KVSpec::BucketPeer.new(io).call("missing")
+      BucketPeer.new(io).call("missing")
     end
   end
 end

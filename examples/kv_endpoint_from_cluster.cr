@@ -37,7 +37,7 @@ kv = CryBase::CouchBase::Services::KV::Client.new(endpoint, user, pass, bucket)
 
 kv.set("crybase:demo", Profile.new("ada", 42))
 puts "stored crybase:demo"
-profile = kv.get("crybase:demo", Profile)
+profile = kv.get_as("crybase:demo", Profile)
 puts "loaded: #{profile.name} scored #{profile.score}"
 # kv.delete("crybase:demo")
 

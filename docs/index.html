@@ -335,7 +335,7 @@ kv.close</code></pre>
   </svg>
 </a>Store Typed KV Values</h3>
 <p>Include Crystal's <code>JSON::Serializable</code> on JSON-backed value types, then use
-typed <code>get</code>:</p>
+<code>get_as</code>:</p>
 <pre><code class="language-crystal"><span class="k">require</span> <span class="s">&quot;json&quot;</span>
 <span class="k">require</span> <span class="s">&quot;crybase&quot;</span>
 
@@ -350,7 +350,7 @@ typed <code>get</code>:</p>
 <span class="k">end</span>
 
 kv.set(<span class="s">&quot;crybase:profile&quot;</span>, <span class="t">Profile</span>.new(<span class="s">&quot;ada&quot;</span>, <span class="n">42</span>))
-profile <span class="o">=</span> kv.get(<span class="s">&quot;crybase:profile&quot;</span>, <span class="t">Profile</span>)
+profile <span class="o">=</span> kv.get_as(<span class="s">&quot;crybase:profile&quot;</span>, <span class="t">Profile</span>)
 puts profile.name</code></pre>
 <p>Values that do not include <code>JSON::Serializable</code> are stored with <code>to_s</code>; read
 them back with <code>get(key, String)</code> or raw <code>get(key)</code>.</p>

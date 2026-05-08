@@ -2,6 +2,7 @@ require "../../../../spec_helper"
 
 private alias KV = CryBase::CouchBase::Services::KV
 private alias KVSpec = CryBase::SpecHelpers::KVHelpers
+private alias ReaderPeer = KVSpec::ReaderPeer
 
 describe KV::ResponseReader do
   it "decodes a successful GET response with extras, key, and value" do
@@ -18,7 +19,7 @@ describe KV::ResponseReader do
     )
     io.rewind
 
-    resp = KVSpec::ReaderPeer.new(io).call
+    resp = ReaderPeer.new(io).call
 
     resp.opcode.should eq(KV::Opcode::Get.value)
     resp.status.should eq(KV::Status::Success)
@@ -36,7 +37,7 @@ describe KV::ResponseReader do
     )
     io.rewind
 
-    resp = KVSpec::ReaderPeer.new(io).call
+    resp = ReaderPeer.new(io).call
     resp.status.should eq(KV::Status::KeyNotFound)
     resp.success?.should be_false
   end
@@ -48,7 +49,7 @@ describe KV::ResponseReader do
     io.rewind
 
     expect_raises(IO::Error, /invalid KV response magic/) do
-      KVSpec::ReaderPeer.new(io).call
+      ReaderPeer.new(io).call
     end
   end
 
@@ -61,7 +62,7 @@ describe KV::ResponseReader do
     io.rewind
 
     expect_raises(IO::Error, /unknown KV status/) do
-      KVSpec::ReaderPeer.new(io).call
+      ReaderPeer.new(io).call
     end
   end
 end

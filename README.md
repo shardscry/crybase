@@ -107,7 +107,7 @@ kv.close
 ### Store Typed KV Values
 
 Include Crystal's `JSON::Serializable` on JSON-backed value types, then use
-typed `get`:
+`get_as`:
 
 ```crystal
 require "json"
@@ -124,7 +124,7 @@ struct Profile
 end
 
 kv.set("crybase:profile", Profile.new("ada", 42))
-profile = kv.get("crybase:profile", Profile)
+profile = kv.get_as("crybase:profile", Profile)
 puts profile.name
 ```
 

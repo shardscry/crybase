@@ -17,6 +17,8 @@ private module CouchbaseKVIntegrationSpec
   end
 end
 
+private alias Profile = CouchbaseKVIntegrationSpec::Profile
+
 describe "Couchbase KV integration" do
   config = Couchbase.config
   keys = [] of String
@@ -126,20 +128,20 @@ describe "Couchbase KV integration" do
     String.new(pool.get(key)).should eq("alive")
   end
 
-  it "stores and loads typed JSON values" do
+  it "stores and loads typed JSON values with get_as" do
     key = "crybase:typed:#{Time.utc.to_unix_ms}"
     pool_key = "#{key}:pool"
     keys << key
     keys << pool_key
-    profile = CouchbaseKVIntegrationSpec::Profile.new("ada", 42)
+    profile = Profile.new("ada", 42)
 
     kv.set(key, profile)
-    loaded = kv.get(key, CouchbaseKVIntegrationSpec::Profile)
+    loaded = kv.get_as(key, Profile)
     loaded.name.should eq("ada")
     loaded.score.should eq(42)
 
     pool.set(pool_key, profile)
-    loaded_from_pool = pool.get(pool_key, CouchbaseKVIntegrationSpec::Profile)
+    loaded_from_pool = pool.get_as(pool_key, Profile)
     loaded_from_pool.name.should eq("ada")
     loaded_from_pool.score.should eq(42)
   end

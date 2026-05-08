@@ -332,6 +332,15 @@
       <li class="entry-summary">
         <a href="#get%28key%3AString%2Ctype%3AT.class%2Cexpiry%3AUInt32%7CNil%3Dnil%29%3ATforallT-instance-method" class="signature"><strong>#get</strong>(key : String, type : <span class="t">T</span>.<span class="k">class</span>, expiry : UInt32 | Nil = <span class="n">nil</span>) : T forall T</a>
         
+          <div class="summary"><p>Compatibility alias for <code><a href="../../../../CryBase/CouchBase/Services/KV/ClientDelegate.html#get_as%28key%3AString%2Ctype%3AT.class%2Cexpiry%3AUInt32%7CNil%3Dnil%29%3ATforallT-instance-method">#get_as(key, type, expiry)</a></code>.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#get_as%28key%3AString%2Ctype%3AT.class%2Cexpiry%3AUInt32%7CNil%3Dnil%29%3ATforallT-instance-method" class="signature"><strong>#get_as</strong>(key : String, type : <span class="t">T</span>.<span class="k">class</span>, expiry : UInt32 | Nil = <span class="n">nil</span>) : T forall T</a>
+        
+          <div class="summary"><p>Fetches the document through a pooled client and decodes it as <em>type</em>.</p></div>
+        
       </li>
     
       <li class="entry-summary">
@@ -389,7 +398,7 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/shardscry/crybase/blob/main/src/crybase/couchbase/services/kv/client_delegate.cr#L41" target="_blank">View source</a>]
+          [<a href="https://github.com/shardscry/crybase/blob/main/src/crybase/couchbase/services/kv/client_delegate.cr#L49" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -405,7 +414,7 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/shardscry/crybase/blob/main/src/crybase/couchbase/services/kv/client_delegate.cr#L24" target="_blank">View source</a>]
+          [<a href="https://github.com/shardscry/crybase/blob/main/src/crybase/couchbase/services/kv/client_delegate.cr#L32" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -434,10 +443,37 @@
         <a class="method-permalink" href="#get%28key%3AString%2Ctype%3AT.class%2Cexpiry%3AUInt32%7CNil%3Dnil%29%3ATforallT-instance-method">#</a>
       </div>
       
+        <div class="doc">
+          
+          <p>Compatibility alias for <code><a href="../../../../CryBase/CouchBase/Services/KV/ClientDelegate.html#get_as%28key%3AString%2Ctype%3AT.class%2Cexpiry%3AUInt32%7CNil%3Dnil%29%3ATforallT-instance-method">#get_as(key, type, expiry)</a></code>.</p>
+        </div>
+      
       <br/>
       <div>
         
-          [<a href="https://github.com/shardscry/crybase/blob/main/src/crybase/couchbase/services/kv/client_delegate.cr#L12" target="_blank">View source</a>]
+          [<a href="https://github.com/shardscry/crybase/blob/main/src/crybase/couchbase/services/kv/client_delegate.cr#L20" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="get_as(key:String,type:T.class,expiry:UInt32|Nil=nil):TforallT-instance-method">
+      <div class="signature">
+        
+        def <strong>get_as</strong>(key : String, type : <span class="t">T</span>.<span class="k">class</span>, expiry : UInt32 | Nil = <span class="n">nil</span>) : T forall T
+
+        <a class="method-permalink" href="#get_as%28key%3AString%2Ctype%3AT.class%2Cexpiry%3AUInt32%7CNil%3Dnil%29%3ATforallT-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Fetches the document through a pooled client and decodes it as <em>type</em>.</p>
+<p>See <code><a href="../../../../CryBase/CouchBase/Services/KV/Client.html#get_as%28key%3AString%2Ctype%3AT.class%2Cexpiry%3AUInt32%7CNil%3Dnil%29%3ATforallT-instance-method">KV::Client#get_as</a></code> for value encoding and expiration behavior.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/shardscry/crybase/blob/main/src/crybase/couchbase/services/kv/client_delegate.cr#L15" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -453,7 +489,7 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/shardscry/crybase/blob/main/src/crybase/couchbase/services/kv/client_delegate.cr#L32" target="_blank">View source</a>]
+          [<a href="https://github.com/shardscry/crybase/blob/main/src/crybase/couchbase/services/kv/client_delegate.cr#L40" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -469,7 +505,7 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/shardscry/crybase/blob/main/src/crybase/couchbase/services/kv/client_delegate.cr#L16" target="_blank">View source</a>]
+          [<a href="https://github.com/shardscry/crybase/blob/main/src/crybase/couchbase/services/kv/client_delegate.cr#L24" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -485,7 +521,7 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/shardscry/crybase/blob/main/src/crybase/couchbase/services/kv/client_delegate.cr#L20" target="_blank">View source</a>]
+          [<a href="https://github.com/shardscry/crybase/blob/main/src/crybase/couchbase/services/kv/client_delegate.cr#L28" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -501,7 +537,7 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/shardscry/crybase/blob/main/src/crybase/couchbase/services/kv/client_delegate.cr#L28" target="_blank">View source</a>]
+          [<a href="https://github.com/shardscry/crybase/blob/main/src/crybase/couchbase/services/kv/client_delegate.cr#L36" target="_blank">View source</a>]
         
       </div>
     </div>

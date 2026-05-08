@@ -15,6 +15,8 @@ private module KVSerializableSpec
   end
 end
 
+private alias Profile = KVSerializableSpec::Profile
+
 describe KV::Serializable do
   it "keeps strings and bytes as raw KV values" do
     KV::Serializable.encode("hello").should eq("hello".to_slice)
@@ -25,11 +27,11 @@ describe KV::Serializable do
   end
 
   it "serializes and deserializes JSON::Serializable objects" do
-    encoded = KV::Serializable.encode(KVSerializableSpec::Profile.new("ada", 42))
+    encoded = KV::Serializable.encode(Profile.new("ada", 42))
 
     String.new(encoded).should eq(%({"name":"ada","score":42}))
 
-    decoded = KV::Serializable.decode(encoded, KVSerializableSpec::Profile)
+    decoded = KV::Serializable.decode(encoded, Profile)
     decoded.name.should eq("ada")
     decoded.score.should eq(42)
   end

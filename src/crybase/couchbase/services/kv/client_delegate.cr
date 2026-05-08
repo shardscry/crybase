@@ -9,8 +9,16 @@ module CryBase::CouchBase::Services::KV
       with_client(&.get(key, expiry))
     end
 
+    # Fetches the document through a pooled client and decodes it as *type*.
+    #
+    # See `KV::Client#get_as` for value encoding and expiration behavior.
+    def get_as(key : String, type : T.class, expiry : UInt32? = nil) : T forall T
+      with_client(&.get_as(key, type, expiry))
+    end
+
+    # Compatibility alias for `get_as(key, type, expiry)`.
     def get(key : String, type : T.class, expiry : UInt32? = nil) : T forall T
-      with_client(&.get(key, type, expiry))
+      get_as(key, type, expiry)
     end
 
     def set(key : String, value : String | Bytes, expiry : UInt32 = 0_u32) : UInt64

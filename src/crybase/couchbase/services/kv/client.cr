@@ -89,8 +89,30 @@ module CryBase::CouchBase::Services::KV
       resp.value
     end
 
-    def get(key : String, type : T.class, expiry : UInt32? = nil) : T forall T
+    # Fetches the document at *key* and decodes it as *type*.
+    #
+    # Use this for values written with `set` from a type that includes
+    # `JSON::Serializable`. `String` and `Bytes` are decoded without JSON.
+    # When *expiry* is provided, Couchbase fetches the document and updates
+    # its expiration atomically.
+    #
+    # ```
+    # struct Profile
+    #   include JSON::Serializable
+    #
+    #   property name : String
+    #   property score : Int32
+    # end
+    #
+    # profile = kv.get_as("user:42", Profile)
+    # ```
+    def get_as(key : String, type : T.class, expiry : UInt32? = nil) : T forall T
       Serializable.decode(get(key, expiry), type)
+    end
+
+    # Compatibility alias for `get_as(key, type, expiry)`.
+    def get(key : String, type : T.class, expiry : UInt32? = nil) : T forall T
+      get_as(key, type, expiry)
     end
 
     # Stores *value* at *key* with optional *expiry* (seconds, or unix

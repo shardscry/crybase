@@ -18,7 +18,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   through Couchbase management and dashboard document lookup.
 - `CryBase::CouchBase::Services::KV::Pool`, a fixed-size pool of authenticated
   KV clients with a default size of 10 connections.
-- Typed `set`/`get(key, Type)` helpers for `JSON::Serializable` KV values on
+- Typed `set`/`get_as(key, Type)` helpers for `JSON::Serializable` KV values on
   both `KV::Client` and `KV::Pool`.
 - Real Couchbase integration specs and a GitHub Actions job that boots
   `couchbase:community-7.6.0`, initializes a bucket, and verifies KV behavior
