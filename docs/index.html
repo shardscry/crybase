@@ -393,6 +393,8 @@ pool.close</code></pre>
 <p><code>KV::Client</code> and <code>KV::Pool</code> both expose <code>get</code>, <code>set</code>, <code>delete</code>, <code>touch</code>,
 <code>increment</code>, <code>decrement</code>, and <code>close</code>. Pass <code>expiry:</code> to <code>get</code> to fetch a
 document and reset expiration atomically.
+Each <code>KV::Pool</code> operation checks out one authenticated client, delegates the
+call, and returns that client to the pool.
 <code>KV::Pool</code> also exposes <code>checkout</code>, <code>closed?</code>, <code>size</code>, <code>endpoint</code>, and <code>bucket</code>.</p>
 <h2><a id="public-api-map" class="anchor" href="#public-api-map">
   <svg class="octicon-link" aria-hidden="true">

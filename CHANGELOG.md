@@ -30,6 +30,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `KV::Request` and `KV::Response` are now Crystal `record` value types.
 - `KV::Response#success?` is defined by reopening the generated response
   struct after the `record` declaration.
+- `KV::Pool` now generates its pooled client forwarding methods through an
+  internal `ClientDelegator` macro while preserving the same public API.
 - README now documents public modules, KV usage, connection pooling, generated
   docs, and hook setup.
 

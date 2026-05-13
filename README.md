@@ -179,6 +179,8 @@ pool = CryBase::CouchBase::Services::KV::Pool.new(
 `KV::Client` and `KV::Pool` both expose `get`, `set`, `delete`, `touch`,
 `increment`, `decrement`, and `close`. Pass `expiry:` to `get` to fetch a
 document and reset expiration atomically.
+Each `KV::Pool` operation checks out one authenticated client, delegates the
+call, and returns that client to the pool.
 `KV::Pool` also exposes `checkout`, `closed?`, `size`, `endpoint`, and `bucket`.
 
 ## Public API Map
