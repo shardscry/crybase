@@ -1,8 +1,6 @@
 module CryBase::CouchBase::Services::KV
   # Fixed-size pool of authenticated KV clients for concurrent fibers.
   class Pool
-    include ClientDelegate
-
     DEFAULT_SIZE = 10
 
     getter endpoint : Endpoint
@@ -13,6 +11,18 @@ module CryBase::CouchBase::Services::KV
     @clients : Array(Client)
     @mutex : Mutex
     @closed : Bool
+
+    private macro delegate_to_client(*methods)
+      {% for method in methods %}
+        def {{ method.id }}(*args, **kwargs)
+          checkout do |client|
+            client.{{ method.id }}(*args, **kwargs)
+          end
+        end
+      {% end %}
+    end
+
+    delegate_to_client get, get_as, set, delete, touch, increment, decrement
 
     def initialize(
       @endpoint : Endpoint,

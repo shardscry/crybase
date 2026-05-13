@@ -117,11 +117,6 @@
       
     </li>
   
-  <li class=" " data-id="crybase/CryBase/CouchBase/Services/KV/ClientDelegate" data-name="crybase::couchbase::services::kv::clientdelegate">
-      <a href="../../../../CryBase/CouchBase/Services/KV/ClientDelegate.html">ClientDelegate</a>
-      
-    </li>
-  
   <li class=" " data-id="crybase/CryBase/CouchBase/Services/KV/Error" data-name="crybase::couchbase::services::kv::error">
       <a href="../../../../CryBase/CouchBase/Services/KV/Error.html">Error</a>
       
@@ -255,20 +250,6 @@
 
 
 
-  <h2>
-    <a id="included-modules" class="anchor" href="#included-modules">
-  <svg class="octicon-link" aria-hidden="true">
-    <use href="#octicon-link"/>
-  </svg>
-</a>
-    Included Modules
-  </h2>
-  <ul class="other-types-list">
-    
-      <li class="other-type"><a href="../../../../CryBase/CouchBase/Services/KV/ClientDelegate.html">CryBase::CouchBase::Services::KV::ClientDelegate</a></li>
-    
-  </ul>
-
 
 
 
@@ -373,7 +354,37 @@
       </li>
     
       <li class="entry-summary">
+        <a href="#decrement%28%2Aargs%2C%2A%2Akwargs%29-instance-method" class="signature"><strong>#decrement</strong>(*args, **kwargs)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#delete%28%2Aargs%2C%2A%2Akwargs%29-instance-method" class="signature"><strong>#delete</strong>(*args, **kwargs)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
         <a href="#endpoint%3AEndpoint-instance-method" class="signature"><strong>#endpoint</strong> : Endpoint</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#get%28%2Aargs%2C%2A%2Akwargs%29-instance-method" class="signature"><strong>#get</strong>(*args, **kwargs)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#get_as%28%2Aargs%2C%2A%2Akwargs%29-instance-method" class="signature"><strong>#get_as</strong>(*args, **kwargs)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#increment%28%2Aargs%2C%2A%2Akwargs%29-instance-method" class="signature"><strong>#increment</strong>(*args, **kwargs)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#set%28%2Aargs%2C%2A%2Akwargs%29-instance-method" class="signature"><strong>#set</strong>(*args, **kwargs)</a>
         
       </li>
     
@@ -382,63 +393,16 @@
         
       </li>
     
+      <li class="entry-summary">
+        <a href="#touch%28%2Aargs%2C%2A%2Akwargs%29-instance-method" class="signature"><strong>#touch</strong>(*args, **kwargs)</a>
+        
+      </li>
+    
   </ul>
 
 
 
   <div class="methods-inherited">
-    
-      
-
-  <h3>Instance methods inherited from module <code><a href="../../../../CryBase/CouchBase/Services/KV/ClientDelegate.html">CryBase::CouchBase::Services::KV::ClientDelegate</a></code></h3>
-  
-  
-    <a href="../../../../CryBase/CouchBase/Services/KV/ClientDelegate.html#decrement%28key%3AString%2Cdelta%3AUInt64%3D1_u64%2Cinitial%3AUInt64%3D0_u64%2Cexpiry%3AUInt32%3D0_u32%29%3AUInt64-instance-method" class="tooltip">
-      <span>decrement(key : String, delta : UInt64 = <span class="n">1_u64</span>, initial : UInt64 = <span class="n">0_u64</span>, expiry : UInt32 = <span class="n">0_u32</span>) : UInt64</span>
-    decrement</a>, 
-    
-  
-    <a href="../../../../CryBase/CouchBase/Services/KV/ClientDelegate.html#delete%28key%3AString%29%3ANil-instance-method" class="tooltip">
-      <span>delete(key : String) : Nil</span>
-    delete</a>, 
-    
-  
-    <a href="../../../../CryBase/CouchBase/Services/KV/ClientDelegate.html#get%28key%3AString%2Cexpiry%3AUInt32%7CNil%3Dnil%29%3ABytes-instance-method" class="tooltip">
-      <span>get(key : String, expiry : UInt32 | Nil = <span class="n">nil</span>) : Bytes<br/>get(key : String, type : <span class="t">T</span>.<span class="k">class</span>, expiry : UInt32 | Nil = <span class="n">nil</span>) : T forall T</span>
-    get</a>, 
-    
-  
-    <a href="../../../../CryBase/CouchBase/Services/KV/ClientDelegate.html#get_as%28key%3AString%2Ctype%3AT.class%2Cexpiry%3AUInt32%7CNil%3Dnil%29%3ATforallT-instance-method" class="tooltip">
-      <span>get_as(key : String, type : <span class="t">T</span>.<span class="k">class</span>, expiry : UInt32 | Nil = <span class="n">nil</span>) : T forall T</span>
-    get_as</a>, 
-    
-  
-    <a href="../../../../CryBase/CouchBase/Services/KV/ClientDelegate.html#increment%28key%3AString%2Cdelta%3AUInt64%3D1_u64%2Cinitial%3AUInt64%3D0_u64%2Cexpiry%3AUInt32%3D0_u32%29%3AUInt64-instance-method" class="tooltip">
-      <span>increment(key : String, delta : UInt64 = <span class="n">1_u64</span>, initial : UInt64 = <span class="n">0_u64</span>, expiry : UInt32 = <span class="n">0_u32</span>) : UInt64</span>
-    increment</a>, 
-    
-  
-    <a href="../../../../CryBase/CouchBase/Services/KV/ClientDelegate.html#set%28key%3AString%2Cvalue%3AString%7CBytes%2Cexpiry%3AUInt32%3D0_u32%29%3AUInt64-instance-method" class="tooltip">
-      <span>set(key : String, value : String | Bytes, expiry : UInt32 = <span class="n">0_u32</span>) : UInt64<br/>set(key : String, value : T, expiry : UInt32 = <span class="n">0_u32</span>) : UInt64 forall T</span>
-    set</a>, 
-    
-  
-    <a href="../../../../CryBase/CouchBase/Services/KV/ClientDelegate.html#touch%28key%3AString%2Cexpiry%3AUInt32%29%3AUInt64-instance-method" class="tooltip">
-      <span>touch(key : String, expiry : UInt32) : UInt64</span>
-    touch</a>
-    
-  
-
-
-      
-
-
-      
-
-
-      
-
-
     
       
 
@@ -489,7 +453,7 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/shardscry/crybase/blob/main/src/crybase/couchbase/services/kv/pool.cr#L17" target="_blank">View source</a>]
+          [<a href="https://github.com/shardscry/crybase/blob/main/src/crybase/couchbase/services/kv/pool.cr#L27" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -521,7 +485,7 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/shardscry/crybase/blob/main/src/crybase/couchbase/services/kv/pool.cr#L9" target="_blank">View source</a>]
+          [<a href="https://github.com/shardscry/crybase/blob/main/src/crybase/couchbase/services/kv/pool.cr#L7" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -537,7 +501,7 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/shardscry/crybase/blob/main/src/crybase/couchbase/services/kv/pool.cr#L46" target="_blank">View source</a>]
+          [<a href="https://github.com/shardscry/crybase/blob/main/src/crybase/couchbase/services/kv/pool.cr#L56" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -553,7 +517,7 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/shardscry/crybase/blob/main/src/crybase/couchbase/services/kv/pool.cr#L66" target="_blank">View source</a>]
+          [<a href="https://github.com/shardscry/crybase/blob/main/src/crybase/couchbase/services/kv/pool.cr#L76" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -569,7 +533,39 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/shardscry/crybase/blob/main/src/crybase/couchbase/services/kv/pool.cr#L78" target="_blank">View source</a>]
+          [<a href="https://github.com/shardscry/crybase/blob/main/src/crybase/couchbase/services/kv/pool.cr#L88" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="decrement(*args,**kwargs)-instance-method">
+      <div class="signature">
+        
+        def <strong>decrement</strong>(*args, **kwargs)
+
+        <a class="method-permalink" href="#decrement%28%2Aargs%2C%2A%2Akwargs%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/shardscry/crybase/blob/main/src/crybase/couchbase/services/kv/pool.cr#L25" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="delete(*args,**kwargs)-instance-method">
+      <div class="signature">
+        
+        def <strong>delete</strong>(*args, **kwargs)
+
+        <a class="method-permalink" href="#delete%28%2Aargs%2C%2A%2Akwargs%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/shardscry/crybase/blob/main/src/crybase/couchbase/services/kv/pool.cr#L25" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -585,7 +581,71 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/shardscry/crybase/blob/main/src/crybase/couchbase/services/kv/pool.cr#L8" target="_blank">View source</a>]
+          [<a href="https://github.com/shardscry/crybase/blob/main/src/crybase/couchbase/services/kv/pool.cr#L6" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="get(*args,**kwargs)-instance-method">
+      <div class="signature">
+        
+        def <strong>get</strong>(*args, **kwargs)
+
+        <a class="method-permalink" href="#get%28%2Aargs%2C%2A%2Akwargs%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/shardscry/crybase/blob/main/src/crybase/couchbase/services/kv/pool.cr#L25" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="get_as(*args,**kwargs)-instance-method">
+      <div class="signature">
+        
+        def <strong>get_as</strong>(*args, **kwargs)
+
+        <a class="method-permalink" href="#get_as%28%2Aargs%2C%2A%2Akwargs%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/shardscry/crybase/blob/main/src/crybase/couchbase/services/kv/pool.cr#L25" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="increment(*args,**kwargs)-instance-method">
+      <div class="signature">
+        
+        def <strong>increment</strong>(*args, **kwargs)
+
+        <a class="method-permalink" href="#increment%28%2Aargs%2C%2A%2Akwargs%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/shardscry/crybase/blob/main/src/crybase/couchbase/services/kv/pool.cr#L25" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="set(*args,**kwargs)-instance-method">
+      <div class="signature">
+        
+        def <strong>set</strong>(*args, **kwargs)
+
+        <a class="method-permalink" href="#set%28%2Aargs%2C%2A%2Akwargs%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/shardscry/crybase/blob/main/src/crybase/couchbase/services/kv/pool.cr#L25" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -601,7 +661,23 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/shardscry/crybase/blob/main/src/crybase/couchbase/services/kv/pool.cr#L10" target="_blank">View source</a>]
+          [<a href="https://github.com/shardscry/crybase/blob/main/src/crybase/couchbase/services/kv/pool.cr#L8" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="touch(*args,**kwargs)-instance-method">
+      <div class="signature">
+        
+        def <strong>touch</strong>(*args, **kwargs)
+
+        <a class="method-permalink" href="#touch%28%2Aargs%2C%2A%2Akwargs%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/shardscry/crybase/blob/main/src/crybase/couchbase/services/kv/pool.cr#L25" target="_blank">View source</a>]
         
       </div>
     </div>

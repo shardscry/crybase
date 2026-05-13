@@ -15,4 +15,20 @@ describe KV::Pool do
       KV::Pool.new(endpoint, "user", "pass", "bucket", size: 0)
     end
   end
+
+  it "exposes delegated client operations" do
+    pool = uninitialized KV::Pool
+
+    typeof(pool.get("key")).should eq(Bytes)
+    typeof(pool.get("key", expiry: 1_u32)).should eq(Bytes)
+    typeof(pool.get_as("key", String)).should eq(String)
+    typeof(pool.get("key", String)).should eq(String)
+    typeof(pool.set("key", "value")).should eq(UInt64)
+    typeof(pool.set("key", "value", expiry: 1_u32)).should eq(UInt64)
+    typeof(pool.delete("key")).should eq(Nil)
+    typeof(pool.touch("key", 1_u32)).should eq(UInt64)
+    typeof(pool.increment("key")).should eq(UInt64)
+    typeof(pool.increment("key", delta: 2_u64, initial: 10_u64, expiry: 1_u32)).should eq(UInt64)
+    typeof(pool.decrement("key")).should eq(UInt64)
+  end
 end
