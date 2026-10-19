@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Deprecated
+- CryBase is deprecated in favor of the standalone
+  [shardscry/couchbase](https://github.com/shardscry/couchbase) shard. See its
+  [migration guide](https://github.com/shardscry/couchbase#migrating-from-crybase)
+  for dependency and namespace changes.
+
 ## [0.0.5] - 2026-07-07
 
 ### Added

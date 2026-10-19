@@ -9,6 +9,15 @@
 
 # CryBase
 
+> [!WARNING]
+> **CryBase is deprecated.** Development has moved to
+> [shardscry/couchbase](https://github.com/shardscry/couchbase), the standalone
+> CouchBase Crystal shard. Use the `couchbase` dependency, replace
+> `require "crybase"` with `require "couchbase"`, and change
+> `CryBase::CouchBase` to `CouchBase`. See the
+> [migration guide](https://github.com/shardscry/couchbase#migrating-from-crybase)
+> for details.
+
 [![Crystal](https://img.shields.io/badge/Crystal-1.20%2B-000000?logo=crystal&logoColor=white)](https://crystal-lang.org/)
 [![Couchbase KV](https://img.shields.io/badge/Couchbase-KV%20Client-EA2328?logo=couchbase&logoColor=white)](https://www.couchbase.com/)
 [![Couchbase Query](https://img.shields.io/badge/Couchbase-Query%20Client-EA2328?logo=couchbase&logoColor=white)](https://www.couchbase.com/)
